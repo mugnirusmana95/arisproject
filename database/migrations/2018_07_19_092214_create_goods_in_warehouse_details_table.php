@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoodsInSupplierDetailsTable extends Migration
+class CreateGoodsInWarehouseDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateGoodsInSupplierDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods_in_supplier_details', function (Blueprint $table) {
+        Schema::create('goods_in_warehouse_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('qyt_box')->nullable();
             $table->integer('qyt_pcs')->nullable();
             $table->string('description')->nullable();
             $table->string('id_goods');
-            $table->string('id_goods_in_supplier');
+            $table->string('id_goods_in_warehouse');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateGoodsInSupplierDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goods_in_supplier_details');
+        Schema::dropIfExists('goods_in_warehouse_details');
     }
 }

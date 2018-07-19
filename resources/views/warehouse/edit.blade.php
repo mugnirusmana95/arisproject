@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Ubah Barang Masuk Dari Supplier
+Ubah Supplier
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Ubah Barang Masuk Dari Supplier
+    Ubah Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/barang_masuk/supplier">Barang Masuk Dari Supplier</a></li>
-    <li class="active">Ubah Barang Masuk Dari Supplier</li>
+    <li><a href="/master/gudang">Gudang</a></li>
+    <li class="active">Ubah Gudang</li>
   </ol>
 </section>
 
@@ -28,24 +28,31 @@ Ubah Barang Masuk Dari Supplier
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/barang_masuk/supplier/ubah/simpan/{{$gis->id}}">
+    <form class="form-horizontal" method="post" action="/master/gudang/ubah/simpan/{{$warehouse->id}}">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="put">
 
       <div class="box-body">
 
-        <div class="form-group {{$errors->has('supplier') ? 'has-error' : ''}}">
-          <label for="supplier" class="control-label col-md-2">Supplier <span class="req">*</span></label>
-          <div class="col-md-10">
-            <select class="form-control" name="supplier">
-              <option value="">--Pilih Supplier--</option>
-              @foreach ($supplier as $item)
-              <option value="{{$item->id}}" @if($item->id==$gis->id_supplier)selected @endif>{{$item->name}}</option>
-              @endforeach
-            </select>
+        <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
+          <label for="name" class="control-label col-md-2">Nama <span class="req">*</span></label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" name="name" placeholder="Masukan Nama Supplier" value="@if(count($errors)>0){{old('name')}}@else{{$warehouse->name}}@endif">
             <p class="help-block">
-              @if ($errors->has('supplier'))
-                {{$errors->first('supplier')}}
+              @if ($errors->has('name'))
+                {{$errors->first('name')}}
+              @endif
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group {{$errors->has('address') ? 'has-error' : ''}}">
+          <label for="email" class="control-label col-md-2">Alamat</label>
+          <div class="col-md-8">
+            <textarea type="text" class="form-control" name="address" placeholder="Masukan Alamat Supplier" value="{{old('address')}}" rows="3">@if(count($errors)>0){{old('address')}}@else{{$warehouse->address}}@endif</textarea>
+            <p class="help-block">
+              @if ($errors->has('address'))
+                {{$errors->first('address')}}
               @endif
             </p>
           </div>

@@ -48,18 +48,23 @@ class GoodsInSupplierController extends Controller
     {
       $data['supplier'] = Supplier::getAll();
       $data['gis'] = GoodsInSupplier::getId($id);
-      $data['gisd'] = GoodsInSupplierDetail::getIdGoodsInSupplier($data['gis']->id);
-      $data['goods'] = Good::getAllReady();
 
       return view('goodsInSupplier.edit',$data);
     }
 
     public function update(Request $req, $id)
     {
-      $data['gis'] = GoodsInSupplier::getId($id);
-      $data['goods'] = Good::getAllReady();
+      $this->validate($req,[
+        'supplier'          => 'required',
+      ],[
+        'supplier.required' => 'Field wajib dipilih',
+      ]);
 
-      dd($data, $id);
+      $gis = GoodsInSupplier::edit($id, $req->supplier);
+
+      Session::flash('success','Data berhasil diubah');
+
+      return redirect('/barang_masuk/supplier/lihat/'.$id);
     }
 
     public function open($id)

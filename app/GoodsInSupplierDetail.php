@@ -46,10 +46,10 @@ class GoodsInSupplierDetail extends Model
       $good->save();
     }
 
-    public static function edit($id, $qyt_box, $qyt_pcs, $description, $id_goods_in_supplier)
+    public static function edit($id, $qyt_box, $qyt_pcs, $description, $id_goods, $id_goods_in_supplier)
     {
       $gisd = GoodsInSupplierDetail::find($id);
-      $good = Good::find($gisd->id_goods);
+      $good = Good::find($id_goods);
 
       $good->qyt_box = ($good->qyt_box - $gisd->qyt_box) + $qyt_box;
       $good->qyt_pcs = ($good->qyt_pcs - $gisd->qyt_pcs) + $qyt_pcs;
@@ -58,7 +58,43 @@ class GoodsInSupplierDetail extends Model
       $gisd->qyt_box = $qyt_box;
       $gisd->qyt_pcs = $qyt_pcs;
       $gisd->description = $description;
+      $gisd->id_goods = $id_goods;
+      $gisd->id_goods_in_supplier = $id_goods_in_supplier;
       $gisd->save();
+    }
+
+    public static function insertOrEdit($id, $qyt_box, $qyt_pcs, $description, $id_goods, $id_goods_in_supplier)
+    {
+      if ($id == null) {
+        $gisd = new GoodsInSupplierDetail;
+        $gisd->qyt_box = $qyt_box;
+        $gisd->qyt_pcs = $qyt_pcs;
+        $gisd->description = $description;
+        $gisd->id_goods = $id_goods;
+        $gisd->id_goods_in_supplier = $id_goods_in_supplier;
+        $gisd->save();
+
+        $good = Good::find($id_goods);
+        $good->qyt_box = $good->qyt_box + $qyt_box;
+        $good->qyt_pcs = $good->qyt_pcs + $qyt_pcs;
+        $good->save();
+      } else {
+        $gisd = GoodsInSupplierDetail::find($id);
+        $good = Good::find($gisd->id_goods);
+
+        $good->qyt_box = ($good->qyt_box - $gisd->qyt_box) + $qyt_box;
+        $good->qyt_pcs = ($good->qyt_pcs - $gisd->qyt_pcs) + $qyt_pcs;
+        $good->save();
+
+        $gisd->qyt_box = $qyt_box;
+        $gisd->qyt_pcs = $qyt_pcs;
+        $gisd->description = $description;
+        $gisd->id_goods = $id_goods;
+        $gisd->id_goods_in_supplier = $id_goods_in_supplier;
+        $gisd->save();
+
+        return $gisd;
+      }
     }
 
     public static function destroy($id)
@@ -71,6 +107,8 @@ class GoodsInSupplierDetail extends Model
       $good->save();
 
       $gisd->delete();
+
+      return $gisd;
     }
 
     public static function destroyGoodInSupplier($id_goods_in_supplier)
@@ -84,10 +122,17 @@ class GoodsInSupplierDetail extends Model
       $good->save();
 
       $gisd->delete();
+
+      return $gisd;
     }
 
     public function goods()
     {
       return $this->belongsTo('App\Good','id_goods');
+    }
+
+    public function goodsInSupplierDetail()
+    {
+      return $this->belongsTo('App\GoodsInSupplier','id_goods_in_supplier');
     }
 }

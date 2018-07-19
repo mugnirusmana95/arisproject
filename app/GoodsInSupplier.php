@@ -44,6 +44,17 @@ class GoodsInSupplier extends Model
       $gis->id = $id;
       $gis->id_supplier = $supplier;
       $gis->save();
+
+      return $gis;
+    }
+
+    public static function edit($id, $id_supplier)
+    {
+      $gis = GoodsInSupplier::find($id);
+      $gis->id_supplier = $id_supplier;
+      $gis->save();
+
+      return $gis;
     }
 
     public static function destroy($id)
@@ -55,5 +66,10 @@ class GoodsInSupplier extends Model
     public function supplier()
     {
       return $this->belongsTo('App\Supplier','id_supplier');
+    }
+
+    public function goodsInSupplierDetail()
+    {
+      return $this->hasMany('App\GoodsInSupplierDetail');
     }
 }

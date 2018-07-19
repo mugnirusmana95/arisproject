@@ -11,7 +11,7 @@ Barang Masuk Dari Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Barang Masuk Dari Supplier</li>
   </ol>
 </section>

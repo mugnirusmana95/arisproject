@@ -11,7 +11,7 @@ Ubah Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/master/supplier">Supplier</a></li>
     <li class="active">Ubah Supplier</li>
   </ol>

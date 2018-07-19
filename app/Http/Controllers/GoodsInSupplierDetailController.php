@@ -37,6 +37,7 @@ class GoodsInSupplierDetailController extends Controller
     {
       $data['gisd'] = GoodsInSupplierDetail::getId($id);
       $data['gis']  = GoodsInSupplier::getId($data['gisd']->id_goods_in_supplier);
+      $data['goods'] = Good::getAllReady();
 
       return view('goodsInSupplier.detail.edit',$data);
     }
@@ -44,10 +45,12 @@ class GoodsInSupplierDetailController extends Controller
     public function update(Request $req, $id)
     {
       $this->validate($req,[
+        'goods'           => 'required',
         'qyt_box'         => 'nullable|max:4|regex:/^[0-9]+$/',
         'qyt_pcs'         => 'nullable|max:4|regex:/^[0-9]+$/',
         'description'     => 'nullable|max:100',
       ],[
+        'goods.required'  => 'Field wajib dipilih',
         'qyt_box.max'     => 'Maksimal 4 karekter',
         'qyt_box.regex'   => 'Karakter tidak diijinkan (hanya : 0-9)',
         'qyt_pcs.max'     => 'Maksimal 4 karekter',
@@ -58,7 +61,7 @@ class GoodsInSupplierDetailController extends Controller
       $gisd = GoodsInSupplierDetail::getId($id);
       $gis = GoodsInSupplier::getId($gisd->id_goods_in_supplier);
 
-      GoodsInSupplierDetail::edit($id, $req->qyt_box, $req->qyt_pcs, $req->description, $gis->id);
+      GoodsInSupplierDetail::edit($id, $req->qyt_box, $req->qyt_pcs, $req->description, $req->goods, $gis->id);
 
       Session::flash('success','Data berhasil disimpan');
 

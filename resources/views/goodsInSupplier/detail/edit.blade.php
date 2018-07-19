@@ -11,7 +11,7 @@ Ubah Detail Barang Masuk Dari Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_masuk/supplier">Barang Masuk Dari Supplier</a></li>
     <li><a href="/barang_masuk/supplier/lihat/{{$gis->id}}">Detail Masuk Dari Supplier</a></li>
     <li class="active">Ubah Detail Barang Masuk Dari Supplier</li>
@@ -39,6 +39,23 @@ Ubah Detail Barang Masuk Dari Supplier
           <label for="name" class="control-label col-md-2">Supplier <span class="req">*</span></label>
           <div class="col-md-8">
             <input type="text" class="form-control" name="supplier" value="{{$gis->supplier->name}}" readonly>
+          </div>
+        </div>
+
+        <div class="form-group {{$errors->has('goods') ? 'has-error' : ''}}">
+          <label for="name" class="control-label col-md-2">Barang <span class="req">*</span></label>
+          <div class="col-md-8">
+            <select class="form-control" name="goods">
+              <option value="">--Pilih Barang--</option>
+              @foreach ($goods as $item)
+              <option value="{{$item->id}}" @if($item->id==$gisd->id_goods)selected @endif>{{$item->name}}</option>
+              @endforeach
+            </select>
+            <p class="help-block">
+              @if ($errors->has('goods'))
+                {{$errors->first('goods')}}
+              @endif
+            </p>
           </div>
         </div>
 

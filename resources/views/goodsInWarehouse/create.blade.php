@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Masuk Dari Supplier
+Tambah Barang Masuk Dari Gudang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Masuk Dari Supplier
+    Tambah Barang Masuk Dari Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/barang_masuk/supplier">Barang Masuk Dari Supplier</a></li>
-    <li class="active">Tambah Barang Masuk Dari Supplier</li>
+    <li><a href="/barang_masuk/gudang">Barang Masuk Dari Gudang</a></li>
+    <li class="active">Tambah Barang Masuk Dari Gudang</li>
   </ol>
 </section>
 
@@ -28,23 +28,23 @@ Tambah Barang Masuk Dari Supplier
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/barang_masuk/supplier/tambah/simpan">
+    <form class="form-horizontal" method="post" action="/barang_masuk/gudang/tambah/simpan">
       {{ csrf_field() }}
 
       <div class="box-body">
 
-        <div class="form-group {{$errors->has('supplier') ? 'has-error' : ''}}">
-          <label for="supplier" class="control-label col-md-2">Supplier <span class="req">*</span></label>
+        <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
+          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
           <div class="col-md-10">
-            <select class="form-control" name="supplier" required>
-              <option value="">--Pilih Supplier--</option>
-              @foreach ($supplier as $item)
+            <select class="form-control" name="warehouse" required>
+              <option value="">--Pilih Gudang--</option>
+              @foreach ($warehouse as $item)
               <option value="{{$item->id}}">{{$item->name}}</option>
               @endforeach
             </select>
             <p class="help-block">
-              @if ($errors->has('supplier'))
-                {{$errors->first('supplier')}}
+              @if ($errors->has('warehouse'))
+                {{$errors->first('warehouse')}}
               @endif
             </p>
           </div>
@@ -75,6 +75,18 @@ Tambah Barang Masuk Dari Supplier
                 <td><input type="button" class="btn btn-md btn-success add-row" value="Tambah Baris"> <button type="button" class="btn btn-md btn-danger delete-row">Hapus Baris</button></td>
               </tr>
             </table>
+          </div>
+        </div>
+
+        <div class="form-group {{$errors->has('description') ? 'has-error' : ''}}">
+          <label for="description" class="control-label col-md-2">Keterangan</label>
+          <div class="col-md-10">
+            <textarea name="description" class="form-control" rows="3" maxlength="255">{{old('description')}}</textarea>
+            <p class="help-block">
+              @if ($errors->has('description'))
+                {{$errors->first('description')}}
+              @endif
+            </p>
           </div>
         </div>
 

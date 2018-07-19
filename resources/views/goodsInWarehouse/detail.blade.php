@@ -21,9 +21,9 @@ Detail Barang Masuk Dari Supplier
 
   <div class="box box-default">
     <div class="box-header with-border">
-      <a href="/barang_masuk/supplier/detail/tambah/{{$gis->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
-      <a href="/barang_masuk/supplier/ubah/{{$gis->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-      <a href="/barang_masuk/supplier/hapus/{{$gis->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      <a href="/barang_masuk/gudang/detail/tambah/{{$giw->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
+      <a href="/barang_masuk/gudang/ubah/{{$giw->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+      <a href="/barang_masuk/gudang/hapus/{{$giw->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -35,17 +35,22 @@ Detail Barang Masuk Dari Supplier
         <tr>
           <th width="15%">ID</th>
           <th width="1%">:</th>
-          <th>{{$gis->id}}</th>
+          <th>{{$giw->id}}</th>
         </tr>
         <tr>
           <th>Supplier</th>
           <th>:</th>
-          <th>{{$gis->supplier->name}}</th>
+          <th>{{$giw->warehouse->name}}</th>
+        </tr>
+        <tr>
+          <th>Keterangan</th>
+          <th>:</th>
+          <th>{{$giw->description}}</th>
         </tr>
         <tr>
           <th>Tanggal</th>
           <th>:</th>
-          <th>{{$gis->created_at}}</th>
+          <th>{{$giw->created_at}}</th>
         </tr>
       </table>
     </div>
@@ -54,7 +59,7 @@ Detail Barang Masuk Dari Supplier
     </div>
   </div>
 
-  @if (count($gisd)>0)
+  @if (count($giwd)>0)
   <div class="box box-default">
     <div class="box-header with-border">
       <h3>Detail Barang</h3>
@@ -80,7 +85,7 @@ Detail Barang Masuk Dari Supplier
           $no=1;
         @endphp
         <tbody>
-          @foreach ($gisd as $item)
+          @foreach ($giwd as $item)
           <tr>
             <td><center>{{$no++}}</center></td>
             <td>{{$item->goods->name}}</td>

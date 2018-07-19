@@ -1,21 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard','DashboardController@index');
+Route::get('/','DashboardController@index');
 
 Route::group([
   'prefix' => '/master',
@@ -40,6 +25,17 @@ Route::group([
     Route::get('/ubah/{id}','SupplierController@edit');
     Route::put('/ubah/simpan/{id}','SupplierController@update');
     Route::get('/hapus/{id}','SupplierController@destroy');
+  });
+
+  Route::group([
+    'prefix' => '/gudang',
+  ],function(){
+    Route::get('/','WarehouseController@index');
+    Route::get('/tambah','WarehouseController@create');
+    Route::post('/tambah/simpan','WarehouseController@store');
+    Route::get('/ubah/{id}','WarehouseController@edit');
+    Route::put('/ubah/simpan/{id}','WarehouseController@update');
+    Route::get('/hapus/{id}','WarehouseController@destroy');
   });
 });
 
@@ -66,5 +62,17 @@ Route::group([
       Route::put('/ubah/simpan/{id}','GoodsInSupplierDetailController@update');
       Route::get('/hapus/{id}','GoodsInSupplierDetailController@destroy');
     });
+  });
+
+  Route::group([
+    'prefix' => '/gudang',
+  ],function(){
+    Route::get('/','GoodsInWarehouseController@index');
+    Route::get('/tambah','GoodsInWarehouseController@create');
+    Route::post('/tambah/simpan','GoodsInWarehouseController@store');
+    Route::get('/lihat/{id}','GoodsInWarehouseController@open');
+    Route::get('/ubah/{id}','GoodsInWarehouseController@edit');
+    Route::put('/ubah/simpan/{id}','GoodsInWarehouseController@update');
+    Route::get('/hapus/{id}','GoodsInWarehouseController@destroy');
   });
 });

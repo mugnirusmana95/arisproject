@@ -36,7 +36,7 @@
 <div class="wrapper">
 
   <header class="main-header">
-    <a href="/dashboard" class="logo">
+    <a href="/" class="logo">
       <span class="logo-mini">INV</span>
       <span class="logo-lg">Inventory</span>
     </a>
@@ -103,8 +103,8 @@
       </div>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li>
-          <a href="/dashboard">
+        <li class="{{ Request::is('/','/') ? 'active' : ''}}">
+          <a href="/">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -119,6 +119,7 @@
             <li class="{{ Request::is('master/user','master/user/*') ? 'active' : ''}}"><a href=""><i class="fa fa-circle-o"></i> Management User</a></li>
             <li class="{{ Request::is('master/barang','master/barang/*') ? 'active' : ''}}"><a href="/master/barang"><i class="fa fa-circle-o"></i> Barang</a></li>
             <li class="{{ Request::is('master/supplier','master/supplier/*') ? 'active' : ''}}"><a href="/master/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
+            <li class="{{ Request::is('master/gudang','master/gudang/*') ? 'active' : ''}}"><a href="/master/gudang"><i class="fa fa-circle-o"></i> Gudang</a></li>
           </ul>
         </li>
         <li class="treeview {{ Request::is('barang_masuk','barang_masuk/*') ? 'active' : ''}}">
@@ -130,6 +131,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="{{ Request::is('barang_masuk/supplier','barang_masuk/supplier/*') ? 'active' : ''}}"><a href="/barang_masuk/supplier"><i class="fa fa-circle-o"></i> Dari Supplier</a></li>
+            <li class="{{ Request::is('barang_masuk/gudang','barang_masuk/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/gudang"><i class="fa fa-circle-o"></i> Dari Gudang</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i> Barang Kembali (Dari Toko)</a></li>
           </ul>
         </li>

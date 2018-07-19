@@ -10,7 +10,7 @@ class Supplier extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
 
-    static function getNewId()
+    public static function getNewId()
     {
       $today = date('ymd');
       $query = DB::table('suppliers')
