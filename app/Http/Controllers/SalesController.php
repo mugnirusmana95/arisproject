@@ -105,4 +105,13 @@ class SalesController extends Controller
 
       return redirect('/master/sales');
     }
+
+    public function getAll(Request $req)
+    {
+      $term = trim($req->q);
+
+      $sales = Sales::getReady($term);
+
+      return response()->json($sales);
+    }
 }

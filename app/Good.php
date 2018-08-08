@@ -82,8 +82,27 @@ class Good extends Model
                 "SELECT id, name as text
                 FROM goods
                 WHERE name LIKE '%$search%' AND
+                (qyt_box >=1 OR qyt_pcs>=1) AND
                 id NOT IN
                 (SELECT id_goods FROM goods_out_warehouse_details WHERE id_goods_out_warehouse='$id')
+                ORDER BY name ASC
+                LIMIT 0,20"
+              )
+            );
+
+      return $goods;
+    }
+
+    public static function getAllNotInSalesOut($id, $search)
+    {
+      $goods = DB::select(
+              DB::raw(
+                "SELECT id, name as text
+                FROM goods
+                WHERE name LIKE '%$search%' AND
+                (qyt_box >=1 OR qyt_pcs>=1) AND
+                id NOT IN
+                (SELECT id_goods FROM goods_sales_details WHERE id_goods_sales='$id')
                 ORDER BY name ASC
                 LIMIT 0,20"
               )

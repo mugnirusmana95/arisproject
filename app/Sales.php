@@ -72,4 +72,11 @@ class Sales extends Model
 
       return $sales;
     }
+
+    public static function getReady($search)
+    {
+      $sales = DB::select(DB::raw("SELECT id, name as text FROM sales WHERE name LIKE '%$search%' Order By name ASC LIMIT 0,10"));
+
+      return $sales;
+    }
 }

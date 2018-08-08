@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Keluar Ke Gudang
+Tambah Barang Keluar Oleh Sales
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Keluar Ke Gudang
+    Tambah Barang Keluar Oleh Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
-    <li class="active">Tambah Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_keluar/sales">Barang Keluar Oleh Sales</a></li>
+    <li class="active">Tambah Barang Keluar Oleh Sales</li>
   </ol>
 </section>
 
@@ -28,20 +28,20 @@ Tambah Barang Keluar Ke Gudang
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/barang_keluar/gudang/tambah/simpan">
+    <form class="form-horizontal" method="post" action="/barang_keluar/sales/tambah/simpan">
       {{ csrf_field() }}
 
       <div class="box-body">
 
-        <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
-          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+        <div class="form-group {{$errors->has('sales') ? 'has-error' : ''}}">
+          <label for="sales" class="control-label col-md-2">Sales <span class="req">*</span></label>
           <div class="col-md-10">
-            <select class="form-control" id="warehouse" name="warehouse">
+            <select class="form-control" id="sales" name="sales">
               <option value=""></option>
             </select>
             <p class="help-block">
-              @if ($errors->has('warehouse'))
-                {{$errors->first('warehouse')}}
+              @if ($errors->has('sales'))
+                {{$errors->first('sales')}}
               @endif
             </p>
           </div>
@@ -91,11 +91,11 @@ Tambah Barang Keluar Ke Gudang
 @section('js')
 <script>
 $(document).ready(function(){
-  $("#warehouse").select2({
-    placeholder: "Pilih Gudang",
+  $("#sales").select2({
+    placeholder: "Pilih Sales",
     width: "100%",
     ajax: {
-      url: '{{route('warehouse.all')}}',
+      url: '{{route('sales.all')}}',
       dataType: 'json',
       data: function (params){
           return{

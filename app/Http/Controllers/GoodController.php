@@ -114,6 +114,16 @@ class GoodController extends Controller
       return response()->json($goods);
     }
 
+    public function getAllNotInSalesOut(Request $req)
+    {
+      $id = trim($req->id);
+      $term = trim($req->q);
+
+      $goods = Good::getAllNotInSalesOut($id, $term);
+
+      return response()->json($goods);
+    }
+
     public function checkStock($id)
     {
       $goods = Good::getId($id);

@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Keluar Ke Gudang
+Tambah Barang Keluar Oleh Sales
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Keluar Ke Gudang
+    Tambah Barang Keluar Oleh Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
-    <li class="active">Tambah Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_keluar/sales">Barang Keluar Oleh Sales</a></li>
+    <li class="active">Tambah Barang Keluar Oleh Sales</li>
   </ol>
 </section>
 
@@ -28,33 +28,21 @@ Tambah Barang Keluar Ke Gudang
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/barang_keluar/gudang/tambah/simpan">
+    <form class="form-horizontal" method="post" action="/barang_keluar/sales/ubah/simpan/{{$gs->id}}">
       {{ csrf_field() }}
+      <input type="hidden" name="_method" value="put">
 
       <div class="box-body">
 
-        <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
-          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+        <div class="form-group {{$errors->has('sales') ? 'has-error' : ''}}">
+          <label for="sales" class="control-label col-md-2">Sales <span class="req">*</span></label>
           <div class="col-md-10">
-            <select class="form-control" id="warehouse" name="warehouse">
-              <option value=""></option>
+            <select class="form-control" id="sales" name="sales">
+              <option value="{{$gs->id_sales}}">{{$gs->sales->name}}</option>
             </select>
             <p class="help-block">
-              @if ($errors->has('warehouse'))
-                {{$errors->first('warehouse')}}
-              @endif
-            </p>
-          </div>
-        </div>
-
-        <div class="form-group {{$errors->has('goods') ? 'has-error' : ''}}">
-          <label for="goods" class="control-label col-md-2">Barang <span class="req">*</span></label>
-          <div class="col-md-10">
-            <select class="form-control select2" id="goods" name="goods[]" multiple="multiple" data-placeholder="Pilih Barang" style="width: 100%;">
-            </select>
-            <p class="help-block">
-              @if ($errors->has('goods'))
-                {{$errors->first('goods')}}
+              @if ($errors->has('sales'))
+                {{$errors->first('sales')}}
               @endif
             </p>
           </div>
@@ -63,7 +51,7 @@ Tambah Barang Keluar Ke Gudang
         <div class="form-group {{$errors->has('description2') ? 'has-error' : ''}}">
           <label for="description" class="control-label col-md-2">Keterangan</label>
           <div class="col-md-10">
-            <textarea id="description" name="description" class="form-control" rows="3" maxlength="255">{{old('description')}}</textarea>
+            <textarea id="description" name="description" class="form-control" rows="3" maxlength="255">@if(count($errors)>0){{old('description')}}@else{{$gs->description}}@endif</textarea>
             <p class="help-block">
               @if ($errors->has('description'))
                 {{$errors->first('description')}}
@@ -91,30 +79,11 @@ Tambah Barang Keluar Ke Gudang
 @section('js')
 <script>
 $(document).ready(function(){
-  $("#warehouse").select2({
-    placeholder: "Pilih Gudang",
+  $("#sales").select2({
+    placeholder: "{{$gs->sales->name}}",
     width: "100%",
     ajax: {
-      url: '{{route('warehouse.all')}}',
-      dataType: 'json',
-      data: function (params){
-          return{
-              q: $.trim(params.term),
-          };
-      },
-      processResults: function (data){
-        console.log(data);
-          return{
-              results: data
-          };
-      },
-      cache: true
-    }
-  });
-
-  $("#goods").select2({
-    ajax: {
-      url: '{{route('goods.allready')}}',
+      url: '{{route('sales.all')}}',
       dataType: 'json',
       data: function (params){
           return{

@@ -18,7 +18,7 @@ Route::group([
       Route::put('/ubah/simpan/{id}','GoodController@update')->name('goods.update');
       Route::get('/hapus/{id}','GoodController@destroy')->name('goods.destroy');
       Route::get('/cek/semua/kecuali/barang_keluar/gudang','GoodController@getAllNotInWarehouseOut')->name('goods.getAllNotInWarehouseOut');
-      Route::get('/cek/semua/kecuali/barang_keluar/sales/{id}','GoodController@getAllNoIn')->name('goods.destroy');
+      Route::get('/cek/semua/kecuali/barang_keluar/sales','GoodController@getAllNotInSalesOut')->name('goods.getAllNotInSalesOut');
       Route::get('/cek/semua/ready','GoodController@getReady')->name('goods.allready');
       Route::get('/cek/semua/','GoodController@getAll')->name('goods.all');
       Route::get('/cek/stok/{id}','GoodController@checkStock')->name('goods.stock_box');
@@ -58,7 +58,7 @@ Route::group([
       Route::get('/ubah/{id}','SalesController@edit')->name('sales.edit');
       Route::put('/ubah/simpan/{id}','SalesController@update')->name('sales.update');
       Route::get('/hapus/{id}','SalesController@destroy')->name('sales.delete');
-      // Route::get('/cek/semua/','SalesController@getAll')->name('sales.all');
+      Route::get('/cek/semua/','SalesController@getAll')->name('sales.all');
     });
   });
 
@@ -197,12 +197,12 @@ Route::group([
       Route::get('/hapus/{id}','GoodsOutWarehouseController@destroy')->name('go.warehouse.destroy');
 
       Route::group([
-        'prefix' => '/detail'
+        'prefix' => '/detail',
       ], function(){
-        Route::get('/tambah/{id_goods_in_warehouse}','GoodsOutWarehouseDetailController@create')->name('go.warehouse.detail.create');
-        Route::get('/tambah/simpan/{id_goods}','GoodsOutWarehouseDetailController@store')->name('go.warehouse.detail.store');
-        Route::get('/tambah/stok/{id_goods}','GoodsOutWarehouseDetailController@addStock')->name('go.warehouse.detail.addStock');
-        Route::put('/tambah/stok/simpan/{id_goods}','GoodsOutWarehouseDetailController@storeStock')->name('go.warehouse.detail.storeStock');
+        Route::get('/tambah/{id}','GoodsOutWarehouseDetailController@create')->name('go.warehouse.detail.create');
+        Route::post('/tambah/simpan/{id}','GoodsOutWarehouseDetailController@store')->name('go.warehouse.detail.store');
+        Route::get('/tambah/stok/{id}','GoodsOutWarehouseDetailController@addStock')->name('go.warehouse.detail.addStock');
+        Route::put('/tambah/stok/simpan/{id}','GoodsOutWarehouseDetailController@storeStock')->name('go.warehouse.detail.storeStock');
         Route::get('/ubah/{id}','GoodsOutWarehouseDetailController@edit')->name('go.warehouse.detail.edit');
         Route::put('/ubah/simpan/{id}','GoodsOutWarehouseDetailController@update')->name('go.warehouse.detail.update');
         Route::get('/hapus/{id}','GoodsOutWarehouseDetailController@destroy')->name('go.warehouse.detail.destroy');
@@ -210,25 +210,29 @@ Route::group([
     });
 
     Route::group([
-      'prefix' => '/sales'
+      'prefix' => '/sales',
     ], function(){
-    //  Route::get('/','GoodsOutSalesController@index')->name('go.sales.index');
-    //   Route::get('/tambah','GoodsOutSalesController@create')->name('go.sales.create');
-    //   Route::post('/tambah/simpan','GoodsOutSalesController@store')->name('go.sales.store');
-    //   Route::get('/lihat/{id}','GoodsOutSalesController@open')->name('go.sales.open');
-    //   Route::get('/ubah/{id}','GoodsOutSalesController@edit')->name('go.sales.edit');
-    //   Route::put('/ubah/simpan/{id}','GoodsOutSalesController@update')->name('go.sales.update');
-    //   Route::get('/hapus/{id}','GoodsOutSalesController@destroy')->name('go.sales.destroy');
+      Route::get('/','GoodsOutSalesController@index')->name('go.sales.index');
+      Route::get('/tambah','GoodsOutSalesController@create')->name('go.sales.create');
+      Route::post('/tambah/simpan','GoodsOutSalesController@store')->name('go.sales.store');
+      Route::get('/tambah/stok/{id}','GoodsOutSalesController@addStock')->name('go.sales.addStock');
+      Route::put('/tambah/stok/simpan/{id}','GoodsOutSalesController@storeStock')->name('go.sales.storeStock');
+      Route::get('/lihat/{id}','GoodsOutSalesController@open')->name('go.sales.open');
+      Route::get('/ubah/{id}','GoodsOutSalesController@edit')->name('go.sales.edit');
+      Route::put('/ubah/simpan/{id}','GoodsOutSalesController@update')->name('go.sales.update');
+      Route::get('/hapus/{id}','GoodsOutSalesController@destroy')->name('go.sales.destroy');
 
-    //   Route::group([
-    //     'prefix' => '/detail'
-    //   ], function(){
-    //     Route::get('/tambah/{id_goods_in_warehouse}','GoodsOutSalesDetailController@create')->name('go.sales.detail.create');
-    //     Route::post('/tambah/simpan/{id_goods_in_warehouse}','GoodsOutSalesDetailController@store')->name('go.sales.detail.store');
-    //     Route::get('/ubah/{id}','GoodsOutSalesDetailController@edit')->name('go.sales.detail.edit');
-    //     Route::put('/ubah/simpan/{id}','GoodsOutSalesDetailController@update')->name('go.sales.detail.update');
-    //     Route::get('/hapus/{id}','GoodsOutSalesDetailController@destroy')->name('go.sales.detail.destroy');
-    //   });
+      Route::group([
+        'prefix' => '/detail',
+      ], function(){
+        Route::get('/tambah/{id}','GoodsOutSalesDetailsController@create')->name('go.sales.detail.create');
+        Route::post('/tambah/simpan/{id}','GoodsOutSalesDetailsController@store')->name('go.sales.detail.store');
+        Route::get('/tambah/stok/{id}','GoodsOutSalesDetailsController@addStock')->name('go.sales.detail.addStock');
+        Route::put('/tambah/stok/simpan/{id}','GoodsOutSalesDetailsController@storeStock')->name('go.sales.detail.storeStock');
+        Route::get('/ubah/{id}','GoodsOutSalesDetailsController@edit')->name('go.sales.detail.edit');
+        Route::put('/ubah/simpan/{id}','GoodsOutSalesDetailsController@update')->name('go.sales.detail.update');
+        Route::get('/hapus/{id}','GoodsOutSalesDetailsController@destroy')->name('go.sales.detail.destroy');
+      });
     });
   });
 });
