@@ -1,0 +1,12 @@
+.req{
+  color: red;
+  font-weight: bold;
+}
+
+.save{
+  color: #008D4C;
+}
+
+.not_save{
+  color: #D73925;
+}

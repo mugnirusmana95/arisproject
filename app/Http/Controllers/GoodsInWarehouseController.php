@@ -36,7 +36,7 @@ class GoodsInWarehouseController extends Controller
       if(count($req->goods)>0){
         $j = count($req->goods);
         for ($i=0; $i < $j; $i++) {
-          GoodsInWarehouseDetail::insert($id, $req->goods[$i], $req->qyt_box[$i], $req->qyt_pcs[$i], $req->decsription[$i]);
+          GoodsInWarehouseDetail::insertOrEdit($req->qyt_box[$i], $req->qyt_pcs[$i], $req->description2[$i], $req->goods[$i], $id);
         }
       }
 

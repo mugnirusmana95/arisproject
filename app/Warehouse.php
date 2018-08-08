@@ -66,4 +66,11 @@ class Warehouse extends Model
 
       return $warehouse;
     }
+
+    public static function getAllAjax($search)
+    {
+      $warehouses = DB::select(DB::raw("SELECT id, name as text FROM warehouses WHERE name LIKE '%$search%' LIMIT 0,20"));
+
+      return $warehouses;
+    }
 }

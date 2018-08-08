@@ -44,7 +44,7 @@ class Good extends Model
       return $good;
     }
 
-    public static function insert($id, $name, $qyt_box, $qyt_pcs, $pcs_per_box)
+    public static function insert($id, $name, $qyt_box, $qyt_pcs, $pcs_per_box, $bad_stock_box, $bad_stock_pcs)
     {
       $good = new Good;
       $good->id = $id;
@@ -52,16 +52,20 @@ class Good extends Model
       $good->qyt_box = $qyt_box;
       $good->qyt_pcs = $qyt_pcs;
       $good->pcs_per_box = $pcs_per_box;
+      $good->bad_stock_box = $bad_stock_box;
+      $good->bad_stock_pcs = $bad_stock_pcs;
       $good->save();
     }
 
-    public static function edit($id, $name, $qyt_box, $qyt_pcs, $pcs_per_box)
+    public static function edit($id, $name, $qyt_box, $qyt_pcs, $pcs_per_box, $bad_stock_box, $bad_stock_pcs)
     {
       $good = Good::find($id);
       $good->name = $name;
       $good->qyt_box = $qyt_box;
       $good->qyt_pcs = $qyt_pcs;
       $good->pcs_per_box = $pcs_per_box;
+      $good->bad_stock_box = $bad_stock_box;
+      $good->bad_stock_pcs = $bad_stock_pcs;
       $good->save();
     }
 
@@ -69,6 +73,39 @@ class Good extends Model
     {
       $good = Good::find($id);
       $good->delete();
+    }
+
+    public static function getAllNotInWarehouseOut($id, $search)
+    {
+      $goods = DB::select(
+              DB::raw(
+                "SELECT id, name as text
+                FROM goods
+                WHERE name LIKE '%$search%' AND
+                id NOT IN
+                (SELECT id_goods FROM goods_out_warehouse_details WHERE id_goods_out_warehouse='$id')
+                ORDER BY name ASC
+                LIMIT 0,20"
+              )
+            );
+
+      return $goods;
+    }
+
+    public static function getReady($search)
+    {
+      $goods = DB::select(
+              DB::raw(
+                "SELECT id, name as text
+                FROM goods
+                WHERE name LIKE '%$search%' AND
+                (qyt_box >= 1 OR qyt_pcs >=1)
+                ORDER BY name ASC
+                LIMIT 0,20"
+              )
+            );
+
+      return $goods;
     }
 
     public function gisd()

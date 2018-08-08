@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Ubah Supplier
+Tambah Sales
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Ubah Supplier
+    Tambah Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/master/supplier">Supplier</a></li>
-    <li class="active">Ubah Supplier</li>
+    <li><a href="/master/sales">Sales</a></li>
+    <li class="active">Tambah Sales</li>
   </ol>
 </section>
 
@@ -28,16 +28,15 @@ Ubah Supplier
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/master/supplier/ubah/simpan/{{$supplier->id}}">
+    <form class="form-horizontal" method="post" action="/master/sales/tambah/simpan">
       {{ csrf_field() }}
-      <input type="hidden" name="_method" value="PUT">
 
       <div class="box-body">
 
         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
-          <label for="name" class="control-label col-md-2">Nama</label>
+          <label for="name" class="control-label col-md-2">Nama <span class="req">*</span></label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="name" placeholder="Masukan Nama Supplier" value="@if(count($errors)>0){{old('name')}}@else{{$supplier->name}}@endif">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Masukan Nama Sales" value="{{old('name')}}">
             <p class="help-block">
               @if ($errors->has('name'))
                 {{$errors->first('name')}}
@@ -46,10 +45,33 @@ Ubah Supplier
           </div>
         </div>
 
-        <div class="form-group {{$errors->has('phone') ? 'has-error' : ''}}">
-          <label for="phone" class="control-label col-md-2">Hanphone</label>
+        <div class="form-group {{$errors->has('gender') ? 'has-error' : ''}}">
+          <label for="gender" class="control-label col-md-2">Jenis Kelamin <span class="req">*</span></label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="phone" placeholder="Masukan Nomor Hanphone Supplier" value="@if(count($errors)>0){{old('phone')}}@else{{$supplier->phone}}@endif">
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" id="gender" value="1">
+                Laki-Laki
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" id="gender2" value="2">
+                Perempuan
+              </label>
+            </div>
+            <p class="help-block">
+              @if ($errors->has('gender'))
+                {{$errors->first('gender')}}
+              @endif
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group {{$errors->has('phone') ? 'has-error' : ''}}">
+          <label for="phone" class="control-label col-md-2">Nomor HP</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Masukan Nomor HP" value="{{old('phone')}}">
             <p class="help-block">
               @if ($errors->has('phone'))
                 {{$errors->first('phone')}}
@@ -58,35 +80,10 @@ Ubah Supplier
           </div>
         </div>
 
-        <div class="form-group {{$errors->has('telp') ? 'has-error' : ''}}">
-          <label for="telp" class="control-label col-md-2">Telphone</label>
-          <div class="col-md-8">
-            <input type="text" class="form-control" name="telp" placeholder="Masukan Nomor Telpon Supplier" value="@if(count($errors)>0){{old('telp')}}@else{{$supplier->telp}}@endif">
-            <p class="help-block">
-              @if ($errors->has('telp'))
-                {{$errors->first('telp')}}
-              @endif
-            </p>
-          </div>
-        </div>
-
-
-        <div class="form-group {{$errors->has('fax') ? 'has-error' : ''}}">
-          <label for="fax" class="control-label col-md-2">Fax</label>
-          <div class="col-md-8">
-            <input type="text" class="form-control" name="fax" placeholder="Masukan Nomor Fax Supplier" value="@if(count($errors)>0){{old('fax')}}@else{{$supplier->fax}}@endif">
-            <p class="help-block">
-              @if ($errors->has('fax'))
-                {{$errors->first('fax')}}
-              @endif
-            </p>
-          </div>
-        </div>
-
         <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
           <label for="email" class="control-label col-md-2">Email</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="email" placeholder="Masukan Email Supplier" value="@if(count($errors)>0){{old('email')}}@else{{$supplier->email}}@endif">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Masukan Nomor Email" value="{{old('email')}}">
             <p class="help-block">
               @if ($errors->has('email'))
                 {{$errors->first('email')}}
@@ -96,9 +93,9 @@ Ubah Supplier
         </div>
 
         <div class="form-group {{$errors->has('address') ? 'has-error' : ''}}">
-          <label for="email" class="control-label col-md-2">Alamat</label>
+          <label for="address" class="control-label col-md-2">Alamat</label>
           <div class="col-md-8">
-            <textarea type="text" class="form-control" name="address" placeholder="Masukan Alamat Supplier" value="{{old('address')}}" rows="3">@if(count($errors)>0){{old('address')}}@else{{$supplier->address}}@endif</textarea>
+            <textarea type="text" class="form-control" id="address" name="address" placeholder="Masukan Alamat" rows="4">{{old('address')}}</textarea>
             <p class="help-block">
               @if ($errors->has('address'))
                 {{$errors->first('address')}}

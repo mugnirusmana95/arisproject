@@ -56,6 +56,13 @@ class SupplierController extends Controller
       return redirect('/master/supplier');
     }
 
+    public function open($id)
+    {
+      $data['supplier'] = Supplier::getId($id);
+
+      return view('supplier.detail',$data);
+    }
+
     public function edit($id)
     {
       $data['supplier'] = Supplier::getId($id);

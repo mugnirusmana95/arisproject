@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-  Detail Barang Masuk Dari Gudang
+Detail Barang Keluar Ke Gudang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Detail Barang Masuk Dari Gudang
+    Detail Barang Keluar Ke Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/barang_masuk/gudang">Barang Masuk Dari Gudang</a></li>
-    <li class="active">Detail Barang Masuk Dari Gudang</li>
+    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
+    <li class="active">Detail Barang Keluar Ke Gudang</li>
   </ol>
 </section>
 
@@ -21,9 +21,10 @@
 
   <div class="box box-default">
     <div class="box-header with-border">
-      <a href="/barang_masuk/gudang/detail/tambah/{{$giw->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
-      <a href="/barang_masuk/gudang/ubah/{{$giw->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-      <a href="/barang_masuk/gudang/hapus/{{$giw->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      <a href="/barang_keluar/gudang/detail/tambah/{{$gow->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
+      {{-- <a href="/barang_keluar/gudang/cetak/{{$gow->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
+      <a href="/barang_keluar/gudang/ubah/{{$gow->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+      <a href="/barang_keluar/gudang/hapus/{{$gow->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -35,22 +36,22 @@
         <tr>
           <th width="15%">ID</th>
           <th width="1%">:</th>
-          <th>{{$giw->id}}</th>
+          <th>{{$gow->id}}</th>
         </tr>
         <tr>
-          <th>Supplier</th>
+          <th>Gudang</th>
           <th>:</th>
-          <th>{{$giw->warehouse->name}}</th>
+          <th>{{$gow->warehouse->name}}</th>
         </tr>
         <tr>
           <th>Keterangan</th>
           <th>:</th>
-          <th>{{$giw->description}}</th>
+          <th>{{$gow->description}}</th>
         </tr>
         <tr>
           <th>Tanggal</th>
           <th>:</th>
-          <th>{{$giw->created_at}}</th>
+          <th>{{$gow->created_at}}</th>
         </tr>
       </table>
     </div>
@@ -59,7 +60,7 @@
     </div>
   </div>
 
-  @if (count($giwd)>0)
+  @if (count($gowd)>0)
   <div class="box box-default">
     <div class="box-header with-border">
       <h3>Detail Barang</h3>
@@ -85,7 +86,7 @@
           $no=1;
         @endphp
         <tbody>
-          @foreach ($giwd as $item)
+          @foreach ($gowd as $item)
           <tr>
             <td><center>{{$no++}}</center></td>
             <td>{{$item->goods->name}}</td>
@@ -94,8 +95,8 @@
             <td>{{$item->description}}</td>
             <td>
               <center>
-                <a href="/barang_masuk/gudang/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-                <a href="/barang_masuk/gudang/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+                <a href="/barang_keluar/gudang/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+                <a href="/barang_keluar/gudang/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
               </center>
             </td>
           </tr>

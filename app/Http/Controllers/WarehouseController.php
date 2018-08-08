@@ -75,4 +75,13 @@ class WarehouseController extends Controller
 
       return redirect('/master/gudang');
     }
+
+    public function getAll(Request $req)
+    {
+      $term = trim($req->q);
+
+      $warehouses = Warehouse::getAllAjax($term);
+
+      return response()->json($warehouses);
+    }
 }

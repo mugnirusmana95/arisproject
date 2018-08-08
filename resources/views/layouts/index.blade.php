@@ -26,10 +26,31 @@
   <link rel="stylesheet" href="{{asset('adminlte/bower_components/select2/dist/css/select2.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
-
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/custome.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style>
+    .example-modal .modal {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      right: auto;
+      left: auto;
+      display: block;
+      z-index: 1;
+    }
+
+    .example-modal .modal {
+      background: transparent !important;
+    }
+    .select2-dropdown.increasezindex {
+    z-index:99999;
+}
+  </style>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -120,6 +141,7 @@
             <li class="{{ Request::is('master/barang','master/barang/*') ? 'active' : ''}}"><a href="/master/barang"><i class="fa fa-circle-o"></i> Barang</a></li>
             <li class="{{ Request::is('master/supplier','master/supplier/*') ? 'active' : ''}}"><a href="/master/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
             <li class="{{ Request::is('master/gudang','master/gudang/*') ? 'active' : ''}}"><a href="/master/gudang"><i class="fa fa-circle-o"></i> Gudang</a></li>
+            <li class="{{ Request::is('master/sales','master/sales/*') ? 'active' : ''}}"><a href="/master/sales"><i class="fa fa-circle-o"></i> Sales</a></li>
           </ul>
         </li>
         <li class="treeview {{ Request::is('barang_masuk','barang_masuk/*') ? 'active' : ''}}">
@@ -132,10 +154,24 @@
           <ul class="treeview-menu">
             <li class="{{ Request::is('barang_masuk/supplier','barang_masuk/supplier/*') ? 'active' : ''}}"><a href="/barang_masuk/supplier"><i class="fa fa-circle-o"></i> Dari Supplier</a></li>
             <li class="{{ Request::is('barang_masuk/gudang','barang_masuk/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/gudang"><i class="fa fa-circle-o"></i> Dari Gudang</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i> Barang Kembali (Dari Toko)</a></li>
+            <li class="{{ Request::is('barang_masuk/sales','barang_masuk/sales/*') ? 'active' : ''}}"><a href="/barang_masuk/sales"><i class="fa fa-circle-o"></i> Dari Sales</a></li>
+
+            <li class="treeview {{ Request::is('barang_masuk/retur','barang_masuk/retur/*') ? 'active' : ''}}">
+              <a href="#">
+                <i class="fa fa-circle-o"></i> <span>Retur Barang</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="{{ Request::is('barang_masuk/retur/gudang','barang_masuk/retur/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/retur/gudang"><i class="fa fa-square-o"></i> Dari Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('barang_masuk/retur/sales','barang_masuk/retur/sales/*') ? 'active' : ''}}"><a href="/barang_masuk/retur/sales"><i class="fa fa-square-o"></i> Dari Sales (Toko)</a></li>
+              </ul>
+            </li>
+
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview {{ Request::is('barang_keluar','barang_keluar/*') ? 'active' : ''}}">
           <a href="#">
             <i class="fa fa-mail-reply"></i> <span>Barang Keluar</span>
             <span class="pull-right-container">
@@ -143,8 +179,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> Gudang</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i> Toko</a></li>
+            <li class="{{ Request::is('barang_keluar/gudang','barang_keluar/gudang/*') ? 'active' : ''}}"><a href="/barang_keluar/gudang"><i class="fa fa-circle-o"></i> Ke Gudang (Cabang)</a></li>
+            <li class="{{ Request::is('barang_keluar/sales','barang_keluar/sales/*') ? 'active' : ''}}"><a href="/barang_keluar/sales"><i class="fa fa-circle-o"></i> Oleh Sales (Toko)</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -207,11 +243,13 @@
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('adminlte/dist/js/demo.js')}}"></script>
+<!-- DataTables -->
+<script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <!-- Page script -->
 <script>
   $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
 
     //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })

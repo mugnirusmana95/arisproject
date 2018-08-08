@@ -1,0 +1,58 @@
+body{
+  background-color: #000;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.A4_landscape{
+  width: 297mm;
+  height: 201mm;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+}
+
+.A4_portrait{
+  width: 210mm;
+  height: 288mm;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+}
+
+.A5_landscape{
+  width: 210mm;
+  height: 139mm;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+}
+
+.A5_portrait{
+  width: 148mm;
+  height: 201mm;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  align-content: left;
+}
+
+.table {
+  width: 100%;
+  border-color: #000;
+  border-collapse: collapse;
+}
+.table, thead, th {
+  text-align: center;
+}
+
+.table, tbody, td {
+  text-align: left;
+}
+
+.signature{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+}

@@ -1,19 +1,20 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Masuk Dari Gudang
+Tambah Detail Barang Masuk Dari Gudang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Masuk Dari Gudang
+    Tambah Detail Barang Masuk Dari Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_masuk/gudang">Barang Masuk Dari Gudang</a></li>
-    <li class="active">Tambah Barang Masuk Dari Gudang</li>
+    <li><a href="/barang_masuk/gudang/lihat/{{$giw->id}}">Detail Masuk Dari Gudang</a></li>
+    <li class="active">Tambah Detail Barang Masuk Dari Gudang</li>
   </ol>
 </section>
 
@@ -28,7 +29,7 @@ Tambah Barang Masuk Dari Gudang
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/barang_masuk/gudang/tambah/simpan">
+    <form class="form-horizontal" method="post" action="/barang_masuk/gudang/detail/tambah/simpan/{{$giw->id}}">
       {{ csrf_field() }}
 
       <div class="box-body">
@@ -36,17 +37,7 @@ Tambah Barang Masuk Dari Gudang
         <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
           <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
           <div class="col-md-10">
-            <select class="form-control" name="warehouse" required>
-              <option value="">--Pilih Gudang--</option>
-              @foreach ($warehouse as $item)
-              <option value="{{$item->id}}">{{$item->name}}</option>
-              @endforeach
-            </select>
-            <p class="help-block">
-              @if ($errors->has('warehouse'))
-                {{$errors->first('warehouse')}}
-              @endif
-            </p>
+            <input type="text" class="form-control" name="warehouse" value="{{$giw->warehouse->name}}" readonly>
           </div>
         </div>
 
@@ -67,6 +58,17 @@ Tambah Barang Masuk Dari Gudang
                 $no=1;
               @endphp
               <tbody>
+                @if (count($giwd)>0)
+                @foreach ($giwd as $item)
+                  <tr>
+                    <td></td>
+                    <td>{{$item->goods->name}}</td>
+                    <td><center>{{$item->qyt_box}}</center></td>
+                    <td><center>{{$item->qyt_pcs}}</center></td>
+                    <td>{{$item->description}}</td>
+                  </tr>
+                @endforeach
+                @endif
               </tbody>
             </table>
 
@@ -81,7 +83,7 @@ Tambah Barang Masuk Dari Gudang
         <div class="form-group {{$errors->has('description') ? 'has-error' : ''}}">
           <label for="description" class="control-label col-md-2">Keterangan</label>
           <div class="col-md-10">
-            <textarea name="description" class="form-control" rows="3" maxlength="255">{{old('description')}}</textarea>
+            <textarea name="description" class="form-control" rows="3" maxlength="255" readonly>{{$giw->description}}</textarea>
             <p class="help-block">
               @if ($errors->has('description'))
                 {{$errors->first('description')}}
@@ -115,7 +117,7 @@ $(document).ready(function(){
                  "<input type='checkbox' name='record' class='cek'>"+
                  "</td>"+
                  "<td>"+
-                 "<select class='form-control goods' name='goods[]' required>"+
+                 "<select class='form-control' name='goods[]' required>"+
                  "<option value=''>--Pilih Barang--</option>"+
                  @foreach ($goods as $item)
                  "<option value='{{$item->id}}'>{{$item->name}}</option>"+
@@ -123,11 +125,9 @@ $(document).ready(function(){
                  "</td>"+
                  "<td><input class='form-control' name='qyt_box[]' maxlength='4' placeholder='Masukan Jumlah Barang (Box)'></td>"+
                  "<td><input class='form-control' name='qyt_pcs[]' maxlength='4' placeholder='Masukan Jumlah Barang (Pcs)'></td>"+
-                 "<td><textarea class='form-control' name='description2[]' placeholder='Masukan Keterangan' rows='1'></textarea></td>"+
+                 "<td><textarea class='form-control' name='decsription2[]' placeholder='Masukan Keterangan' rows='1'></textarea></td>"+
                  "</tr>";
     $("#table tbody").append(markup);
-
-    $('.goods').select2();
   });
 
   $(".delete-row").click(function(){

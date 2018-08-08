@@ -106,18 +106,6 @@ Tambah Supplier
           </div>
         </div>
 
-        <div class="form-group {{$errors->has('logo') ? 'has-error' : ''}}">
-          <label for="logo" class="control-label col-md-2">Logo</label>
-          <div class="col-md-8">
-            <input type="file" class="form-control" name="logo" accept="image/*">
-            <p class="help-block">
-              @if ($errors->has('logo'))
-                {{$errors->first('logo')}}
-              @endif
-            </p>
-          </div>
-        </div>
-
       </div>
       <div class="box-footer">
         <div class="form-group">

@@ -25,6 +25,8 @@ class GoodController extends Controller
     {
       $this->validate($req,[
         'name'                  => 'required|max:100|regex:/^[a-zA-Z0-9 ]+$/',
+        'bad_stock_box'         => 'nullable|max:4|regex:/^[0-9]+$/',
+        'bad_stock_pcs'         => 'nullable|max:4|regex:/^[0-9]+$/',
         'qyt_box'               => 'nullable|max:4|regex:/^[0-9]+$/',
         'qyt_pcs'               => 'nullable|max:4|regex:/^[0-9]+$/',
         'pcs_per_box'           => 'required|max:4|regex:/^[0-9]+$/',
@@ -34,6 +36,10 @@ class GoodController extends Controller
         'name.regex'            => 'Karakter tidak diijinkan (hanya : a-z, A-Z, 0-9, spasi)',
         'qyt_box.max'           => 'Maksimal 4 karekter',
         'qyt_box.regex'         => 'Karakter tidak diijinkan (hanya : 0-9)',
+        'bad_stock_box.max'     => 'Maksimal 4 karekter',
+        'bad_stock_box.regex'   => 'Karakter tidak diijinkan (hanya : 0-9)',
+        'bad_stock_pcs.max'     => 'Maksimal 4 karekter',
+        'bad_stock_pcs.regex'   => 'Karakter tidak diijinkan (hanya : 0-9)',
         'qyt_pcs.max'           => 'Maksimal 4 karekter',
         'qyt_pcs.regex'         => 'Karakter tidak diijinkan (hanya : 0-9)',
         'pcs_per_box.required'  => 'Field wajib diisi',
@@ -42,7 +48,7 @@ class GoodController extends Controller
       ]);
 
       $id = Good::getNewId();
-      Good::insert($id, $req->name, $req->qyt_box, $req->qyt_pcs, $req->pcs_per_box);
+      Good::insert($id, $req->name, $req->qyt_box, $req->qyt_pcs, $req->pcs_per_box, $req->bad_stock_box, $req->bad_stock_pcs);
 
       Session::flash('success','Data telah disimpan');
 
@@ -60,6 +66,8 @@ class GoodController extends Controller
     {
       $this->validate($req,[
         'name'                  => 'required|max:100|regex:/^[a-zA-Z0-9 ]+$/',
+        'bad_stock_box'         => 'nullable|max:4|regex:/^[0-9]+$/',
+        'bad_stock_pcs'         => 'nullable|max:4|regex:/^[0-9]+$/',
         'qyt_box'               => 'nullable|max:4|regex:/^[0-9]+$/',
         'qyt_pcs'               => 'nullable|max:4|regex:/^[0-9]+$/',
         'pcs_per_box'           => 'required|max:4|regex:/^[0-9]+$/',
@@ -69,6 +77,10 @@ class GoodController extends Controller
         'name.regex'            => 'Karakter tidak diijinkan (hanya : a-z, A-Z, 0-9, spasi)',
         'qyt_box.max'           => 'Maksimal 4 karekter',
         'qyt_box.regex'         => 'Karakter tidak diijinkan (hanya : 0-9)',
+        'bad_stock_box.max'     => 'Maksimal 4 karekter',
+        'bad_stock_box.regex'   => 'Karakter tidak diijinkan (hanya : 0-9)',
+        'bad_stock_pcs.max'     => 'Maksimal 4 karekter',
+        'bad_stock_pcs.regex'   => 'Karakter tidak diijinkan (hanya : 0-9)',
         'qyt_pcs.max'           => 'Maksimal 4 karekter',
         'qyt_pcs.regex'         => 'Karakter tidak diijinkan (hanya : 0-9)',
         'pcs_per_box.required'  => 'Field wajib diisi',
@@ -78,7 +90,7 @@ class GoodController extends Controller
 
       Session::flash('success','Data berhasil diubah');
 
-      $good = Good::edit($id, $req->name, $req->qyt_box, $req->qyt_pcs, $req->pcs_per_box);
+      $good = Good::edit($id, $req->name, $req->qyt_box, $req->qyt_pcs, $req->pcs_per_box, $req->bad_stock_box, $req->bad_stock_pcs);
 
       return redirect('/master/barang');
     }
@@ -90,5 +102,31 @@ class GoodController extends Controller
       Session::flash('success','Data berhasil dihapus');
 
       return back();
+    }
+
+    public function getAllNotInWarehouseOut(Request $req)
+    {
+      $id = trim($req->id);
+      $term = trim($req->q);
+
+      $goods = Good::getAllNotInWarehouseOut($id, $term);
+
+      return response()->json($goods);
+    }
+
+    public function checkStock($id)
+    {
+      $goods = Good::getId($id);
+
+      return $goods;
+    }
+
+    public function getReady(Request $req)
+    {
+      $term = trim($req->q);
+
+      $goods = Good::getReady($term);
+
+      return response()->json($goods);
     }
 }

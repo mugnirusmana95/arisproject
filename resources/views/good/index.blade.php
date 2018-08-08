@@ -32,14 +32,22 @@ Barang
         <table class="table table-hovered table-bordered">
           <thead>
             <tr>
-              <th width="1%"><center>No</center></th>
-              <th width="15%"><center>ID</center></th>
-              <th><center>Nama</center></th>
-              <th width="10%"><center>Jumlah</center></th>
-              <th width="10%"><center>Jumlah</center></th>
-              <th width="10%"><center>Jumlah Barang Per Box</center></th>
-              <th width="10%"><center>Total</center></th>
-              <th width="10%"></th>
+              <th rowspan="2" width="1%"><center>No</center></th>
+              <th rowspan="2" width="10%"><center>ID</center></th>
+              <th rowspan="2"><center>Nama</center></th>
+              <th colspan="2"><center>Good Stock</center></th>
+              <th colspan="2"><center>Bad Stock</center></th>
+              <th rowspan="2" width="10%"><center>Jumlah</center></th>
+              <th rowspan="2" width="10%"><center>Jumlah</center></th>
+              <th rowspan="2" width="10%"><center>Jumlah Barang Per Box</center></th>
+              <th rowspan="2" width="10%"><center>Total</center></th>
+              <th rowspan="2" width="10%"></th>
+            </tr>
+            <tr>
+              <th width="5%"><center>Box</center></th>
+              <th width="5%"><center>Pcs</center></th>
+              <th width="5%"><center>Box</center></th>
+              <th width="5%"><center>Pcs</center></th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +61,10 @@ Barang
               <td><center>{{$no++}}</center></td>
               <td><center>{{$item->id}}</center></td>
               <td>{{$item->name}}</td>
+              <td><center>{{$item->qyt_box-$item->bad_stock_box}}</center></td>
+              <td><center>{{$item->qyt_pcs-$item->bad_stock_pcs}}</center></td>
+              <td><center>@if($item->bad_stock_box==null){{0}}@else{{$item->bad_stock_box}}@endif</center></td>
+              <td><center>@if($item->bad_stock_pcs==null){{0}}@else{{$item->bad_stock_pcs}}@endif</center></td>
               <td><center>@if($item->qyt_box==null){{0}}@else{{$item->qyt_box}}@endif Box</center></td>
               <td><center>@if($item->qyt_pcs==null){{0}}@else{{$item->qyt_pcs}}@endif Pcs</center></td>
               <td><center>{{$item->pcs_per_box}} Pcs</center></td>
