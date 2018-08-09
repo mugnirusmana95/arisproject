@@ -16,7 +16,22 @@ Detail Barang Masuk Dari Sales
   </ol>
 </section>
 
+
 <section class="content">
+
+  @if(Session::has('success'))
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    {{Session::get('success')}}.
+  </div>
+  @elseif(Session::has('warning'))
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+    {{Session::get('warning')}}.
+  </div>
+  @endif
 
   <div class="box box-default">
     <div class="box-header with-border">
@@ -24,6 +39,7 @@ Detail Barang Masuk Dari Sales
 
       @if ($gs->status==2)
       <a href="/barang_masuk/sales/ubah/{{$gs->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+      <a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/hapus/{{$gs->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
       @endif
 
       <div class="box-tools pull-right">
@@ -84,16 +100,20 @@ Detail Barang Masuk Dari Sales
             <th colspan="2"><center>Barang Keluar</center></th>
             <th colspan="2"><center>Barang Kembali</center></th>
             <th colspan="2"><center>Bad Stok</center></th>
+            <th colspan="3"><center>Terjual</center></th>
             <th rowspan="2" width="18%"><center>Keterangan</center></th>
-            <th rowspan="2" width="1%"></th>
+            <th rowspan="2" width="10%"></th>
           </tr>
           <tr>
-            <th width="9%"><center>Jml (BOX)</center></th>
-            <th width="9%"><center>Jml (PCS)</center></th>
-            <th width="9%"><center>Jml (BOX)</center></th>
-            <th width="9%"><center>Jml (PCS)</center></th>
-            <th width="9%"><center>Jml (BOX)</center></th>
-            <th width="9%"><center>Jml (PCS)</center></th>
+            <th width="1%"><center>Jml (BOX)</center></th>
+            <th width="1%"><center>Jml (PCS)</center></th>
+            <th width="1%"><center>Jml (BOX)</center></th>
+            <th width="1%"><center>Jml (PCS)</center></th>
+            <th width="1%"><center>Jml (BOX)</center></th>
+            <th width="1%"><center>Jml (PCS)</center></th>
+            <th width="1%"><center>Jml (Box)</center></th>
+            <th width="1%"><center>Jml (PCS)</center></th>
+            <th width="1%"><center>Total (PCS)</center></th>
           </tr>
         </thead>
         @php
@@ -110,10 +130,14 @@ Detail Barang Masuk Dari Sales
             <td><center>{{$item->qyt_pcs_in}}</center></td>
             <td><center>{{$item->bad_stok_box}}</center></td>
             <td><center>{{$item->bad_stok_pcs}}</center></td>
+            <td><center><strong>{{$item->qyt_box_out - $item->qyt_box_in}}</strong></center></td>
+            <td><center><strong>{{$item->qyt_pcs_out - $item->qyt_pcs_in}}</strong></center></td>
+            <td><center><strong>{{(($item->qyt_box_out - $item->qyt_box_in) * $item->goods->pcs_per_box) + ($item->qyt_pcs_out - $item->qyt_pcs_in)}}</strong></center></td>
             <td>{{$item->description}}</td>
             <td>
               @if ($gs->status==2)
               <a href="/barang_masuk/sales/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+              <a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
               @endif
             </td>
           </tr>

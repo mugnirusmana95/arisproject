@@ -117,26 +117,24 @@ Route::group([
       Route::get('/kembali/{id}','GoodsInSalesController@goodsBack')->name('gi.sales.goodsBack');
       Route::get('/ubah/{id}','GoodsInSalesController@edit')->name('gi.sales.create');
       Route::post('/ubah/simpan/{id}','GoodsInSalesController@update')->name('gi.sales.store');
-      // Route::get('/hapus/{id}','GoodsInSalesController@destroy')->name('gi.sales.destroy');
+      Route::get('/hapus/{id}','GoodsInSalesController@destroy')->name('gi.sales.destroy');
 
-      // Route::group([
-      //   'prefix' => '/detail',
-      // ], function(){
-      //   Route::get('/tambah/{id_goods_in_warehouse}','GoodsInSalesDetailController@create')->name('gi.sales.detail.create');
-      //   Route::post('/tambah/simpan/{id_goods_in_warehouse}','GoodsInSalesDetailController@store')->name('gi.sales.detail.store');
-      //   Route::get('/ubah/{id}','GoodsInSalesDetailController@edit')->name('gi.sales.detail.edit');
-      //   Route::put('/ubah/simpan/{id}','GoodsInSalesDetailController@update')->name('gi.sales.detail.update');
-      //   Route::get('/hapus/{id}','GoodsInSalesDetailController@destroy')->name('gi.sales.detail.destroy');
-      // });
+      Route::group([
+        'prefix' => '/detail',
+      ], function(){
+        Route::get('/ubah/{id}','GoodsInSalesDetailsController@edit')->name('gi.sales.detail.edit');
+        Route::put('/ubah/simpan/{id}','GoodsInSalesDetailsController@update')->name('gi.sales.detail.update');
+        Route::get('/hapus/{id}','GoodsInSalesDetailsController@destroy')->name('gi.sales.detail.destroy');
+      });
     });
 
-  //   Route::group([
-  //     'prefix' => '/retur',
-  //   ], function(){
-  //     Route::group([
-  //       'prefix' => '/gudang',
-  //     ], function(){
-  //       Route::get('/','GoodsInReturnWarehouseController@index')->name('gi.return.warehouse.index');
+    Route::group([
+      'prefix' => '/retur',
+    ], function(){
+      Route::group([
+        'prefix' => '/gudang',
+      ], function(){
+        Route::get('/','GoodsInReturnWarehouseController@index')->name('gi.return.warehouse.index');
   //       Route::get('/tambah','GoodsInReturnWarehouseController@create')->name('gi.return.warehouse.create');
   //       Route::post('/tambah/simpan','GoodsInReturnWarehouseController@store')->name('gi.return.warehouse.store');
   //       Route::get('/lihat/{id}','GoodsInReturnWarehouseController@open')->name('gi.return.warehouse.open');
@@ -152,8 +150,8 @@ Route::group([
   //         Route::get('/ubah/{id}','GoodsInReturnWarehouseDetailController@edit')->name('gi.return.warehouse.detail.edit');
   //         Route::put('/ubah/simpan/{id}','GoodsInReturnWarehouseDetailController@update')->name('gi.return.warehouse.detail.update');
   //         Route::get('/hapus/{id}','GoodsInReturnWarehouseDetailController@destroy')->name('gi.return.warehouse.detail.destroy');
-  //       });
-  //     });
+        });
+      });
 
   //     Route::group([
   //       'prefix' => '/sales'

@@ -17,6 +17,20 @@ Barang Masuk Dari Sales
 
 <section class="content">
 
+  @if(Session::has('success'))
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    {{Session::get('success')}}.
+  </div>
+  @elseif(Session::has('warning'))
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+    {{Session::get('warning')}}.
+  </div>
+  @endif
+
   <div class="box box-default">
     <div class="box-header with-border">
       &nbsp;
@@ -36,7 +50,7 @@ Barang Masuk Dari Sales
               <th>Nama Sales</th>
               <th width="20%"><center>Tanggal</center></th>
               <th width="20%"><center>Status</center></th>
-              <th width="9%"></th>
+              <th width="12%"></th>
             </tr>
           </thead>
           @php
@@ -45,7 +59,7 @@ Barang Masuk Dari Sales
           <tbody>
             @if (count($gs)==0)
               <tr>
-                <td colspan="6">Tidak ada data. <a href="/barang_masuk/sales/tambah">Tambah Data</a>.</td>
+                <td colspan="6">Tidak ada data.</td>
               </tr>
             @else
             @foreach ($gs as $item)
@@ -59,8 +73,9 @@ Barang Masuk Dari Sales
                 @if ($item->status==2)
                 <a href="/barang_masuk/sales/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
                 <a href="/barang_masuk/sales/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
+                <a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-edit"></span></a>
                 @else
-                <a href="/barang_masuk/sales/kembali/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-check"></span></a>
+                <a onclick="return confirm('Konfirmasi barang kembali ?');" href="/barang_masuk/sales/kembali/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-check"></span></a>
                 @endif
               </td>
             </tr>

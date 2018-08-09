@@ -36,7 +36,7 @@ Ubah Detail Barang Keluar Ke Gudang
       <div class="box-body">
 
         <div class="form-group {{$errors->has('sales') ? 'has-error' : ''}}">
-          <label for="sales" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+          <label for="sales" class="control-label col-md-2">Sales <span class="req">*</span></label>
           <div class="col-md-8">
             <input type="text" class="form-control" name="sales" value="{{$gs->sales->name}}" readonly>
             <input type="hidden" class="form-control" name="id_goods_sales" value="{{$gs->id}}" readonly>

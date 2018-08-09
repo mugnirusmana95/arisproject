@@ -18,10 +18,35 @@ Ubah Barang Masuk Dari Sales
 
 <section class="content">
 
+  @if(Session::has('success'))
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    {{Session::get('success')}}.
+  </div>
+  @elseif(Session::has('warning'))
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+    {{Session::get('warning')}}.
+  </div>
+  @elseif(count($errors)>0)
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> Danger!</h4>
+    Data gagal disimpan.
+  </div>
+  @else
+  <div class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-info"></i> Info!</h4>
+    Field yang memiliki tanda (<span class="req">*</span>) tidak boleh kosong.
+  </div>
+  @endif
+
   <div class="box box-default">
     <div class="box-header with-border">
       &nbsp;
-
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -134,7 +159,6 @@ Ubah Barang Masuk Dari Sales
             if(bad_box{{$h+1}} > qyt_box{{$h+1}}) {
               alert(nama{{$h+1}}+" melebihi jumlah barang kembali (BOX)");
               $("#bad_box{{$h+1}}").val(null);
-              $("#qyt_box{{$h+1}}").focus();
             }
           }
         });
@@ -166,7 +190,6 @@ Ubah Barang Masuk Dari Sales
             if(bad_pcs{{$k+1}} > qyt_pcs{{$k+1}}) {
               alert(nama{{$k+1}}+" melebihi jumlah barang kembali (PCS)");
               $("#bad_pcs{{$k+1}}").val(null);
-              $("#qyt_pcs{{$k+1}}").focus();
             }
           }
         });

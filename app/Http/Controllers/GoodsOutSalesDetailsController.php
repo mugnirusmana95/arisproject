@@ -90,6 +90,8 @@ class GoodsOutSalesDetailsController extends Controller
 
       GoodsSalesDetails::edit($req->goods, $req->qyt_box, $req->qyt_pcs, $req->description, $req->id_goods_sales);
 
+      Session::flash('success','Data berhasil diubah');
+
       return redirect('/barang_keluar/sales/lihat/'.$req->id_goods_sales);
     }
 

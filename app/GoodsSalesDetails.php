@@ -61,6 +61,8 @@ class GoodsSalesDetails extends Model
 
       $goods->qyt_box = $goods->qyt_box - $gsd->qyt_box_in;
       $goods->qyt_pcs = $goods->qyt_pcs - $gsd->qyt_pcs_in;
+      $goods->bad_stock_box = $goods->bad_stock_box - $gsd->bad_stok_box;
+      $goods->bad_stock_pcs = $goods->bad_stock_pcs - $gsd->bad_stok_pcs;
       $goods->save();
 
       $gsd->qyt_box_in = $qyt_box;
@@ -93,6 +95,23 @@ class GoodsSalesDetails extends Model
       return $gsd;
     }
 
+    public static function destroyGoodsSalesOut($id_goods, $id_goods_sales)
+    {
+      $gsd = GoodsSalesDetails::where('id_goods_sales',$id_goods_sales)->where('id_goods',$id_goods)->first();
+
+      $good = Good::find($id_goods);
+
+      $good->qyt_box = ($good->qyt_box - $gsd->qyt_box_in) + $gsd->qyt_box_out;
+      $good->qyt_pcs = ($good->qyt_pcs - $gsd->qyt_pcs_in) + $gsd->qyt_pcs_out;
+      $good->bad_stock_box = $good->bad_stock_box - $gsd->bad_stok_box;
+      $good->bad_stock_pcs = $good->bad_stock_pcs - $gsd->bad_stok_pcs;
+      $good->save();
+
+      $gsd->delete();
+
+      return $gsd;
+    }
+
     public static function destroy($id)
     {
       $gsd = GoodsSalesDetails::find($id);
@@ -100,6 +119,23 @@ class GoodsSalesDetails extends Model
 
       $good->qyt_box = $good->qyt_box + $gsd->qyt_box_out;
       $good->qyt_pcs = $good->qyt_pcs + $gsd->qyt_pcs_out;
+      $good->save();
+
+      $gsd->delete();
+
+      return $gsd;
+    }
+
+    public static function destroyOut($id)
+    {
+      $gsd = GoodsSalesDetails::find($id);
+
+      $good = Good::find($gsd->id_goods);
+
+      $good->qyt_box = ($good->qyt_box - $gsd->qyt_box_in) + $gsd->qyt_box_out;
+      $good->qyt_pcs = ($good->qyt_pcs - $gsd->qyt_pcs_in) + $gsd->qyt_pcs_out;
+      $good->bad_stock_box = $good->bad_stock_box - $gsd->bad_stok_box;
+      $good->bad_stock_pcs = $good->bad_stock_pcs - $gsd->bad_stok_pcs;
       $good->save();
 
       $gsd->delete();
