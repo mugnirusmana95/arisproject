@@ -1,19 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Detail Barang Keluar Oleh Sales
+Detail Barang Masuk Dari Sales
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Detail Barang Keluar Oleh Sales
+    Detail Barang Masuk Dari Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/barang_keluar/sales">Barang Keluar Oleh Sales</a></li>
-    <li class="active">Detail Barang Keluar Oleh Sales</li>
+    <li><a href="/barang_masuk/sales">Barang Masuk Dari Sales</a></li>
+    <li class="active">Detail Barang Masuk Dari Sales</li>
   </ol>
 </section>
 
@@ -22,11 +21,9 @@ Detail Barang Keluar Oleh Sales
   <div class="box box-default">
     <div class="box-header with-border">
       &nbsp;
-      {{-- <a href="/barang_keluar/sales/cetak/{{$gs->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
-      @if ($gs->status==1)
-      <a href="/barang_keluar/sales/detail/tambah/{{$gs->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
-      <a href="/barang_keluar/sales/ubah/{{$gs->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-      <a href="/barang_keluar/sales/hapus/{{$gs->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+
+      @if ($gs->status==2)
+      <a href="/barang_masuk/sales/ubah/{{$gs->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
       @endif
 
       <div class="box-tools pull-right">
@@ -82,12 +79,21 @@ Detail Barang Keluar Oleh Sales
       <table class="table table-hovered table-bordered">
         <thead>
           <tr>
-            <th width="1%"><center>No</center></th>
-            <th><center>Nama Barang</center></th>
-            <th width="15%"><center>Jumlah (Box)</center></th>
-            <th width="15%"><center>Jumlah (Pcs)</center></th>
-            <th width="20%"><center>Keterangan</center></th>
-            <th width="10%"></th>
+            <th rowspan="2" width="1%"><center>No</centero</th>
+            <th rowspan="2"><center>Nama Barang</center></th>
+            <th colspan="2"><center>Barang Keluar</center></th>
+            <th colspan="2"><center>Barang Kembali</center></th>
+            <th colspan="2"><center>Bad Stok</center></th>
+            <th rowspan="2" width="18%"><center>Keterangan</center></th>
+            <th rowspan="2" width="1%"></th>
+          </tr>
+          <tr>
+            <th width="9%"><center>Jml (BOX)</center></th>
+            <th width="9%"><center>Jml (PCS)</center></th>
+            <th width="9%"><center>Jml (BOX)</center></th>
+            <th width="9%"><center>Jml (PCS)</center></th>
+            <th width="9%"><center>Jml (BOX)</center></th>
+            <th width="9%"><center>Jml (PCS)</center></th>
           </tr>
         </thead>
         @php
@@ -100,14 +106,15 @@ Detail Barang Keluar Oleh Sales
             <td>{{$item->goods->name}}</td>
             <td><center>{{$item->qyt_box_out}}</center></td>
             <td><center>{{$item->qyt_pcs_out}}</center></td>
+            <td><center>{{$item->qyt_box_in}}</center></td>
+            <td><center>{{$item->qyt_pcs_in}}</center></td>
+            <td><center>{{$item->bad_stok_box}}</center></td>
+            <td><center>{{$item->bad_stok_pcs}}</center></td>
             <td>{{$item->description}}</td>
             <td>
-              <center>
-                @if ($gs->status==1)
-                <a href="/barang_keluar/sales/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-                <a href="/barang_keluar/sales/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
-                @endif
-              </center>
+              @if ($gs->status==2)
+              <a href="/barang_masuk/sales/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+              @endif
             </td>
           </tr>
           @endforeach

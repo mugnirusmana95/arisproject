@@ -66,6 +66,15 @@ class GoodsSales extends Model
       return $gs;
     }
 
+    public static function goodsBack($id)
+    {
+      $gs = GoodsSales::find($id);
+      $gs->status = 2;
+      $gs->save();
+
+      return $gs;
+    }
+
     public function sales()
     {
       return $this->belongsTo('App\Sales','id_sales');

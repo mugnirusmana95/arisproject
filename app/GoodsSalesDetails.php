@@ -54,6 +54,30 @@ class GoodsSalesDetails extends Model
       return $gsd;
     }
 
+    public static function editIn($id_goods, $qyt_box, $qyt_pcs, $bad_box, $bad_pcs, $id_goods_sales)
+    {
+      $goods = Good::find($id_goods);
+      $gsd = GoodsSalesDetails::where('id_goods',$id_goods)->where('id_goods_sales',$id_goods_sales)->first();
+
+      $goods->qyt_box = $goods->qyt_box - $gsd->qyt_box_in;
+      $goods->qyt_pcs = $goods->qyt_pcs - $gsd->qyt_pcs_in;
+      $goods->save();
+
+      $gsd->qyt_box_in = $qyt_box;
+      $gsd->qyt_pcs_in = $qyt_pcs;
+      $gsd->bad_stok_box = $bad_box;
+      $gsd->bad_stok_pcs = $bad_pcs;
+      $gsd->save();
+
+      $goods->qyt_box = $goods->qyt_box + $qyt_box;
+      $goods->qyt_pcs = $goods->qyt_pcs + $qyt_pcs;
+      $goods->bad_stock_box = $goods->bad_stock_box + $bad_box;
+      $goods->bad_stock_pcs = $goods->bad_stock_pcs + $bad_pcs;
+      $goods->save();
+
+      return $gsd;
+    }
+
     public static function destroyGoodsSales($id_goods_sales)
     {
       $gsd = GoodsSalesDetails::where('id_goods_sales',$id_goods_sales)->first();

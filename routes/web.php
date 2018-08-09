@@ -113,11 +113,10 @@ Route::group([
       'prefix' => '/sales',
     ], function(){
       Route::get('/','GoodsInSalesController@index')->name('gi.sales.index');
-      // Route::get('/tambah','GoodsInSalesController@create')->name('gi.sales.create');
-      // Route::post('/tambah/simpan','GoodsInSalesController@store')->name('gi.sales.store');
-      // Route::get('/lihat/{id}','GoodsInSalesController@open')->name('gi.sales.open');
-      // Route::get('/ubah/{id}','GoodsInSalesController@edit')->name('gi.sales.edit');
-      // Route::put('/ubah/simpan/{id}','GoodsInSalesController@update')->name('gi.sales.update');
+      Route::get('/lihat/{id}','GoodsInSalesController@open')->name('gi.sales.open');
+      Route::get('/kembali/{id}','GoodsInSalesController@goodsBack')->name('gi.sales.goodsBack');
+      Route::get('/ubah/{id}','GoodsInSalesController@edit')->name('gi.sales.create');
+      Route::post('/ubah/simpan/{id}','GoodsInSalesController@update')->name('gi.sales.store');
       // Route::get('/hapus/{id}','GoodsInSalesController@destroy')->name('gi.sales.destroy');
 
       // Route::group([
