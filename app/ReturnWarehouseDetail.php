@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\GoodsOutWarehouseDetail;
 
 class ReturnWarehouseDetail extends Model
 {
@@ -18,6 +19,20 @@ class ReturnWarehouseDetail extends Model
     public function getIdReturnWarehouse($id_return_warehouse)
     {
       $rwd = ReturnWarehouseDetail::where('id_return_warehouse',$id_return_warehouse)->get();
+
+      return $rwd;
+    }
+
+    public static function insertId($id_goods, $id_return_warehouse, $id_goods_out_warehouse)
+    {
+      $gowd = GoodsOutWarehouseDetail::where('id_goods',$id_goods)->where('id_goods_out_warehouse',$id_goods_out_warehouse)->first();
+
+      $rwd = new ReturnWarehouseDetail;
+      $rwd->qyt_box_out = $gowd->qyt_box;
+      $rwd->qyt_pcs_out = $gowd->qyt_pcs;
+      $rwd->id_goods = $id_goods;
+      $rwd->id_return_warehouse = $id_return_warehouse;
+      $rwd->save();
 
       return $rwd;
     }

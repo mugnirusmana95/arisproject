@@ -31,6 +31,31 @@ class GoodsOutWarehouse extends Model
       return $gow;
     }
 
+    public static function getAllReturn($search)
+    {
+      $gow = DB::select(
+              DB::raw(
+                "SELECT
+                  a.id,
+                  b.name as name_warehouse
+                FROM goods_out_warehouses a
+                LEFT JOIN warehouses b
+                ON a.id_warehouse=b.id
+                WHERE (a.id LIKE '%$search%' OR b.name LIKE '%$search%') AND a.id NOT IN
+                  (SELECT c.id_goods_out_warehouse FROM return_warehouses c)
+                LIMIT 0,10
+              ")
+             );
+
+     $data = [];
+
+     foreach ($gow as $key) {
+       $data[] = ['id'=>$key->id, 'text'=>$key->id.' - '.$key->name_warehouse];
+     }
+
+      return $data;
+    }
+
     public static function getId($id)
     {
       $gow = GoodsOutWarehouse::find($id);

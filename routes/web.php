@@ -135,8 +135,8 @@ Route::group([
         'prefix' => '/gudang',
       ], function(){
         Route::get('/','GoodsInReturnWarehouseController@index')->name('gi.return.warehouse.index');
-  //       Route::get('/tambah','GoodsInReturnWarehouseController@create')->name('gi.return.warehouse.create');
-  //       Route::post('/tambah/simpan','GoodsInReturnWarehouseController@store')->name('gi.return.warehouse.store');
+        Route::get('/tambah','GoodsInReturnWarehouseController@create')->name('gi.return.warehouse.create');
+        Route::post('/tambah/simpan','GoodsInReturnWarehouseController@store')->name('gi.return.warehouse.store');
   //       Route::get('/lihat/{id}','GoodsInReturnWarehouseController@open')->name('gi.return.warehouse.open');
   //       Route::get('/ubah/{id}','GoodsInReturnWarehouseController@edit')->name('gi.return.warehouse.edit');
   //       Route::put('/ubah/simpan/{id}','GoodsInReturnWarehouseController@update')->name('gi.return.warehouse.update');
@@ -192,6 +192,8 @@ Route::group([
       Route::get('/ubah/{id}','GoodsOutWarehouseController@edit')->name('go.warehouse.edit');
       Route::put('/ubah/simpan/{id}','GoodsOutWarehouseController@update')->name('go.warehouse.update');
       Route::get('/hapus/{id}','GoodsOutWarehouseController@destroy')->name('go.warehouse.destroy');
+      Route::get('/cek/id/{id}','GoodsOutWarehouseController@getId')->name('go.warehouse.getId');
+      Route::get('/cek/all/retur','GoodsOutWarehouseController@getAllReturn')->name('go.warehouse.getIdReturn');
 
       Route::group([
         'prefix' => '/detail',
@@ -203,6 +205,8 @@ Route::group([
         Route::get('/ubah/{id}','GoodsOutWarehouseDetailController@edit')->name('go.warehouse.detail.edit');
         Route::put('/ubah/simpan/{id}','GoodsOutWarehouseDetailController@update')->name('go.warehouse.detail.update');
         Route::get('/hapus/{id}','GoodsOutWarehouseDetailController@destroy')->name('go.warehouse.detail.destroy');
+        Route::get('/cek/barang/retur/','GoodsOutWarehouseDetailController@getGoodsReturn')->name('go.warehouse.detail.getGoodsReturn');
+
       });
     });
 

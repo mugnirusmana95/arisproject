@@ -38,6 +38,18 @@ class ReturnWarehouse extends Model
       return $rw;
     }
 
+    public static function insert($id, $date, $description, $id_gow)
+    {
+      $rw = new ReturnWarehouse;
+      $rw->id = $id;
+      $rw->date = $date;
+      $rw->description = $description;
+      $rw->id_goods_out_warehouse = $id_gow;
+      $rw->save();
+
+      return $rw;
+    }
+
     public function goodsOutWarehouse()
     {
       return $this->belongsTo('App\GoodsOutWarehouse','id_goods_out_warehouse');

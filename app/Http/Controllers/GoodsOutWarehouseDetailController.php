@@ -101,4 +101,14 @@ class GoodsOutWarehouseDetailController extends Controller
 
       return back();
     }
+
+    public function getGoodsReturn(Request $req)
+    {
+      $search = trim($req->q);
+      $id = trim($req->id);
+
+      $gowd = GoodsOutWarehouseDetail::getGoodsReturn($id, $search);
+
+      return response()->json($gowd);
+    }
 }

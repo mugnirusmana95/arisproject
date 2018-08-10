@@ -126,4 +126,20 @@ class GoodsOutWarehouseController extends Controller
 
       return redirect('/barang_keluar/gudang');
     }
+
+    public function getAllReturn(Request $req)
+    {
+      $search = trim($req->q);
+
+      $gow = GoodsOutWarehouse::getAllReturn($search);
+
+      return response()->json($gow);
+    }
+
+    public function getId($id)
+    {
+      $gow = GoodsOutWarehouse::getId($id);
+
+      return $gow;
+    }
 }

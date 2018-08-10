@@ -17,9 +17,23 @@ Return Barang Dari Gudang
 
 <section class="content">
 
+  @if(Session::has('success'))
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    {{Session::get('success')}}.
+  </div>
+  @elseif(Session::has('warning'))
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+    {{Session::get('warning')}}.
+  </div>
+  @endif
+
   <div class="box box-default">
     <div class="box-header with-border">
-      <a href="/barang_masuk/Gudang/tambah" class="btn btn-md btn-primary">Tambah</a>
+      <a href="/barang_masuk/retur/gudang/tambah" class="btn btn-md btn-primary">Tambah</a>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -45,7 +59,7 @@ Return Barang Dari Gudang
           <tbody>
             @if (count($rw)==0)
               <tr>
-                <td colspan="6">Tidak ada data. <a href="/barang_masuk/Gudang/tambah">Tambah Data</a>.</td>
+                <td colspan="6">Tidak ada data. <a href="/barang_masuk/retur/gudang/tambah">Tambah Data</a>.</td>
               </tr>
             @else
             @foreach ($rw as $item)
@@ -57,10 +71,10 @@ Return Barang Dari Gudang
                 <td><center>{{$item->date}}</center></td>
                 <td>
                   <center>
-                    <a href="/barang_masuk/supplier/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
-                    <a href="/barang_masuk/supplier/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
-                    <a href="/barang_masuk/supplier/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
-                    <a href="/barang_masuk/supplier/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                    <a href="/barang_masuk/retur/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
+                    <a href="/barang_masuk/retur/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
+                    <a href="/barang_masuk/retur/gudang/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
+                    <a href="/barang_masuk/retur/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                   </center>
                 </td>
               </tr>

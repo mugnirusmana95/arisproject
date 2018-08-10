@@ -24,6 +24,28 @@ class GoodsOutWarehouseDetail extends Model
       return $gowd;
     }
 
+    public static function getGoodsReturn($id, $search)
+    {
+      $gowd  = DB::select(DB::raw(
+        "SELECT
+          a.id_goods as id,
+          b.name as name
+        FROM goods_out_warehouse_details a
+        LEFT JOIN goods b
+        ON a.id_goods=b.id
+        WHERE a.id_goods_out_warehouse='$id'
+        AND b.name LIKE '%$search%'"
+      ));
+
+      $data = [];
+
+      foreach ($gowd as $key) {
+        $data[] = ['id' => $key->id, 'text' => $key->name];
+      }
+
+      return $data;
+    }
+
     public static function insertId($id_goods, $id_goods_out_warehouse)
     {
       $gowd = new GoodsOutWarehouseDetail;
