@@ -72,7 +72,7 @@ Tambah Return Barang Dari Gudang
           </div>
         </div>
 
-        <div id="gowd_date" class="form-group {{$errors->has('date') ? 'has-error' : ''}}">
+        <div id="gowd_date" class="form-group @if(!$errors->has('date'))hide @endif {{$errors->has('date') ? 'has-error' : ''}}">
           <label for="date" class="control-label col-md-2">Tanggal <span class="req">*</span></label>
           <div class="col-md-10">
             <input type="text" class="form-control" name="date" id="date" placeholder="Pilih Tanggal" readonly style="background-color:#FFF">
@@ -84,7 +84,7 @@ Tambah Return Barang Dari Gudang
           </div>
         </div>
 
-        <div id="gowd" class="form-group {{$errors->has('goods') ? 'has-error' : ''}}">
+        <div id="gowd" class="form-group @if(!$errors->has('goods'))hide @endif {{$errors->has('goods') ? 'has-error' : ''}}">
           <label for="goods" class="control-label col-md-2">Barang <span class="req">*</span></label>
           <div class="col-md-10">
             <select class="form-control select2" id="goods" name="goods[]" multiple="multiple" data-placeholder="Pilih Barang" style="width: 100%;">
@@ -128,9 +128,6 @@ Tambah Return Barang Dari Gudang
 @section('js')
 <script>
 $(document).ready(function(){
-  $("#gowd").hide();
-  $("#gowd_date").hide();
-
   $("#gow").select2({
     placeholder: "Pilih ID",
     width: "100%",
@@ -156,10 +153,8 @@ $(document).ready(function(){
     $("#goods").val(null);
     $("#date").val(null);
 
-    var id_gow = $(this).val();
-
-    $("#gowd").show();
-    $("#gowd_date").show();
+    var id_gow = null;
+    id_gow = $(this).val();
 
     $.get('/barang_keluar/gudang/cek/id/'+id_gow, function(res){
       var date = res.created_at;
@@ -194,6 +189,9 @@ $(document).ready(function(){
         cache: true
       }
     });
+
+    $("#gowd").removeClass("hide");
+    $("#gowd_date").removeClass("hide");
 
   });
 

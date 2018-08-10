@@ -38,6 +38,13 @@ class ReturnWarehouse extends Model
       return $rw;
     }
 
+    public static function getIdGoodsOutWarehouse($id_gow)
+    {
+      $rw = ReturnWarehouse::where('id_goods_out_warehouse',$id_gow)->first();
+
+      return $rw;
+    }
+
     public static function insert($id, $date, $description, $id_gow)
     {
       $rw = new ReturnWarehouse;
@@ -46,6 +53,23 @@ class ReturnWarehouse extends Model
       $rw->description = $description;
       $rw->id_goods_out_warehouse = $id_gow;
       $rw->save();
+
+      return $rw;
+    }
+
+    public static function editDescription($desc, $id_rew)
+    {
+      $rw = ReturnWarehouse::find($id_rew);
+      $rw->description = $desc;
+      $rw->save();
+
+      return $rw;
+    }
+
+    public static function destroys($id)
+    {
+      $rw = ReturnWarehouse::find($id);
+      $rw->delete();
 
       return $rw;
     }

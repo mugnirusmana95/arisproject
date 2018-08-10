@@ -7,6 +7,7 @@ use App\GoodsOutWarehouse;
 use App\GoodsOutWarehouseDetail;
 use App\Warehouse;
 use App\Good;
+use App\ReturnWarehouse;
 use Session;
 
 class GoodsOutWarehouseController extends Controller
@@ -82,6 +83,7 @@ class GoodsOutWarehouseController extends Controller
     {
       $data['gow'] = GoodsOutWarehouse::getId($id);
       $data['gowd'] = GoodsOutWarehouseDetail::getIdGoodsOutWarehouse($id);
+      $data['rw'] = ReturnWarehouse::getIdGoodsOutWarehouse($id);
 
       return view('goodsOutWarehouse.detail',$data);
     }

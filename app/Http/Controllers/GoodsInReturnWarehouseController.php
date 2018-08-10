@@ -40,11 +40,43 @@ class GoodsInReturnWarehouseController extends Controller
       ReturnWarehouse::insert($id, $req->date, $req->description, $req->gow);
 
       foreach ($req->goods as $key) {
-        ReturnWarehouseDetail::insertId($key, $id, $req->gow);
+        ReturnWarehouseDetail::insertId($key, $id);
       }
 
       Session::flash('success','Data berhasil disimpan');
 
-      return back();
+      return redirect('/barang_masuk/retur/gudang/detail/tambah/stok/'.$id);
     }
+
+    public function open($id)
+    {
+      $data['rw'] = ReturnWarehouse::getId($id);
+      $data['rwd'] = ReturnWarehouseDetail::getIdReturnWarehouse($id);
+
+      return view('returnWarehouse.detail',$data);
+    }
+
+    public function editDescription(Request $req, $id)
+    {
+      ReturnWarehouse::editDescription($req->description, $id);
+
+      Session::flash('success','Data berhasil disimpan');
+
+      return redirect('/barang_masuk/retur/gudang/lihat/'.$id);
+    }
+
+    public function destroy($id)
+    {
+      $rw = ReturnWarehouse::destroys($id);
+      $rwd = ReturnWarehouseDetail::getIdReturnWarehouse($id);
+
+      foreach ($rwd as $item) {
+        ReturnWarehouseDetail::destroys($item->id_goods, $id);
+      }
+
+      Session::flash('success','Data berhasil dihapus');
+
+      return redirect('/barang_masuk/retur/gudang');
+    }
+
 }

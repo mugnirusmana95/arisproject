@@ -111,4 +111,11 @@ class GoodsOutWarehouseDetailController extends Controller
 
       return response()->json($gowd);
     }
+
+    public function getOneGoods($id_goods, $id_gow)
+    {
+      $gowd = GoodsOutWarehouseDetail::getOneGoods($id_goods, $id_gow);
+
+      return $gowd;
+    }
 }

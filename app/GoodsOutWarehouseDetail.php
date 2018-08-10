@@ -34,7 +34,14 @@ class GoodsOutWarehouseDetail extends Model
         LEFT JOIN goods b
         ON a.id_goods=b.id
         WHERE a.id_goods_out_warehouse='$id'
-        AND b.name LIKE '%$search%'"
+        AND b.name LIKE '%$search%' AND a.id_goods NOT IN
+        (SELECT
+            c.id_goods
+         FROM return_warehouses_details c
+         LEFT JOIN return_warehouses d
+         ON c.id_return_warehouse=d.id
+         WHERE d.id_goods_out_warehouse='$id'
+        )"
       ));
 
       $data = [];
@@ -44,6 +51,13 @@ class GoodsOutWarehouseDetail extends Model
       }
 
       return $data;
+    }
+
+    public static function getOneGoods($id_goods, $id_gow)
+    {
+      $gowd = GoodsOutWarehouseDetail::where('id_goods',$id_goods)->where('id_goods_out_warehouse',$id_gow)->first();
+
+      return $gowd;
     }
 
     public static function insertId($id_goods, $id_goods_out_warehouse)

@@ -23,8 +23,10 @@ Detail Barang Keluar Ke Gudang
     <div class="box-header with-border">
       <a href="/barang_keluar/gudang/detail/tambah/{{$gow->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
       {{-- <a href="/barang_keluar/gudang/cetak/{{$gow->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
+      @if (count($rw) < 1)
       <a href="/barang_keluar/gudang/ubah/{{$gow->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-      <a href="/barang_keluar/gudang/hapus/{{$gow->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      <a onclick="return confirm('Anda yakin ?')" href="/barang_keluar/gudang/hapus/{{$gow->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      @endif
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -44,14 +46,14 @@ Detail Barang Keluar Ke Gudang
           <th>{{$gow->warehouse->name}}</th>
         </tr>
         <tr>
+          <th>Tanggal Input</th>
+          <th>:</th>
+          <th>{{$gow->created_at}}</th>
+        </tr>
+        <tr>
           <th>Keterangan</th>
           <th>:</th>
           <th>{{$gow->description}}</th>
-        </tr>
-        <tr>
-          <th>Tanggal</th>
-          <th>:</th>
-          <th>{{$gow->created_at}}</th>
         </tr>
       </table>
     </div>
@@ -95,8 +97,10 @@ Detail Barang Keluar Ke Gudang
             <td>{{$item->description}}</td>
             <td>
               <center>
-                <a href="/barang_keluar/gudang/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-                <a href="/barang_keluar/gudang/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+                @if(count(App\ReturnWarehouseDetail::getIdGoods($item->id_goods, $gow->id))<=0)
+                  <a href="/barang_keluar/gudang/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
+                  <a onclick="return confirm('Anda yakin ?')" href="/barang_keluar/gudang/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+                @endif
               </center>
             </td>
           </tr>

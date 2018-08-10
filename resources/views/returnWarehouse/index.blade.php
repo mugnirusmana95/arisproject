@@ -74,7 +74,7 @@ Return Barang Dari Gudang
                     <a href="/barang_masuk/retur/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
                     <a href="/barang_masuk/retur/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
                     <a href="/barang_masuk/retur/gudang/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
-                    <a href="/barang_masuk/retur/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                    <a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                   </center>
                 </td>
               </tr>
