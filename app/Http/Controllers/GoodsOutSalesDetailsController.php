@@ -103,4 +103,21 @@ class GoodsOutSalesDetailsController extends Controller
 
       return back();
     }
+
+    public function getGoodsReturn(Request $req)
+    {
+      $search = trim($req->q);
+      $id = trim($req->id);
+
+      $gsd = GoodsSalesDetails::getGoodsReturn($id, $search);
+
+      return response()->json($gsd);
+    }
+
+    public function getOneGoods($id_goods, $id_gw)
+    {
+      $gsd = GoodsSalesDetails::getOneGoods($id_goods, $id_gw);
+
+      return $gsd;
+    }
 }

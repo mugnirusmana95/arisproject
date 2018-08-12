@@ -38,11 +38,20 @@ Cetak Kwitansi
   <table class="table" border="1px">
     <thead>
       <tr>
-        <th width="1%">No</th>
-        <th>Nama Barang</th>
-        <th width="15%">Jumlah (Box)</th>
-        <th width="15%">Jumlah (Pcs)</th>
-        <th width="30%">Keterangan</th>
+        <th rowspan="2" width="1%">No</th>
+        <th rowspan="2">Nama Barang</th>
+        <th colspan="2" width="15%">Bad Stock</th>
+        <th colspan="2" width="15%">Good Stock</th>
+        <th colspan="2" width="15%">Barang Keluar</th>
+        <th rowspan="2" width="20%">Keterangan</th>
+      </tr>
+      <tr>
+        <th width="8%">Jml (Box)</th>
+        <th width="8%">Jml (Pcs)</th>
+        <th width="8%">Jml (Box)</th>
+        <th width="8%">Jml (Pcs)</th>
+        <th width="8%">Jml (Box)</th>
+        <th width="8%">Jml (Pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -50,20 +59,26 @@ Cetak Kwitansi
       <tr>
         <td><center>{{$no++}}</center></td>
         <td>{{$item->goods->name}}</td>
-        <td><center>{{$item->qyt_box}} @if(count($item->qyt_box)>0){{'box'}}@endif</center></td>
-        <td><center>{{$item->qyt_pcs}} @if(count($item->qyt_pcs)>0){{'pcs'}}@endif</center></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><center>{{$item->qyt_box}}</center></td>
+        <td><center>{{$item->qyt_pcs}}</center></td>
         <td>{{$item->description}}</td>
       </tr>
       @endforeach
       <tfoot>
-        @foreach ($gowds as $item2)
         <tr>
           <th colspan="2">Total</th>
-          <th>{{$item2->qyt_box}} @if(count($item2->qyt_box)){{'box'}}@endif</th>
-          <th>{{$item2->qyt_pcs}} @if(count($item2->qyt_pcs)){{'pcs'}}@endif</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>{{$gowds->qyt_box}}</th>
+          <th>{{$gowds->qyt_pcs}}</th>
           <th></th>
         </tr>
-        @endforeach
       </tfoot>
     </tbody>
   </table>
@@ -94,7 +109,7 @@ Cetak Kwitansi
         <th></th>
         <th></th>
         <th></th>
-        <th></th>
+        <th>{{$maker}}</th>
       </tr>
     </table>
   </div>

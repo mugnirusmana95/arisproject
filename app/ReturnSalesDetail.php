@@ -3,59 +3,58 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\GoodsOutWarehouseDetail;
-use App\Good;
-use DB;
+use App\ReturnSales;
+use App\ReturnSalesDetail;
 
-class ReturnWarehouseDetail extends Model
+class ReturnSalesDetail extends Model
 {
-    protected $table = "return_warehouses_details";
+    protected $table = "return_saless_details";
 
     public static function getId($id)
     {
-      $rwd = ReturnWarehouseDetail::find($id);
+      $rwd = ReturnSalesDetail::find($id);
 
       return $rwd;
     }
 
-    public static function getIdReturnWarehouse($id_return_warehouse)
+    public static function getIdReturnSales($id_return_sales)
     {
-      $rwd = ReturnWarehouseDetail::where('id_return_warehouse',$id_return_warehouse)->get();
+      $rwd = ReturnSalesDetail::where('id_return_sales',$id_return_sales)->get();
 
       return $rwd;
     }
 
-    public static function getIdGoods($id_goods, $id_gow)
+    public static function getIdGoods($id_goods, $id_gos)
     {
-      $rwd = DB::table('return_warehouses_details')
-                  ->join('return_warehouses','return_warehouses_details.id_return_warehouse','=','return_warehouses.id')
-                  ->where('return_warehouses_details.id_goods',$id_goods)
-                  ->where('return_warehouses.id_goods_out_warehouse',$id_gow)
+      $rwd = DB::table('return_saless_details')
+                  ->join('return_saless','return_saless_details.id_return_sales','=','return_saless.id')
+                  ->where('return_saless_details.id_goods',$id_goods)
+                  ->where('return_saless.id_goods_out_sales',$id_gos)
                   ->get();
       return $rwd;
     }
 
-    public static function getOneGoods($id_goods, $id_rew)
+    public static function getOneGoods($id_goods, $id_res)
     {
-      $rwd = ReturnWarehouseDetail::where('id_goods',$id_goods)->where('id_return_warehouse',$id_rew)->first();
+      $rwd = ReturnSalesDetail::where('id_goods',$id_goods)->where('id_return_sales',$id_res)->first();
 
       return $rwd;
     }
 
-    public static function insertId($id_goods, $id_return_warehouse)
+    public static function insertId($id_goods, $id_return_sales)
     {
-      $rwd = new ReturnWarehouseDetail;
+      $rwd = new ReturnSalesDetail;
       $rwd->id_goods = $id_goods;
-      $rwd->id_return_warehouse = $id_return_warehouse;
+      $rwd->id_return_sales = $id_return_sales;
       $rwd->save();
 
       return $rwd;
     }
 
-    public static function edit($id_goods, $qyt_box, $qyt_pcs, $bad_box, $bad_pcs, $desc, $id_rew)
+    public static function edit($id_goods, $qyt_box, $qyt_pcs, $bad_box, $bad_pcs, $desc, $id_res)
     {
       $goods = Good::find($id_goods);
-      $rwd = ReturnWarehouseDetail::where('id_goods',$id_goods)->where('id_return_warehouse',$id_rew)->first();
+      $rwd = ReturnSalesDetail::where('id_goods',$id_goods)->where('id_return_sales',$id_res)->first();
 
       $goods->qyt_box = $goods->qyt_box - $rwd->qyt_box;
       $goods->qyt_pcs = $goods->qyt_pcs - $rwd->qyt_pcs;
@@ -79,10 +78,10 @@ class ReturnWarehouseDetail extends Model
       return $rwd;
     }
 
-    public static function destroys($id_goods, $id_rew)
+    public static function destroys($id_goods, $id_res)
     {
       $goods = Good::find($id_goods);
-      $rwd = ReturnWarehouseDetail::where('id_goods',$id_goods)->where('id_return_warehouse',$id_rew)->first();
+      $rwd = ReturnSalesDetail::where('id_goods',$id_goods)->where('id_return_sales',$id_res)->first();
 
       $goods->qyt_box = $goods->qyt_box - $rwd->qyt_box;
       $goods->qyt_pcs = $goods->qyt_pcs - $rwd->qyt_pcs;
@@ -100,8 +99,8 @@ class ReturnWarehouseDetail extends Model
       return $this->belongsTo('App\Good','id_goods');
     }
 
-    public function returnWarehouse()
+    public function ReturnSales()
     {
-      return $this->belongsTo('App\ReturnWarehouse','id_return_warehouse');
+      return $this->belongsTo('App\ReturnSales','id_return_sales');
     }
 }

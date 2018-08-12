@@ -56,7 +56,7 @@ Barang Keluar Ke Gudang
               <td>
                 <a href="/barang_keluar/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
                 <a href="/barang_keluar/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
-                {{-- <a href="/barang_keluar/gudang/cetak/{{$item->id}}" class="btn btn-sm btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
+                <a href="/barang_keluar/gudang/cetak/{{$item->id}}" class="btn btn-sm btn-success" target="_blank"><span class="fa fa-print"></span></a>
                 @if(count(App\ReturnWarehouse::getIdGoodsOutWarehouse($item->id))<=0)
                 <a href="/barang_keluar/gudang/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
                 <a href="/barang_keluar/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>

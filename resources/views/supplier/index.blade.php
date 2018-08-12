@@ -11,12 +11,25 @@ Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Supplier</li>
   </ol>
 </section>
 
 <section class="content">
+
+  @if(Session::has('success'))
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    {{Session::get('success')}}.
+  </div>
+  @elseif(Session::has('warning'))
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+    {{Session::get('warning')}}.
+  </div>
+  @endif
 
   <div class="box box-default">
     <div class="box-header with-border">
@@ -29,7 +42,7 @@ Supplier
     </div>
     <div class="box-body">
       <div class="table-responsive">
-        <table class="table table-hovered table-bordered">
+        <table id="supplier" class="table table-hovered table-bordered">
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
@@ -53,7 +66,7 @@ Supplier
                 <center>
                   <a href="/master/supplier/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
                   <a href="/master/supplier/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
-                  <a href="/master/supplier/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                  <a onclick="return confirm('anda yakin ?')" href="/master/supplier/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                 </center>
               </td>
             </tr>
@@ -68,4 +81,18 @@ Supplier
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#supplier").DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 0},
+        { "orderable": false, "targets": 2},
+        { "orderable": false, "targets": 3},
+      ]
+    });
+  });
+</script>
 @endsection

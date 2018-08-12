@@ -38,7 +38,7 @@ class Sales extends Model
       return $sales;
     }
 
-    public static function insert($id, $name, $gender, $phone, $email, $address)
+    public static function insert($id, $name, $gender, $phone, $email, $address, $image)
     {
       $sales = new Sales;
       $sales->id = $id;
@@ -47,12 +47,15 @@ class Sales extends Model
       $sales->phone = $phone;
       $sales->email = $email;
       $sales->address = $address;
+      if ($image!=null || $image != "") {
+        $sales->image = $image;
+      }
       $sales->save();
 
       return $sales;
     }
 
-    public static function edit($id, $name, $gender, $phone, $email, $address)
+    public static function edit($id, $name, $gender, $phone, $email, $address, $image)
     {
       $sales = Sales::find($id);
       $sales->name = $name;
@@ -60,6 +63,9 @@ class Sales extends Model
       $sales->phone = $phone;
       $sales->email = $email;
       $sales->address = $address;
+      if ($image!=null || $image != "") {
+        $sales->image = $image;
+      }
       $sales->save();
 
       return $sales;

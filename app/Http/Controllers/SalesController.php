@@ -29,6 +29,7 @@ class SalesController extends Controller
         'phone' => 'nullable|min:9|max:13|regex:/^[0-9]+$/',
         'email' => 'nullable|max:60|email|unique:sales|regex:/^[a-zA-Z0-9_@. ]+$/',
         'address' => 'nullable|max:100',
+        'image' => 'nullable|mimes:jpeg,jpg,png',
       ],[
         'name.required' => 'Field wajib diisi',
         'name.max' => 'Maksimal 50 karakter',
@@ -41,16 +42,27 @@ class SalesController extends Controller
         'email.email' => 'Email tidak valid',
         'email.unique' => 'Email sudah digunakan',
         'email.regex' => 'Karakter tidak diijinkan (hanya 0-9, a-z, A-Z, underscore(_), titik(.), at(@))',
-        'address.max' => 'Maksimal 100 karakter'
+        'address.max' => 'Maksimal 100 karakter',
+        'image.max' => 'File bukan tipe .jpeg, .jpe, atau .png'
       ]);
 
       $id = Sales::getNewId();
 
-      Sales::insert($id, $req->name, $req->gender, $req->phone, $req->email, $req->address);
+      if ($req->image != null || $req->image != "") {
+        $name = $req->input('name');
+        $file = $req->file('image');
+        $ext = $file->getClientOriginalExtension();
+        $image = $id.".".$ext;
+        $file->move('images/sales/'.$id, $image);
+      } else {
+        $image = "";
+      }
+
+      Sales::insert($id, $req->name, $req->gender, $req->phone, $req->email, $req->address, $image);
 
       Session::flash('success','Data berhasil disimpan');
 
-      return redirect('/master/sales');
+      return redirect('/master/sales/lihat/'.$id);
     }
 
     public function open($id)
@@ -75,6 +87,7 @@ class SalesController extends Controller
         'phone' => 'nullable|min:9|max:13|regex:/^[0-9]+$/',
         'email' => 'nullable|max:60|email|regex:/^[a-zA-Z0-9_@. ]+$/|unique:sales,email,'.$id,
         'address' => 'nullable|max:100',
+        'image' => 'nullable|mimes:jpeg,jpg,png',
       ],[
         'name.required' => 'Field wajib diisi',
         'name.max' => 'Maksimal 50 karakter',
@@ -87,18 +100,36 @@ class SalesController extends Controller
         'email.email' => 'Email tidak valid',
         'email.unique' => 'Email sudah digunakan',
         'email.regex' => 'Karakter tidak diijinkan (hanya 0-9, a-z, A-Z, underscore(_), titik(.), at(@))',
-        'address.max' => 'Maksimal 100 karakter'
+        'address.max' => 'Maksimal 100 karakter',
+        'image.max' => 'File bukan tipe .jpeg, .jpe, atau .png'
       ]);
 
-      Sales::edit($id, $req->name, $req->gender, $req->phone, $req->email, $req->address);
+      if ($req->image != null || $req->image != "") {
+        $name = $req->input('name');
+        $file = $req->file('image');
+        $ext = $file->getClientOriginalExtension();
+        $image = $id.".".$ext;
+        $file->move('images/sales/'.$id, $image);
+      } else {
+        $image = "";
+      }
+
+      Sales::edit($id, $req->name, $req->gender, $req->phone, $req->email, $req->address, $image);
 
       Session::flash('success','Data berhasil diubah');
 
-      return redirect('/master/sales');
+      return redirect('/master/sales/lihat/'.$id);
     }
 
     public function destroy($id)
     {
+      $sales = Sales::getId($id);
+
+      if ($sales->image != null || $sales->image != "") {
+        unlink('images/sales/'.$sales->id.'/'.$sales->image);
+        rmdir('images/sales/'.$sales->id);
+      }
+
       Sales::destroy($id);
 
       Session::flash('success','Data berhasil dihapus');

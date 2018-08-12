@@ -37,7 +37,7 @@ Barang Keluar Oleh Sales
               <th>Nama Sales</th>
               <th width="20%"><center>Tanggal</center></th>
               <th width="20%"><center>Status</center></th>
-              <th width="15%"></th>
+              <th width="18%"></th>
             </tr>
           </thead>
           @php
@@ -58,6 +58,7 @@ Barang Keluar Oleh Sales
               <td><center>@if($item->status==1)<label class="label label-warning">Barang Belum Kembali</label>@else<label class="label label-info">Barang Sudah Kembali</label>@endif</center></td>
               <td>
                 <a href="/barang_keluar/sales/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
+                <a href="/barang_keluar/sales/cetak/{{$item->id}}" class="btn btn-sm btn-success" target="_blank"><span class="fa fa-print"></span></a>
                 @if ($item->status==1)
                 <a href="/barang_keluar/sales/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
                 <a href="/barang_keluar/sales/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>

@@ -60,6 +60,13 @@ class GoodsOutWarehouseDetail extends Model
       return $gowd;
     }
 
+    public static function getSumIdGoodsOutWarehouse($id_gow)
+    {
+      $gowd = GoodsOutWarehouseDetail::select(DB::raw('sum(qyt_box) as qyt_box, sum(qyt_pcs) as qyt_pcs'))->where('id_goods_out_warehouse',$id_gow)->first();
+
+      return $gowd;
+    }
+
     public static function insertId($id_goods, $id_goods_out_warehouse)
     {
       $gowd = new GoodsOutWarehouseDetail;

@@ -75,6 +75,31 @@ class GoodsSales extends Model
       return $gs;
     }
 
+    public static function getAllReturn($search)
+    {
+      $gs = DB::select(
+              DB::raw(
+                "SELECT
+                  a.id,
+                  b.name as name_sales
+                FROM goods_sales a
+                LEFT JOIN sales b
+                ON a.id_sales=b.id
+                WHERE (a.id LIKE '%$search%' OR b.name LIKE '%$search%') AND a.id NOT IN
+                  (SELECT c.id_goods_out_sales FROM return_sales c)
+                LIMIT 0,10
+              ")
+             );
+
+      $data = [];
+
+      foreach ($gs as $key) {
+        $data[] = ['id'=>$key->id, 'text'=>$key->id.' - '.$key->name_sales];
+      }
+
+      return $data;
+    }
+
     public function sales()
     {
       return $this->belongsTo('App\Sales','id_sales');

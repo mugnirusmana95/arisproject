@@ -129,13 +129,15 @@ class GoodsOutWarehouseController extends Controller
       return redirect('/barang_keluar/gudang');
     }
 
-    public function getAllReturn(Request $req)
+    public function print($id)
     {
-      $search = trim($req->q);
+      $data['gow']  = GoodsOutWarehouse::getId($id);
+      $data['gowd'] = GoodsOutWarehouseDetail::getIdGoodsOutWarehouse($id);
+      $data['gowds'] = GoodsOutWarehouseDetail::getSumIdGoodsOutWarehouse($id);
+      $data['maker'] = "Ade Mugni Rusmana";
+      $data['no'] = 1;
 
-      $gow = GoodsOutWarehouse::getAllReturn($search);
-
-      return response()->json($gow);
+      return view('goodsOutWarehouse.print',$data);
     }
 
     public function getId($id)
@@ -143,5 +145,14 @@ class GoodsOutWarehouseController extends Controller
       $gow = GoodsOutWarehouse::getId($id);
 
       return $gow;
+    }
+
+    public function getAllReturn(Request $req)
+    {
+      $search = trim($req->q);
+
+      $gow = GoodsOutWarehouse::getAllReturn($search);
+
+      return response()->json($gow);
     }
 }

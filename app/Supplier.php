@@ -37,7 +37,7 @@ class Supplier extends Model
       return $sup;
     }
 
-    public static function insert($id, $name, $phone, $telp, $fax, $email, $address)
+    public static function insert($id, $name, $phone, $telp, $fax, $email, $address, $logo)
     {
       $sup = new Supplier;
       $sup->id = $id;
@@ -47,10 +47,13 @@ class Supplier extends Model
       $sup->fax = $fax;
       $sup->email = $email;
       $sup->address = $address;
+      if ($logo != null || $logo != "") {
+        $sup->logo = $logo;
+      }
       $sup->save();
     }
 
-    public static function edit($id, $name, $phone, $telp, $fax, $email, $address)
+    public static function edit($id, $name, $phone, $telp, $fax, $email, $address, $logo)
     {
       $sup = Supplier::find($id);
       $sup->name = $name;
@@ -59,6 +62,9 @@ class Supplier extends Model
       $sup->fax = $fax;
       $sup->email = $email;
       $sup->address = $address;
+      if ($logo != null || $logo != "") {
+        $sup->logo = $logo;
+      }
       $sup->save();
     }
 

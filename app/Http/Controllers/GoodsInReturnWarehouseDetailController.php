@@ -61,6 +61,35 @@ class GoodsInReturnWarehouseDetailController extends Controller
       return redirect('/barang_masuk/retur/gudang/lihat/'.$id);
     }
 
+    public function edit($id)
+    {
+      $data['rwd'] = ReturnWarehouseDetail::getId($id);
+      $data['rw'] = ReturnWarehouse::getId($data['rwd']->id_return_warehouse);
+
+      return view('returnWarehouse.detail.edit',$data);
+    }
+
+    public function update(Request $req, $id)
+    {
+      ReturnWarehouseDetail::edit($req->goods, $req->qyt_box, $req->qyt_pcs, $req->bad_box, $req->bad_pcs, $req->description, $req->id);
+
+      Session::flash('success','Data berhasil disimpan');
+
+      return redirect('/barang_masuk/retur/gudang/lihat/'.$req->id);
+    }
+
+    public function destroy($id)
+    {
+      $rwd = ReturnWarehouseDetail::getId($id);
+
+      ReturnWarehouseDetail::destroys($rwd->id_goods, $rwd->id_return_warehouse);
+
+      Session::flash('success','Data berhasil disimpan');
+
+      return redirect('/barang_masuk/retur/gudang/lihat/'.$rwd->id_return_warehouse);
+
+    }
+
     public function getOneGoods($id_goods, $id_rew)
     {
       $rwd = ReturnWarehouseDetail::getOneGoods($id_goods, $id_rew);

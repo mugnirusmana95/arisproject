@@ -22,7 +22,7 @@ Detail Barang Keluar Ke Gudang
   <div class="box box-default">
     <div class="box-header with-border">
       <a href="/barang_keluar/gudang/detail/tambah/{{$gow->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
-      {{-- <a href="/barang_keluar/gudang/cetak/{{$gow->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
+      <a href="/barang_keluar/gudang/cetak/{{$gow->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a>
       @if (count($rw) < 1)
       <a href="/barang_keluar/gudang/ubah/{{$gow->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
       <a onclick="return confirm('Anda yakin ?')" href="/barang_keluar/gudang/hapus/{{$gow->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>

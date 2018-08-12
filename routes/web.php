@@ -148,36 +148,13 @@ Route::group([
           Route::post('/tambah/simpan/{id}','GoodsInReturnWarehouseDetailController@store')->name('gi.return.warehouse.addStock');
           Route::get('/tambah/stok/{id}','GoodsInReturnWarehouseDetailController@addStock')->name('gi.return.warehouse.addStock');
           Route::put('/tambah/stok/simpan/{id}','GoodsInReturnWarehouseDetailController@storeStock')->name('gi.return.warehouse.storeStock');
+          Route::get('/ubah/{id}','GoodsInReturnWarehouseDetailController@edit')->name('gi.return.warehouse.detail.edit');
+          Route::put('/ubah/simpan/{id}','GoodsInReturnWarehouseDetailController@update')->name('gi.return.warehouse.detail.update');
+          Route::get('/hapus/{id}','GoodsInReturnWarehouseDetailController@destroy')->name('gi.return.warehouse.detail.destroy');
           Route::get('/cek/barang/{id_barang}/{id_rew}','GoodsInReturnWarehouseDetailController@getOneGoods')->name('gi.return.warehouse.getOneGoods');
-  //         Route::get('/ubah/{id}','GoodsInReturnWarehouseDetailController@edit')->name('gi.return.warehouse.detail.edit');
-  //         Route::put('/ubah/simpan/{id}','GoodsInReturnWarehouseDetailController@update')->name('gi.return.warehouse.detail.update');
-  //         Route::get('/hapus/{id}','GoodsInReturnWarehouseDetailController@destroy')->name('gi.return.warehouse.detail.destroy');
         });
       });
     });
-
-  //     Route::group([
-  //       'prefix' => '/sales'
-  //     ], function(){
-  //       Route::get('/','GoodsInReturnSalesController@index')->name('gi.return.sales.index');
-  //       Route::get('/tambah','GoodsInReturnSalesController@create')->name('gi.return.sales.create');
-  //       Route::post('/tambah/simpan','GoodsInReturnSalesController@store')->name('gi.return.sales.store');
-  //       Route::get('/lihat/{id}','GoodsInReturnSalesController@open')->name('gi.return.sales.open');
-  //       Route::get('/ubah/{id}','GoodsInReturnSalesController@edit')->name('gi.return.sales.edit');
-  //       Route::put('/ubah/simpan/{id}','GoodsInReturnSalesController@update')->name('gi.return.sales.update');
-  //       Route::get('/hapus/{id}','GoodsInReturnSalesController@destroy')->name('gi.return.sales.destroy');
-
-  //       Route::group([
-  //         'prefix' => '/detail',
-  //       ], function(){
-  //         Route::get('/tambah','GoodsInReturnSalesDetailController@create')->name('gi.return.sales.detail.create');
-  //         Route::post('/tambah/simpan','GoodsInReturnSalesDetailController@store')->name('gi.return.sales.detail.store');
-  //         Route::get('/ubah/{id}','GoodsInReturnSalesDetailController@edit')->name('gi.return.sales.detail.edit');
-  //         Route::put('/ubah/simpan/{id}','GoodsInReturnSalesDetailController@update')->name('gi.return.sales.detail.update');
-  //         Route::get('/hapus/{id}','GoodsInReturnSalesDetailController@destroy')->name('gi.return.sales.detail.destroy');
-  //       });
-  //     });
-  //   });
   });
 
   Route::group([
@@ -195,6 +172,7 @@ Route::group([
       Route::get('/ubah/{id}','GoodsOutWarehouseController@edit')->name('go.warehouse.edit');
       Route::put('/ubah/simpan/{id}','GoodsOutWarehouseController@update')->name('go.warehouse.update');
       Route::get('/hapus/{id}','GoodsOutWarehouseController@destroy')->name('go.warehouse.destroy');
+      Route::get('/cetak/{id}','GoodsOutWarehouseController@print')->name('go.warehouse.print');
       Route::get('/cek/id/{id}','GoodsOutWarehouseController@getId')->name('go.warehouse.getId');
       Route::get('/cek/all/retur','GoodsOutWarehouseController@getAllReturn')->name('go.warehouse.getIdReturn');
 
@@ -225,6 +203,9 @@ Route::group([
       Route::get('/ubah/{id}','GoodsOutSalesController@edit')->name('go.sales.edit');
       Route::put('/ubah/simpan/{id}','GoodsOutSalesController@update')->name('go.sales.update');
       Route::get('/hapus/{id}','GoodsOutSalesController@destroy')->name('go.sales.destroy');
+      Route::get('/cetak/{id}','GoodsOutSalesController@print')->name('go.sales.print');
+      Route::get('/cek/id/{id}','GoodsOutSalesController@getId')->name('go.sales.getId');
+      Route::get('/cek/all/retur','GoodsOutSalesController@getAllReturn')->name('go.sales.getAllReturn');
 
       Route::group([
         'prefix' => '/detail',
@@ -236,6 +217,8 @@ Route::group([
         Route::get('/ubah/{id}','GoodsOutSalesDetailsController@edit')->name('go.sales.detail.edit');
         Route::put('/ubah/simpan/{id}','GoodsOutSalesDetailsController@update')->name('go.sales.detail.update');
         Route::get('/hapus/{id}','GoodsOutSalesDetailsController@destroy')->name('go.sales.detail.destroy');
+        Route::get('/cek/barang/retur/','GoodsOutSalesDetailsController@getGoodsReturn')->name('go.sales.detail.getGoodsReturn');
+        Route::get('/cek/barang/{id_barang}/{id_gow}','GoodsOutSalesDetailsController@getOneGoods')->name('go.sales.detail.getOneGoods');
       });
     });
   });

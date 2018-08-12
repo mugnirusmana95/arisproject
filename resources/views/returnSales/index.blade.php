@@ -1,17 +1,17 @@
 @extends('layouts.index')
 
 @section('title')
-Return Barang Dari Gudang
+Return Barang Dari Sales
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Return Barang Dari Gudang
+    Return Barang Dari Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li class="active">Return Barang Dari Gudang</li>
+    <li class="active">Return Barang Dari Sales</li>
   </ol>
 </section>
 
@@ -33,7 +33,7 @@ Return Barang Dari Gudang
 
   <div class="box box-default">
     <div class="box-header with-border">
-      <a href="/barang_masuk/retur/gudang/tambah" class="btn btn-md btn-primary">Tambah</a>
+      <a href="/barang_masuk/retur/sales/tambah" class="btn btn-md btn-primary">Tambah</a>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -48,7 +48,7 @@ Return Barang Dari Gudang
               <th width="1%"><center>No</center></th>
               <th><center>ID</center></th>
               <th><center>ID Barang Keluar</center></th>
-              <th><center>Nama Gudang</center></th>
+              <th><center>Nama Sales</center></th>
               <th width="15%"><center>Tanggal</center></th>
               <th width="12%"></th>
             </tr>
@@ -57,22 +57,23 @@ Return Barang Dari Gudang
             $no=1;
           @endphp
           <tbody>
-            @if (count($rw)==0)
+            @if (count($rs)==0)
               <tr>
-                <td colspan="6">Tidak ada data. <a href="/barang_masuk/retur/gudang/tambah">Tambah Data</a>.</td>
+                <td colspan="6">Tidak ada data. <a href="/barang_masuk/retur/sales/tambah">Tambah Data</a>.</td>
               </tr>
             @else
-            @foreach ($rw as $item)
+            @foreach ($rs as $item)
               <tr>
                 <td><center>{{$no++}}</center></td>
                 <td><center>{{$item->id}}</center></td>
-                <td><center>{{$item->id_goods_out_warehouse}}</center></td>
-                <td><center>{{$item->goodsOutWarehouse->warehouse->name}}</center></td>
+                <td><center>{{$item->id_goods_out_sales}}</center></td>
+                <td><center>{{$item->goodsOutSales->sales->name}}</center></td>
                 <td><center>{{$item->date}}</center></td>
                 <td>
-                  <a href="/barang_masuk/retur/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
-                  <a href="/barang_masuk/retur/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
-                  <a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                  <a href="/barang_masuk/retur/sales/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
+                  <a href="/barang_masuk/retur/sales/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
+                  <a href="/barang_masuk/retur/sales/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
+                  <a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/sales/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                 </td>
               </tr>
             @endforeach

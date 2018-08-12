@@ -11,13 +11,38 @@ Tambah Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/master/supplier">Supplier</a></li>
     <li class="active">Tambah Supplier</li>
   </ol>
 </section>
 
 <section class="content">
+
+  @if(Session::has('success'))
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    {{Session::get('success')}}.
+  </div>
+  @elseif(Session::has('warning'))
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+    {{Session::get('warning')}}.
+  </div>
+  @elseif(count($errors)>0)
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> Danger!</h4>
+    Data gagal disimpan.
+  </div>
+  @else
+  <div class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-info"></i> Info!</h4>
+    Field yang memiliki tanda (<span class="req">*</span>) tidak boleh kosong.
+  </div>
+  @endif
 
   <div class="box box-default">
     <div class="box-header with-border">
@@ -28,7 +53,7 @@ Tambah Supplier
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="/master/supplier/tambah/simpan">
+    <form class="form-horizontal" method="post" action="/master/supplier/tambah/simpan" enctype="multipart/form-data">
       {{ csrf_field() }}
 
       <div class="box-body">
@@ -101,6 +126,18 @@ Tambah Supplier
             <p class="help-block">
               @if ($errors->has('address'))
                 {{$errors->first('address')}}
+              @endif
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group {{$errors->has('logo') ? 'has-error' : ''}}">
+          <label for="logo" class="control-label col-md-2">Logo</label>
+          <div class="col-md-8">
+            <input type="file" class="form-control" id="logo" name="logo" accept=".jpg, .jpeg, .png">
+            <p class="help-block">
+              @if ($errors->has('logo'))
+                {{$errors->first('logo')}}
               @endif
             </p>
           </div>

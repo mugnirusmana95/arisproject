@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Good;
+use DB;
 
 class GoodsSalesDetails extends Model
 {
@@ -19,6 +20,49 @@ class GoodsSalesDetails extends Model
     public static function getId($id)
     {
       $gsd = GoodsSalesDetails::find($id);
+
+      return $gsd;
+    }
+
+    public static function getGoodsReturn($id, $search)
+    {
+      $gsd  = DB::select(DB::raw(
+        "SELECT
+          a.id_goods as id,
+          b.name as name
+        FROM goods_sales_details a
+        LEFT JOIN goods b
+        ON a.id_goods=b.id
+        WHERE a.id_goods_sales='$id'
+        AND b.name LIKE '%$search%' AND a.id_goods NOT IN
+        (SELECT
+            c.id_goods
+         FROM return_sales_details c
+         LEFT JOIN return_sales d
+         ON c.id_return_sales=d.id
+         WHERE d.id_goods_out_sales='$id'
+        )"
+      ));
+
+      $data = [];
+
+      foreach ($gsd as $key) {
+        $data[] = ['id' => $key->id, 'text' => $key->name];
+      }
+
+      return $data;
+    }
+
+    public static function getOneGoods($id_goods, $id_gs)
+    {
+      $gsd = GoodsSalesDetails::where('id_goods',$id_goods)->where('id_goods_sales',$id_gs)->first();
+
+      return $gsd;
+    }
+
+    public static function getSumIdGoodsSales($id_gs)
+    {
+      $gsd = GoodsSalesDetails::select(DB::raw('sum(qyt_box_out) as qyt_box, sum(qyt_pcs_out) as qyt_pcs'))->where('id_goods_sales',$id_gs)->first();
 
       return $gsd;
     }

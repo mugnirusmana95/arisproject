@@ -116,4 +116,31 @@ class GoodsOutSalesController extends Controller
 
       return redirect('/barang_keluar/sales');
     }
+
+    public function print($id)
+    {
+      $data['gs']  = GoodsSales::getId($id);
+      $data['gsd'] = GoodsSalesDetails::getIdGoodsSales($id);
+      $data['gsds'] = GoodsSalesDetails::getSumIdGoodsSales($id);
+      $data['maker'] = "Ade Mugni Rusmana";
+      $data['no'] = 1;
+
+      return view('goodsOutSales.print',$data);
+    }
+
+    public function getId($id)
+    {
+      $gs = GoodsSales::getId($id);
+
+      return $gs;
+    }
+
+    public function getAllReturn(Request $req)
+    {
+      $search = trim($req->q);
+
+      $gs = GoodsSales::getAllReturn($search);
+
+      return response()->json($gs);
+    }
 }
