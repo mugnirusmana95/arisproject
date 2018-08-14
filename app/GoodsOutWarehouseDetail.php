@@ -67,6 +67,13 @@ class GoodsOutWarehouseDetail extends Model
       return $gowd;
     }
 
+    public static function getRangeDate($start, $end)
+    {
+      $gowd = GoodsOutWarehouseDetail::with('goods')->select(DB::raw("id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->where('created_at','>=',$start)->where('created_at','<=',$end)->groupBy('id_goods')->get();
+
+      return $gowd;
+    }
+
     public static function insertId($id_goods, $id_goods_out_warehouse)
     {
       $gowd = new GoodsOutWarehouseDetail;

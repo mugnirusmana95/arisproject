@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Good;
+use DB;
 
 class GoodsInWarehouseDetail extends Model
 {
@@ -26,6 +27,13 @@ class GoodsInWarehouseDetail extends Model
     public static function getIdGoodsInWarehouse($id_goods_in_warehouse)
     {
       $giwd = GoodsInWarehouseDetail::where('id_goods_in_warehouse',$id_goods_in_warehouse)->get();
+
+      return $giwd;
+    }
+
+    public static function getRangeDate($start, $end)
+    {
+      $giwd = GoodsInWarehouseDetail::with('goods')->select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs, SUM(bad_stock_box) as bad_stock_box, SUM(bad_stock_pcs) as bad_stock_pcs'))->where('created_at','>=',$start)->where('created_at','<=',$end)->groupBy('id_goods')->get();
 
       return $giwd;
     }

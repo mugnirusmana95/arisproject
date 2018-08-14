@@ -67,6 +67,37 @@ class GoodsSalesDetails extends Model
       return $gsd;
     }
 
+    public static function getInRangeDate($start, $end)
+    {
+      $gsd = DB::select(DB::raw(
+        "SELECT
+          c.name as name,
+          a.qyt_box_in as qyt_box,
+          a.qyt_pcs_in as qyt_pcs,
+          a.bad_stok_box as bad_stock_box,
+          a.bad_stok_pcs as bad_stock_pcs
+        FROM goods_sales_details a
+        LEFT JOIN goods_sales b
+        ON a.id_goods_sales=b.id
+        LEFT JOIN goods c
+        ON a.id_goods=c.id
+        WHERE b.status=2
+        AND a.created_at >= '$start'
+        AND a.created_at <= '$end'
+        Order By c.name ASC
+        "
+      ));
+
+      return $gsd;
+    }
+
+    public static function getOutRangeDate($start, $end)
+    {
+      $gsd = GoodsSalesDetails::with('goods')->select(DB::raw('id_goods, SUM(qyt_box_out) as qyt_box, SUM(qyt_pcs_out) as qyt_pcs'))->where('created_at','>=',$start)->where('created_at','<=',$end)->groupBy('id_goods')->get();
+
+      return $gsd;
+    }
+
     public static function insertId($id_goods, $id_goods_sales)
     {
       $gsd = new GoodsSalesDetails;

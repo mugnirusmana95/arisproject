@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>@yield('title')</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo.png')}}" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -153,9 +154,8 @@
           </a>
           <ul class="treeview-menu">
             <li class="{{ Request::is('barang_masuk/supplier','barang_masuk/supplier/*') ? 'active' : ''}}"><a href="/barang_masuk/supplier"><i class="fa fa-circle-o"></i> Dari Supplier</a></li>
-            <li class="{{ Request::is('barang_masuk/gudang','barang_masuk/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/gudang"><i class="fa fa-circle-o"></i> Dari Gudang</a></li>
+            <li class="{{ Request::is('barang_masuk/gudang','barang_masuk/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/gudang"><i class="fa fa-circle-o"></i> Dari Gudang (Cabang)</a></li>
             <li class="{{ Request::is('barang_masuk/sales','barang_masuk/sales/*') ? 'active' : ''}}"><a href="/barang_masuk/sales"><i class="fa fa-circle-o"></i> Dari Sales</a></li>
-
             <li class="treeview {{ Request::is('barang_masuk/retur','barang_masuk/retur/*') ? 'active' : ''}}">
               <a href="#">
                 <i class="fa fa-circle-o"></i> <span>Retur Barang</span>
@@ -165,7 +165,6 @@
               </a>
               <ul class="treeview-menu">
                 <li class="{{ Request::is('barang_masuk/retur/gudang','barang_masuk/retur/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/retur/gudang"><i class="fa fa-square-o"></i> Dari Gudang (Cabang)</a></li>
-                <li class="{{ Request::is('barang_masuk/retur/sales','barang_masuk/retur/sales/*') ? 'active' : ''}}"><a href="/barang_masuk/retur/sales"><i class="fa fa-square-o"></i> Dari Sales (Toko)</a></li>
               </ul>
             </li>
 
@@ -183,17 +182,42 @@
             <li class="{{ Request::is('barang_keluar/sales','barang_keluar/sales/*') ? 'active' : ''}}"><a href="/barang_keluar/sales"><i class="fa fa-circle-o"></i> Oleh Sales (Toko)</a></li>
           </ul>
         </li>
-        <li class="treeview">
+
+        <li class="treeview {{ Request::is('laporan','laporan/*') ? 'active' : ''}}">
           <a href="#">
-            <i class="fa fa-fax"></i> <span>Laporan</span>
+            <i class="fa fa-share"></i> <span>Laporan</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> Laporan Barang</a></li>
+            <li class="treeview {{ Request::is('laporan/barang_masuk','laporan/barang_masuk/*') ? 'active' : ''}}">
+              <a href="#"><i class="fa fa-circle-o"></i> Barang Masuk
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="{{ Request::is('laporan/barang_masuk/dari_supplier','laporan/barang_masuk/dari_supplier/*') ? 'active' : ''}}"><a href="{{route('report.gisup.index')}}"><i class="fa fa-square-o"></i> Dari Supplier</a></li>
+                <li class="{{ Request::is('laporan/barang_masuk/dari_gudang','laporan/barang_masuk/dari_gudang/*') ? 'active' : ''}}"><a href="{{route('report.giware.index')}}"><i class="fa fa-square-o"></i> Dari Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('laporan/barang_masuk/dari_sales','laporan/barang_masuk/dari_sales/*') ? 'active' : ''}}"><a href="{{route('report.gisales.index')}}"><i class="fa fa-square-o"></i> Dari Sales</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview {{ Request::is('laporan/barang_keluar','laporan/barang_keluar/*') ? 'active' : ''}}">
+              <a href="#"><i class="fa fa-circle-o"></i> Barang Keluar
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="{{ Request::is('laporan/barang_keluar/ke_gudang','laporan/barang_masuk/ke_gudang/*') ? 'active' : ''}}"><a href="{{route('report.goware.index')}}"><i class="fa fa-square-o"></i> Ke Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('laporan/barang_keluar/ke_sales','laporan/barang_masuk/ke_sales/*') ? 'active' : ''}}"><a href="{{route('report.gosales.index')}}"><i class="fa fa-square-o"></i> Oleh Sales</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
+
       </ul>
     </section>
   </aside>

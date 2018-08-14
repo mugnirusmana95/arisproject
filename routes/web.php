@@ -222,4 +222,60 @@ Route::group([
       });
     });
   });
+
+  Route::group([
+    'prefix' => '/laporan'
+  ], function(){
+    Route::group([
+      'prefix' => '/barang_masuk'
+    ], function(){
+      Route::group([
+        'prefix' => '/dari_supplier'
+      ], function(){
+        Route::get('/','ReportGisupController@index')->name('report.gisup.index');
+        Route::post('/cek_periode','ReportGisupController@checkPeriode')->name('report.gisup.checkPeriode');
+        Route::post('/cek_periode/print_periode','ReportGisupController@printPeriode')->name('report.gisup.printPeriode');
+        Route::post('/cek_tanggal','ReportGisupController@checkDate')->name('report.gisup.checkDate');
+        Route::post('/cek_tanggal/print_tanggal','ReportGisupController@printDate')->name('report.gisup.printDate');
+        Route::post('/cek_hari_ini','ReportGisupController@checkToday')->name('report.gisup.checkToday');
+        Route::post('/cek_hari_ini/print_hari_ini','ReportGisupController@printToday')->name('report.gisup.printToday');
+      });
+
+      Route::group([
+        'prefix' => '/dari_gudang'
+      ], function(){
+        Route::get('/','ReportGiwareController@index')->name('report.giware.index');
+        Route::post('/cek','ReportGiwareController@checkData')->name('report.giware.checkData');
+        Route::post('/cek/print_periode','ReportGiwareController@printPeriode')->name('report.giware.printPeriode');
+      });
+
+      Route::group([
+        'prefix' => '/dari_sales'
+      ], function(){
+        Route::get('/','ReportGisalesController@index')->name('report.gisales.index');
+        Route::post('/cek','ReportGisalesController@checkData')->name('report.gisales.checkData');
+        Route::post('/cek/print_periode','ReportGisalesController@printPeriode')->name('report.gisales.printPeriode');
+      });
+    });
+
+    Route::group([
+      'prefix' => '/barang_keluar'
+    ], function(){
+      Route::group([
+        'prefix' => '/ke_gudang'
+      ], function(){
+        Route::get('/','ReportGowareController@index')->name('report.goware.index');
+        Route::post('/cek','ReportGowareController@checkData')->name('report.goware.checkData');
+        Route::post('/cek/print_periode','ReportGowareController@printPeriode')->name('report.goware.printPeriode');
+      });
+
+      Route::group([
+        'prefix' => '/ke_sales'
+      ], function(){
+        Route::get('/','ReportGosalesController@index')->name('report.gosales.index');
+        Route::post('/cek','ReportGosalesController@checkData')->name('report.gosales.checkData');
+        Route::post('/cek/print_periode','ReportGosalesController@printPeriode')->name('report.gosales.printPeriode');
+      });
+    });
+  });
 });
