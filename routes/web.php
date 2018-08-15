@@ -227,6 +227,13 @@ Route::group([
     'prefix' => '/laporan'
   ], function(){
     Route::group([
+      'prefix' => '/hari_ini'
+    ], function(){
+      Route::get('/','ReportTodayController@index')->name('report.today.index');
+      Route::get('/print','ReportTodayController@print')->name('report.today.print');
+    });
+
+    Route::group([
       'prefix' => '/barang_masuk'
     ], function(){
       Route::group([
@@ -245,16 +252,24 @@ Route::group([
         'prefix' => '/dari_gudang'
       ], function(){
         Route::get('/','ReportGiwareController@index')->name('report.giware.index');
-        Route::post('/cek','ReportGiwareController@checkData')->name('report.giware.checkData');
-        Route::post('/cek/print_periode','ReportGiwareController@printPeriode')->name('report.giware.printPeriode');
+        Route::post('/cek_periode','ReportGiwareController@checkPeriode')->name('report.giware.checkPeriode');
+        Route::post('/cek_periode/print_periode','ReportGiwareController@printPeriode')->name('report.giware.printPeriode');
+        Route::post('/cek_tanggal','ReportGiwareController@checkDate')->name('report.giware.checkDate');
+        Route::post('/cek_tanggal/print_tanggal','ReportGiwareController@printDate')->name('report.giware.printDate');
+        Route::post('/cek_hari_ini','ReportGiwareController@checkToday')->name('report.giware.checkToday');
+        Route::post('/cek_hari_ini/print_hari_ini','ReportGiwareController@printToday')->name('report.giware.printToday');
       });
 
       Route::group([
         'prefix' => '/dari_sales'
       ], function(){
         Route::get('/','ReportGisalesController@index')->name('report.gisales.index');
-        Route::post('/cek','ReportGisalesController@checkData')->name('report.gisales.checkData');
-        Route::post('/cek/print_periode','ReportGisalesController@printPeriode')->name('report.gisales.printPeriode');
+        Route::post('/cek_periode','ReportGisalesController@checkPeriode')->name('report.gisales.checkPeriode');
+        Route::post('/cek_periode/print_periode','ReportGisalesController@printPeriode')->name('report.gisales.printPeriode');
+        Route::post('/cek_tanggal','ReportGisalesController@checkDate')->name('report.gisales.checkDate');
+        Route::post('/cek_tanggal/print_tanggal','ReportGisalesController@printDate')->name('report.gisales.printDate');
+        Route::post('/cek_hari_ini','ReportGisalesController@checkToday')->name('report.gisales.checkToday');
+        Route::post('/cek_hari_ini/print_hari_ini','ReportGisalesController@printToday')->name('report.gisales.printToday');
       });
     });
 

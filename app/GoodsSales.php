@@ -38,6 +38,13 @@ class GoodsSales extends Model
       return $gs;
     }
 
+    public static function getStatus($status)
+    {
+      $gs = GoodsSales::where('status',$status)->get();
+
+      return $gs;
+    }
+
     public static function insert($id, $sales, $description)
     {
       $gs = new GoodsSales;

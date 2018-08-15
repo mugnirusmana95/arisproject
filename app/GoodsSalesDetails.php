@@ -72,21 +72,87 @@ class GoodsSalesDetails extends Model
       $gsd = DB::select(DB::raw(
         "SELECT
           c.name as name,
-          a.qyt_box_in as qyt_box,
-          a.qyt_pcs_in as qyt_pcs,
-          a.bad_stok_box as bad_stock_box,
-          a.bad_stok_pcs as bad_stock_pcs
+          SUM(a.qyt_box_in) as qyt_box,
+          SUM(a.qyt_pcs_in) as qyt_pcs,
+          SUM(a.bad_stok_box) as bad_stock_box,
+          SUM(a.bad_stok_pcs) as bad_stock_pcs
         FROM goods_sales_details a
         LEFT JOIN goods_sales b
         ON a.id_goods_sales=b.id
         LEFT JOIN goods c
         ON a.id_goods=c.id
         WHERE b.status=2
-        AND a.created_at >= '$start'
-        AND a.created_at <= '$end'
+        AND DATE(a.created_at) >= '$start'
+        AND DATE(a.created_at) <= '$end'
+        GROUP BY a.id_goods
         Order By c.name ASC
         "
       ));
+
+      return $gsd;
+    }
+
+    public static function getInDate($date)
+    {
+      $gsd = DB::select(DB::raw(
+        "SELECT
+          c.name as name,
+          SUM(a.qyt_box_in) as qyt_box,
+          SUM(a.qyt_pcs_in) as qyt_pcs,
+          SUM(a.bad_stok_box) as bad_stock_box,
+          SUM(a.bad_stok_pcs) as bad_stock_pcs
+        FROM goods_sales_details a
+        LEFT JOIN goods_sales b
+        ON a.id_goods_sales=b.id
+        LEFT JOIN goods c
+        ON a.id_goods=c.id
+        WHERE b.status=2
+        AND DATE(a.created_at) = '$date'
+        GROUP BY a.id_goods
+        Order By c.name ASC
+        "
+      ));
+
+      return $gsd;
+    }
+
+    public static function getInGoodsDate($id_goods, $date)
+    {
+      $gsd =  DB::table('goods_sales_details')
+              ->select(DB::raw("id_goods, SUM(qyt_box_in) as qyt_box, SUM(qyt_pcs_in) as qyt_pcs"))
+              ->leftJoin('goods_sales','goods_sales.id','=','goods_sales_details.id_goods_sales')
+              ->where('goods_sales.status','2')
+              ->where('id_goods',$id_goods)
+              ->whereDate('goods_sales_details.created_at','=',$date)
+              ->groupBy('id_goods')
+              ->first();
+
+      return $gsd;
+    }
+
+    public static function getOutGoodsDate($id_goods, $date)
+    {
+      $gsd =  DB::table('goods_sales_details')
+              ->select(DB::raw("id_goods, SUM(qyt_box_out) as qyt_box, SUM(qyt_pcs_out) as qyt_pcs"))
+              ->leftJoin('goods_sales','goods_sales.id','=','goods_sales_details.id_goods_sales')
+              ->where('id_goods',$id_goods)
+              ->whereDate('goods_sales_details.created_at',$date)
+              ->groupBy('id_goods')
+              ->first();
+
+      return $gsd;
+    }
+
+    public static function getInGoodsDateBack($id_goods, $date)
+    {
+      $gsd =  DB::table('goods_sales_details')
+              ->select(DB::raw("id_goods, SUM(qyt_box_in) as qyt_box, SUM(qyt_pcs_in) as qyt_pcs"))
+              ->leftJoin('goods_sales','goods_sales.id','=','goods_sales_details.id_goods_sales')
+              ->where('goods_sales.status','2')
+              ->where('id_goods',$id_goods)
+              ->whereDate('goods_sales_details.created_at','<=',$date)
+              ->groupBy('id_goods')
+              ->first();
 
       return $gsd;
     }

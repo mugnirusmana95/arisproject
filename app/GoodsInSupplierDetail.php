@@ -45,6 +45,20 @@ class GoodsInSupplierDetail extends Model
       return $gisd;
     }
 
+    public static function getGoodsDate($id_goods, $date)
+    {
+      $gisd = GoodsInSupplierDetail::select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->where('id_goods',$id_goods)->whereDate('created_at',$date)->groupBy('id_goods')->first();
+
+      return $gisd;
+    }
+
+    public static function getGoodsDateBack($id_goods, $date)
+    {
+      $gisd = GoodsInSupplierDetail::select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->where('id_goods',$id_goods)->whereDate('created_at','<=',$date)->groupBy('id_goods')->first();
+
+      return $gisd;
+    }
+
     public static function insert($id_goods_in_supplier, $id_goods, $qyt_box, $qyt_pcs, $description)
     {
       $gisd = new GoodsInSupplierDetail;

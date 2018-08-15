@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Laporan Barang Masuk Dari Gudang Dari {{$date_start}} s/d {{$date_end}}
+Laporan Barang Masuk Dari Gudang Tanggal {{$date}}
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Dari {{$date_start}} s/d {{$date_end}}
+    Tanggal {{$date}}
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{route('report.gisup.index')}}">Laporan Barang Masuk Dari Gudang</a></li>
-    <li class="active">Dari {{$date_start}} s/d {{$date_end}}</li>
+    <li><a href="{{route('report.giware.index')}}">Laporan Barang Masuk Dari Gudang</a></li>
+    <li class="active">Tanggal {{$date}}</li>
   </ol>
 </section>
 
@@ -86,10 +86,9 @@ Laporan Barang Masuk Dari Gudang Dari {{$date_start}} s/d {{$date_end}}
     </div>
     <div class="box-footer">
       @if (count($giware)>0)
-      <form action="{{route('report.giware.printPeriode')}}" method="post" target="_blank">
+      <form action="{{route('report.giware.printDate')}}" method="post" target="_blank">
         {{ csrf_field() }}
-        <input type="hidden" name="date_start" value="{{$date_start}}">
-        <input type="hidden" name="date_end" value="{{$date_end}}">
+        <input type="hidden" name="tanggal" value="{{$date}}">
         <span class="pull-right" data-toggle="tooltip" title="Cetak Data (A4 Portrait)"><button type="submit" class="btn btn-md btn-info" name="button"><span class="fa fa-print"></span></button></span>
       </form>
       @else

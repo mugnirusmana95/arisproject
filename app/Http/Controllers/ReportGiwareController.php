@@ -9,10 +9,12 @@ class ReportGiwareController extends Controller
 {
   public function index()
   {
-    return view('report.giware.index');
+    $data['today'] = date('Y-m-d');
+
+    return view('report.giware.index', $data);
   }
 
-  public function checkData(Request $req)
+  public function checkPeriode(Request $req)
   {
     $this->validate($req,[
       'periode' => 'required',
@@ -29,7 +31,7 @@ class ReportGiwareController extends Controller
     $data['date_end'] = $date_end;
     $data['no'] = 1;
 
-    return view('report.giware.get_data',$data);
+    return view('report.giware.get_periode',$data);
   }
 
   public function printPeriode(Request $req)
@@ -40,5 +42,47 @@ class ReportGiwareController extends Controller
     $data['no'] = 1;
 
     return view('report.giware.print_periode',$data);
+  }
+
+  public function checkDate(Request $req)
+  {
+    $this->validate($req,[
+      'tanggal' => 'required',
+    ],[
+      'tanggal.required' => 'Field wajib diisi',
+    ]);
+
+    $data['giware'] = GoodsInWarehouseDetail::getDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.giware.get_date',$data);
+  }
+
+  public function printDate(Request $req)
+  {
+    $data['giware'] = GoodsInWarehouseDetail::getDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.giware.print_date',$data);
+  }
+
+  public function checkToday(Request $req)
+  {
+    $data['giware'] = GoodsInWarehouseDetail::getDate($req->sekarang);
+    $data['date'] = $req->sekarang;
+    $data['no'] = 1;
+
+    return view('report.giware.get_today',$data);
+  }
+
+  public function printToday(Request $req)
+  {
+    $data['giware'] = GoodsInWarehouseDetail::getDate($req->sekarang);
+    $data['date'] = $req->sekarang;
+    $data['no'] = 1;
+
+    return view('report.giware.print_today',$data);
   }
 }

@@ -33,9 +33,30 @@ class GoodsInWarehouseDetail extends Model
 
     public static function getRangeDate($start, $end)
     {
-      $giwd = GoodsInWarehouseDetail::with('goods')->select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs, SUM(bad_stock_box) as bad_stock_box, SUM(bad_stock_pcs) as bad_stock_pcs'))->where('created_at','>=',$start)->where('created_at','<=',$end)->groupBy('id_goods')->get();
+      $giwd = GoodsInWarehouseDetail::with('goods')->select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs, SUM(bad_stock_box) as bad_stock_box, SUM(bad_stock_pcs) as bad_stock_pcs'))->whereDate('created_at','>=',$start)->whereDate('created_at','<=',$end)->groupBy('id_goods')->get();
 
       return $giwd;
+    }
+
+    public static function getDate($date)
+    {
+      $giwd = GoodsInWarehouseDetail::with('goods')->select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs, SUM(bad_stock_box) as bad_stock_box, SUM(bad_stock_pcs) as bad_stock_pcs'))->whereDate('created_at',$date)->groupBy('id_goods')->get();
+
+      return $giwd;
+    }
+
+    public static function getGoodsDate($id_goods, $date)
+    {
+      $giwd = GoodsInWarehouseDetail::select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->where('id_goods',$id_goods)->whereDate('created_at',$date)->groupBy('id_goods')->first();
+
+      return $giwd;
+    }
+
+    public static function getGoodsDateBack($id_goods, $date)
+    {
+      $gisd = GoodsInWarehouseDetail::select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->where('id_goods',$id_goods)->whereDate('created_at','<=',$date)->groupBy('id_goods')->first();
+
+      return $gisd;
     }
 
     public static function insert($id_goods_in_warehouse, $id_goods, $qyt_box, $qyt_pcs, $description)

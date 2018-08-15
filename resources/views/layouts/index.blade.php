@@ -191,6 +191,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+
             <li class="treeview {{ Request::is('laporan/barang_masuk','laporan/barang_masuk/*') ? 'active' : ''}}">
               <a href="#"><i class="fa fa-circle-o"></i> Barang Masuk
                 <span class="pull-right-container">
@@ -215,6 +216,13 @@
                 <li class="{{ Request::is('laporan/barang_keluar/ke_sales','laporan/barang_masuk/ke_sales/*') ? 'active' : ''}}"><a href="{{route('report.gosales.index')}}"><i class="fa fa-square-o"></i> Oleh Sales</a></li>
               </ul>
             </li>
+
+            <li class="{{ Request::is('laporan/hari_ini','laporan/hari_ini/*') ? 'active' : ''}}">
+              <a href="/laporan/hari_ini">
+                <i class="fa fa-circle-o"></i> <span>Keseluruhan Hari ini</span>
+              </a>
+            </li>
+
           </ul>
         </li>
 

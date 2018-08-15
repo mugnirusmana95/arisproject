@@ -42,6 +42,20 @@ class ReturnWarehouseDetail extends Model
       return $rwd;
     }
 
+    public static function getGoodsDate($id_goods, $date)
+    {
+      $rwd = ReturnWarehouseDetail::with('goods')->select(DB::raw("SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->where('id_goods',$id_goods)->whereDate('created_at',$date)->groupBy('id_goods')->first();
+
+      return $rwd;
+    }
+
+    public static function getGoodsDateBack($id_goods, $date)
+    {
+      $rwd = ReturnWarehouseDetail::with('goods')->select(DB::raw("SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->where('id_goods',$id_goods)->whereDate('created_at','<=',$date)->groupBy('id_goods')->first();
+
+      return $rwd;
+    }
+
     public static function insertId($id_goods, $id_return_warehouse)
     {
       $rwd = new ReturnWarehouseDetail;
