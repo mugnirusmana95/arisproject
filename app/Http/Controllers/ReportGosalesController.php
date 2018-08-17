@@ -9,10 +9,12 @@ class ReportGosalesController extends Controller
 {
   public function index()
   {
-    return view('report.gosales.index');
+    $data['date'] = date('Y-m-d');
+
+    return view('report.gosales.index', $data);
   }
 
-  public function checkData(Request $req)
+  public function checkPeriode(Request $req)
   {
     $this->validate($req,[
       'periode' => 'required',
@@ -29,7 +31,7 @@ class ReportGosalesController extends Controller
     $data['date_end'] = $date_end;
     $data['no'] = 1;
 
-    return view('report.gosales.get_data',$data);
+    return view('report.gosales.get_periode',$data);
   }
 
   public function printPeriode(Request $req)
@@ -40,5 +42,47 @@ class ReportGosalesController extends Controller
     $data['no'] = 1;
 
     return view('report.gosales.print_periode',$data);
+  }
+
+  public function checkDate(Request $req)
+  {
+    $this->validate($req,[
+      'tanggal' => 'required',
+    ],[
+      'tanggal.required' => 'Field wajib diisi',
+    ]);
+
+    $data['gosales'] = GoodsSalesDetails::getOutDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.gosales.get_date',$data);
+  }
+
+  public function printDate(Request $req)
+  {
+    $data['gosales'] = GoodsSalesDetails::getOutDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.gosales.print_date',$data);
+  }
+
+  public function checkToday(Request $req)
+  {
+    $data['gosales'] = GoodsSalesDetails::getOutDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.gosales.get_today',$data);
+  }
+
+  public function printToday(Request $req)
+  {
+    $data['gosales'] = GoodsSalesDetails::getOutDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.gosales.print_today',$data);
   }
 }

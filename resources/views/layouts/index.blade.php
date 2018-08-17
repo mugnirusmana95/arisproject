@@ -74,36 +74,41 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="fa fa-gear"></span> <span class="hidden-xs">Akun</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
-                <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                @if (Auth::user()->picture==null || Auth::user()->picture=="")
+                  @if (Auth::user()->gender==1)
+                  <img src="{{asset('images/profile/null_male.jpg')}}" class="img-square" alt="User Image">
+                  @elseif (Auth::user()->gender==2)
+                    <img src="{{asset('images/profile/null_female.jpg')}}" class="img-square" alt="User Image">
+                  @else
+                    <img src="{{asset('images/profile/null.jpg')}}" class="img-square" alt="User Image">
+                  @endif
+                @else
+                  <img src="{{asset('images/profile/'.Auth::user()->id.'/'.Auth::user()->picture)}}" class="img-square" alt="User Image">
+                @endif
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{Auth::user()->first_name}} {{Auth::user()->last_name}}
+                  <small>
+                    @if (Auth::user()->status==1)
+                      Administrator
+                    @else
+                      User
+                    @endif
+                  </small>
                 </p>
-              </li>
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
               </li>
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/profile" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Log out</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      {{ csrf_field() }}
+                  </form>
                 </div>
               </li>
             </ul>
@@ -116,11 +121,27 @@
     <section class="sidebar">
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+          @if (Auth::user()->picture==null || Auth::user()->picture=="")
+            @if (Auth::user()->gender==1)
+              <img src="{{asset('images/profile/null_male.jpg')}}" class="img-square" alt="User Image">
+            @elseif(Auth::user()->gender==2)
+              <img src="{{asset('images/profile/null_female.jpg')}}" class="img-square" alt="User Image">
+            @else
+              <img src="{{asset('images/profile/null.jpg')}}" class="img-square" alt="User Image">
+            @endif
+          @else
+            <img src="{{asset('images/profile/'.Auth::user()->id.'/'.Auth::user()->picture)}}" class="img-square" alt="User Image">
+          @endif
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p>{{Auth::user()->first_name}}</p>
+          <a>
+            @if (Auth::user()->status==1)
+              Administrator
+            @else
+              User
+            @endif
+          </a>
         </div>
       </div>
       <ul class="sidebar-menu" data-widget="tree">
@@ -130,6 +151,7 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+        @if(Auth::user()->status==1)
         <li class="treeview {{ Request::is('master','master/*') ? 'active' : ''}}">
           <a href="#">
             <i class="fa fa-th"></i> <span>Master</span>
@@ -138,13 +160,15 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ Request::is('master/user','master/user/*') ? 'active' : ''}}"><a href=""><i class="fa fa-circle-o"></i> Management User</a></li>
+            <li class="{{ Request::is('master/user','master/user/*') ? 'active' : ''}}"><a href="/master/user"><i class="fa fa-circle-o"></i> Management User</a></li>
             <li class="{{ Request::is('master/barang','master/barang/*') ? 'active' : ''}}"><a href="/master/barang"><i class="fa fa-circle-o"></i> Barang</a></li>
             <li class="{{ Request::is('master/supplier','master/supplier/*') ? 'active' : ''}}"><a href="/master/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
             <li class="{{ Request::is('master/gudang','master/gudang/*') ? 'active' : ''}}"><a href="/master/gudang"><i class="fa fa-circle-o"></i> Gudang</a></li>
             <li class="{{ Request::is('master/sales','master/sales/*') ? 'active' : ''}}"><a href="/master/sales"><i class="fa fa-circle-o"></i> Sales</a></li>
           </ul>
         </li>
+        @endif
+
         <li class="treeview {{ Request::is('barang_masuk','barang_masuk/*') ? 'active' : ''}}">
           <a href="#">
             <i class="fa fa-mail-forward"></i> <span>Barang Masuk</span>
@@ -170,6 +194,7 @@
 
           </ul>
         </li>
+
         <li class="treeview {{ Request::is('barang_keluar','barang_keluar/*') ? 'active' : ''}}">
           <a href="#">
             <i class="fa fa-mail-reply"></i> <span>Barang Keluar</span>
@@ -212,8 +237,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="{{ Request::is('laporan/barang_keluar/ke_gudang','laporan/barang_masuk/ke_gudang/*') ? 'active' : ''}}"><a href="{{route('report.goware.index')}}"><i class="fa fa-square-o"></i> Ke Gudang (Cabang)</a></li>
-                <li class="{{ Request::is('laporan/barang_keluar/ke_sales','laporan/barang_masuk/ke_sales/*') ? 'active' : ''}}"><a href="{{route('report.gosales.index')}}"><i class="fa fa-square-o"></i> Oleh Sales</a></li>
+                <li class="{{ Request::is('laporan/barang_keluar/ke_gudang','laporan/barang_keluar/ke_gudang/*') ? 'active' : ''}}"><a href="{{route('report.goware.index')}}"><i class="fa fa-square-o"></i> Ke Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('laporan/barang_keluar/ke_sales','laporan/barang_keluar/ke_sales/*') ? 'active' : ''}}"><a href="{{route('report.gosales.index')}}"><i class="fa fa-square-o"></i> Oleh Sales</a></li>
               </ul>
             </li>
 
@@ -278,73 +303,14 @@
 <!-- DataTables -->
 <script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-<!-- Page script -->
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
-  @yield('js')
+<!-- FLOT CHARTS -->
+<script src="{{asset('adminlte/bower_components/Flot/jquery.flot.js')}}"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="{{asset('adminlte/bower_components/Flot/jquery.flot.resize.js')}}"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="{{asset('adminlte/bower_components/Flot/jquery.flot.pie.js')}}"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="{{asset('adminlte/bower_components/Flot/jquery.flot.categories.js')}}"></script>
+@yield('js')
 </body>
 </html>

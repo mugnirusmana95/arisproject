@@ -164,6 +164,41 @@ class GoodsSalesDetails extends Model
       return $gsd;
     }
 
+    public static function getOutDate($date)
+    {
+      $gsd = GoodsSalesDetails::with('goods')->select(DB::raw("id_goods, SUM(qyt_box_out) as qyt_box, SUM(qyt_pcs_out) as qyt_pcs"))->whereDate('created_at',$date)->groupBy('id_goods')->get();
+
+      return $gsd;
+    }
+
+    public static function getInGoodsYear($year)
+    {
+      $gsd = GoodsSalesDetails::select(DB::raw("SUM(qyt_box_in) as qyt_box, SUM(qyt_pcs_in) as qyt_pcs"))->whereDate('created_at','LIKE','%'.$year.'%')->first();
+
+      return $gsd;
+    }
+
+    public static function getOutGoodsYear($year)
+    {
+      $gsd = GoodsSalesDetails::select(DB::raw("SUM(qyt_box_out) as qyt_box, SUM(qyt_pcs_out) as qyt_pcs"))->whereDate('created_at','LIKE','%'.$year.'%')->first();
+
+      return $gsd;
+    }
+
+    public static function getInAllGoodsYear($date)
+    {
+      $gsd = GoodsSalesDetails::select(DB::raw('SUM(qyt_box_in) as qyt_box, SUM(qyt_pcs_in) as qyt_pcs'))->whereDate('created_at',$date)->first();
+
+      return $gsd;
+    }
+
+    public static function getOutAllGoodsYear($date)
+    {
+      $gsd = GoodsSalesDetails::select(DB::raw('SUM(qyt_box_out) as qyt_box, SUM(qyt_pcs_out) as qyt_pcs'))->whereDate('created_at',$date)->first();
+
+      return $gsd;
+    }
+
     public static function insertId($id_goods, $id_goods_sales)
     {
       $gsd = new GoodsSalesDetails;

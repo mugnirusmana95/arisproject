@@ -99,3 +99,11 @@ Laporan Barang Masuk Dari Supplier Tanggal {{$date}}
 
 </section>
 @endsection
+
+@section('js')
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("table").DataTable();
+    });
+  </script>
+@endsection

@@ -9,10 +9,12 @@ class ReportGowareController extends Controller
 {
   public function index()
   {
-    return view('report.goware.index');
+    $data['date'] = date('Y-m-d');
+
+    return view('report.goware.index',$data);
   }
 
-  public function checkData(Request $req)
+  public function checkPeriode(Request $req)
   {
     $this->validate($req,[
       'periode' => 'required',
@@ -29,7 +31,7 @@ class ReportGowareController extends Controller
     $data['date_end'] = $date_end;
     $data['no'] = 1;
 
-    return view('report.goware.get_data',$data);
+    return view('report.goware.get_periode',$data);
   }
 
   public function printPeriode(Request $req)
@@ -40,5 +42,47 @@ class ReportGowareController extends Controller
     $data['no'] = 1;
 
     return view('report.goware.print_periode',$data);
+  }
+
+  public function checkDate(Request $req)
+  {
+    $this->validate($req,[
+      'tanggal' => 'required',
+    ],[
+      'tanggal.required' => 'Field wajib diisi',
+    ]);
+
+    $data['goware'] = GoodsOutWarehouseDetail::getDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.goware.get_date', $data);
+  }
+
+  public function printDate(Request $req)
+  {
+    $data['goware'] = GoodsOutWarehouseDetail::getDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.goware.print_date', $data);
+  }
+
+  public function checkToday(Request $req)
+  {
+    $data['goware'] = GoodsOutWarehouseDetail::getDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.goware.get_today',$data);
+  }
+
+  public function getToday(Request $req)
+  {
+    $data['goware'] = GoodsOutWarehouseDetail::getDate($req->tanggal);
+    $data['date'] = $req->tanggal;
+    $data['no'] = 1;
+
+    return view('report.goware.print_today',$data);
   }
 }

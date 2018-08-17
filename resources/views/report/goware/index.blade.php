@@ -45,14 +45,14 @@ Laporan Barang Keluar Ke Gudang
 
   <div class="box box-default">
     <div class="box-header with-border">
-      &nbsp;
+      <h4>Laporan Per Periode</h4>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
       </div>
     </div>
-    <form class="form-horizontal" method="post" action="{{route('report.goware.checkData')}}">
+    <form class="form-horizontal" method="post" action="{{route('report.goware.checkPeriode')}}">
       {{ csrf_field() }}
 
       <div class="box-body">
@@ -63,7 +63,7 @@ Laporan Barang Keluar Ke Gudang
         </div>
 
         <div class="form-group {{$errors->has('periode') ? 'has-error' : ''}}">
-          <label for="periode" class="control-label col-md-2">Periode Laporan <span class="req">*</span></label>
+          <label for="periode" class="control-label col-md-2">Masukan Tanggal <span class="req">*</span></label>
           <div class="col-md-9">
             <input type="text" class="form-control" name="periode" id="periode" readonly style="background-color:#FFF">
             <p class="help-block">
@@ -87,15 +87,110 @@ Laporan Barang Keluar Ke Gudang
     </form>
   </div>
 
+  <div class="box box-default">
+    <div class="box-header with-border">
+      <h4>Laporan Per Tanggal</h4>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+      </div>
+    </div>
+    <form class="form-horizontal" method="post" action="{{route('report.goware.checkDate')}}">
+      {{ csrf_field() }}
+
+      <div class="box-body">
+
+        <div class="form-group">
+
+          <!-- /.input group -->
+        </div>
+
+        <div class="form-group {{$errors->has('tanggal') ? 'has-error' : ''}}">
+          <label for="tanggal" class="control-label col-md-2">Masukan Tanggal <span class="req">*</span></label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="tanggal" id="tanggal" readonly style="background-color:#FFF">
+            <p class="help-block">
+              @if ($errors->has('tanggal'))
+                {{$errors->first('tanggal')}}
+              @endif
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <div class="box-footer">
+        <div class="form-group">
+          <label for="name" class="control-label col-md-2"></label>
+          <div class="col-md-10">
+            <button type="submit" class="btn btn-md btn-primary">Cari</button>
+            <button type="reset" class="btn btn-md btn-default">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="box box-default">
+    <div class="box-header with-border">
+      <h4>Laporan Hari Ini</h4>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+      </div>
+    </div>
+    <form class="form-horizontal" method="post" action="{{route('report.goware.checkToday')}}">
+      {{ csrf_field() }}
+
+      <div class="box-body">
+
+        <div class="form-group">
+
+          <!-- /.input group -->
+        </div>
+
+        <div class="form-group {{$errors->has('tanggal') ? 'has-error' : ''}}">
+          <label for="tanggal" class="control-label col-md-2">Hari ini <span class="req">*</span></label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="tanggal" id="tanggal" readonly style="background-color:#FFF" value="{{$date}}">
+            <p class="help-block">
+              @if ($errors->has('tanggal'))
+                {{$errors->first('tanggal')}}
+              @endif
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <div class="box-footer">
+        <div class="form-group">
+          <label for="name" class="control-label col-md-2"></label>
+          <div class="col-md-10">
+            <button type="submit" class="btn btn-md btn-primary">Cari</button>
+            <button type="reset" class="btn btn-md btn-default">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
 </section>
 @endsection
 
 @section('js')
 <script type="text/javascript">
-  $("#periode").daterangepicker({
-    autoUpdateInput: false,
-    }, function(start, end) {
-    $("#periode").val(start.format('YYYY-MM-DD') + ' s/d ' + end.format('YYYY-MM-DD'));
+  $(document).ready(function(){
+    $("#periode").daterangepicker({
+      autoUpdateInput: false,
+      }, function(start, end) {
+      $("#periode").val(start.format('YYYY-MM-DD') + ' s/d ' + end.format('YYYY-MM-DD'));
+    });
+
+    $('#tanggal').datepicker({
+      autoclose: true,
+      format: 'yyyy-mm-dd',
+    });
   });
 </script>
 @endsection

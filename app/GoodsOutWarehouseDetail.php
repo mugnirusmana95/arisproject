@@ -74,9 +74,30 @@ class GoodsOutWarehouseDetail extends Model
       return $gowd;
     }
 
+    public static function getDate($date)
+    {
+      $gowd = GoodsOutWarehouseDetail::with('goods')->select(DB::raw("id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->whereDate('created_at',$date)->groupBy('id_goods')->get();
+
+      return $gowd;
+    }
+
     public static function getGoodsDate($id_goods, $date)
     {
       $gowd = GoodsOutWarehouseDetail::with('goods')->select(DB::raw("id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->where('id_goods',$id_goods)->whereDate('created_at',$date)->groupBy('id_goods')->first();
+
+      return $gowd;
+    }
+
+    public static function getGoodsYear($year)
+    {
+      $gowd = GoodsOutWarehouseDetail::select(DB::raw('SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->whereDate('created_at','LIKE','%'.$year.'%')->first();
+
+      return $gowd;
+    }
+
+    public static function getAllGoodsYear($date)
+    {
+      $gowd = GoodsOutWarehouseDetail::select(DB::raw("SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->whereDate('created_at',$date)->first();
 
       return $gowd;
     }

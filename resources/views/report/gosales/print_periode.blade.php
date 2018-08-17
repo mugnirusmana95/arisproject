@@ -1,7 +1,7 @@
 @extends('layouts.print')
 
 @section('title')
-Laporan Barang Keluar Dari Sales Dari {{$date_start}} s/d {{$date_end}}
+Laporan Barang Keluar Oleh Sales Dari {{$date_start}} s/d {{$date_end}}
 @endsection
 
 @section('main')
@@ -21,7 +21,7 @@ Laporan Barang Keluar Dari Sales Dari {{$date_start}} s/d {{$date_end}}
   <br>
   <br>
   <br>
-  <center><font size="4px"><b>Laporan Barang Keluar Dari Sales ({{$date_start}} s/d {{$date_end}})</b></font></center>
+  <center><font size="4px"><b>Laporan Barang Keluar Oleh Sales ({{$date_start}} s/d {{$date_end}})</b></font></center>
   <br>
   <br>
 

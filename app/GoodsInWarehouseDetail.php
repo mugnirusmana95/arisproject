@@ -54,9 +54,23 @@ class GoodsInWarehouseDetail extends Model
 
     public static function getGoodsDateBack($id_goods, $date)
     {
-      $gisd = GoodsInWarehouseDetail::select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->where('id_goods',$id_goods)->whereDate('created_at','<=',$date)->groupBy('id_goods')->first();
+      $giwd = GoodsInWarehouseDetail::select(DB::raw('id_goods, SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->where('id_goods',$id_goods)->whereDate('created_at','<=',$date)->groupBy('id_goods')->first();
 
-      return $gisd;
+      return $giwd;
+    }
+
+    public static function getGoodsYear($year)
+    {
+      $giwd = GoodsInWarehouseDetail::select(DB::raw('SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->whereDate('created_at','LIKE','%'.$year.'%')->first();
+
+      return $giwd;
+    }
+
+    public static function getAllGoodsYear($date)
+    {
+      $giwd = GoodsInWarehouseDetail::select(DB::raw('SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->whereDate('created_at',$date)->first();
+
+      return $giwd;
     }
 
     public static function insert($id_goods_in_warehouse, $id_goods, $qyt_box, $qyt_pcs, $description)

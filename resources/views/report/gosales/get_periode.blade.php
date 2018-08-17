@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
+Laporan Barang Keluar Dari Sales Dari {{$date_start}} s/d {{$date_end}}
 @endsection
 
 @section('main')
@@ -11,7 +11,7 @@ Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{route('report.gisup.index')}}">Laporan Barang Keluar Ke Gudang</a></li>
+    <li><a href="{{route('report.gosales.index')}}">Laporan Barang Keluar Dari Sales</a></li>
     <li class="active">Dari {{$date_start}} s/d {{$date_end}}</li>
   </ol>
 </section>
@@ -51,17 +51,17 @@ Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
               <th colspan="2"><center>Jumlah</center></th>
             </tr>
             <tr>
-              <th width="20%"><center>Box</center></th>
-              <th width="20%"><center>Pcs</center></th>
+              <th width="30%"><center>Box</center></th>
+              <th width="30%"><center>Pcs</center></th>
             </tr>
           </thead>
           <tbody>
-            @if (count($goware)==0)
+            @if (count($gosales)==0)
             <tr>
               <td colspan="8">Data tidak ditemukan.</td>
             </tr>
             @else
-              @foreach ($goware as $item)
+              @foreach ($gosales as $item)
                 <tr>
                   <td><center>{{$no++}}</center></td>
                   <td>{{$item->goods->name}}</td>
@@ -75,8 +75,8 @@ Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
       </div>
     </div>
     <div class="box-footer">
-      @if (count($goware)>0)
-      <form action="{{route('report.goware.printPeriode')}}" method="post" target="_blank">
+      @if (count($gosales)>0)
+      <form action="{{route('report.gosales.printPeriode')}}" method="post" target="_blank">
         {{ csrf_field() }}
         <input type="hidden" name="date_start" value="{{$date_start}}">
         <input type="hidden" name="date_end" value="{{$date_end}}">
@@ -89,4 +89,12 @@ Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("table").DataTable();
+  });
+</script>
 @endsection

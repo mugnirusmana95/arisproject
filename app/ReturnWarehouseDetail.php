@@ -56,6 +56,20 @@ class ReturnWarehouseDetail extends Model
       return $rwd;
     }
 
+    public static function getGoodsYear($year)
+    {
+      $rwd = ReturnWarehouseDetail::select(DB::raw("SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->whereDate('created_at','LIKE','%'.$year.'%')->first();
+
+      return $rwd;
+    }
+
+    public static function getAllGoodsYear($date)
+    {
+      $rwd = ReturnWarehouseDetail::select(DB::raw("SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs"))->whereDate('created_at',$date)->first();
+
+      return $rwd;
+    }
+
     public static function insertId($id_goods, $id_return_warehouse)
     {
       $rwd = new ReturnWarehouseDetail;

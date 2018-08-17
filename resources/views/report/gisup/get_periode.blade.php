@@ -100,3 +100,11 @@ Laporan Barang Masuk Dari Supplier Dari {{$date_start}} s/d {{$date_end}}
 
 </section>
 @endsection
+
+@section('js')
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("table").DataTable();
+    });
+  </script>
+@endsection

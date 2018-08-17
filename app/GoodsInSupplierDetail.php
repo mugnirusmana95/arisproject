@@ -59,6 +59,20 @@ class GoodsInSupplierDetail extends Model
       return $gisd;
     }
 
+    public static function getGoodsYear($year)
+    {
+      $gisd = GoodsInSupplierDetail::select(DB::raw('SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->whereDate('created_at','LIKE','%'.$year.'%')->first();
+
+      return $gisd;
+    }
+
+    public static function getAllGoodsYear($date)
+    {
+      $gisd = GoodsInSupplierDetail::select(DB::raw('SUM(qyt_box) as qyt_box, SUM(qyt_pcs) as qyt_pcs'))->whereDate('created_at',$date)->first();
+
+      return $gisd;
+    }
+
     public static function insert($id_goods_in_supplier, $id_goods, $qyt_box, $qyt_pcs, $description)
     {
       $gisd = new GoodsInSupplierDetail;

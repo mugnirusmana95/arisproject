@@ -232,7 +232,7 @@ Laporan Hari Ini {{$date}}
                   </td>
                   <td>
                     <center>
-                      {{($total_awal_pcs + $total_masuk_pcs)-$total_keluar_pcs}}
+                      {{($total_awal_pcs2 + $total_masuk_pcs)-$total_keluar_pcs}}
                     </center>
                   </td>
                   <td>
@@ -242,7 +242,7 @@ Laporan Hari Ini {{$date}}
                   </td>
                   <td>
                     <center>
-                      {{$total_awal_pcs + ($total_masuk_pcs-$total_keluar_pcs)}}
+                      {{$total_awal_pcs2 + ($total_masuk_pcs-$total_keluar_pcs)}}
                     </center>
                   </td>
                   <td>
@@ -272,4 +272,12 @@ Laporan Hari Ini {{$date}}
   </div>
 
 </section>
+@endsection
+
+@section('js')
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("table").DataTable();
+    });
+  </script>
 @endsection

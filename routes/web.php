@@ -1,13 +1,27 @@
 <?php
 
 Route::group([
-  // 'middleware' => 'auth', //Validate Login
+  'middleware' => 'auth',
 ], function(){
   Route::get('/','DashboardController@index')->name('dashboard');
 
   Route::group([
     'prefix' => '/master',
   ], function () {
+    Route::group([
+      'prefix' => '/user'
+    ], function(){
+      Route::get('/','UserController@index')->name('user.index');
+      Route::get('/tambah','UserController@create')->name('user.create');
+      Route::post('/tambah/simpan','UserController@store')->name('user.store');
+      Route::get('/lihat/{id}','UserController@open')->name('user.open');
+      Route::get('/ubah/{id}','UserController@edit')->name('user.edit');
+      Route::put('/ubah/simpan/{id}','UserController@update')->name('user.update');
+      Route::get('/reset/{id}','UserController@resetPassword')->name('user.resetPassword');
+      Route::get('/hapus/{id}','UserController@destroy')->name('user.destroy');
+      Route::get('/test/','UserController@test')->name('user.test');
+    });
+
     Route::group([
       'prefix' => '/barang',
     ], function() {
@@ -280,17 +294,54 @@ Route::group([
         'prefix' => '/ke_gudang'
       ], function(){
         Route::get('/','ReportGowareController@index')->name('report.goware.index');
-        Route::post('/cek','ReportGowareController@checkData')->name('report.goware.checkData');
-        Route::post('/cek/print_periode','ReportGowareController@printPeriode')->name('report.goware.printPeriode');
+        Route::post('/cek_periode','ReportGowareController@checkPeriode')->name('report.goware.checkPeriode');
+        Route::post('/cek_periode/print_periode','ReportGowareController@printPeriode')->name('report.goware.printPeriode');
+        Route::post('/cek_tanggal','ReportGowareController@checkDate')->name('report.goware.checkDate');
+        Route::post('/cek_tanggal/print_tanggal','ReportGowareController@printDate')->name('report.goware.printDate');
+        Route::post('/cek_hari_ini','ReportGowareController@checkToday')->name('report.goware.checkToday');
+        Route::post('/cek_hari_ini/print_hari_ini','ReportGowareController@printToday')->name('report.goware.printToday');
       });
 
       Route::group([
         'prefix' => '/ke_sales'
       ], function(){
         Route::get('/','ReportGosalesController@index')->name('report.gosales.index');
-        Route::post('/cek','ReportGosalesController@checkData')->name('report.gosales.checkData');
-        Route::post('/cek/print_periode','ReportGosalesController@printPeriode')->name('report.gosales.printPeriode');
+        Route::post('/cek_periode','ReportGosalesController@checkPeriode')->name('report.gosales.checkPeriode');
+        Route::post('/cek_periode/print_periode','ReportGosalesController@printPeriode')->name('report.gosales.printPeriode');
+        Route::post('/cek_tanggal','ReportGosalesController@checkDate')->name('report.gosales.checkDate');
+        Route::post('/cek_tanggal/print_tanggal','ReportGosalesController@printDate')->name('report.gosales.printDate');
+        Route::post('/cek_hari_ini','ReportGosalesController@checkToday')->name('report.gosales.checkToday');
+        Route::post('/cek_hari_ini/print_hari_ini','ReportGosalesController@printToday')->name('report.gosales.printToday');
       });
     });
   });
+
+  Route::group([
+    'prefix' => '/profile',
+  ], function(){
+    Route::get('/','ProfileController@index')->name('profile.index');
+    Route::get('/ubah_data','ProfileController@editData')->name('profile.editData');
+    Route::put('/ubah_data/simpan','ProfileController@updateData')->name('profile.updateData');
+    Route::get('/ubah_password','ProfileController@editPassword')->name('profile.editPassword');
+    Route::put('/ubah_password/simpan','ProfileController@updatePassword')->name('profile.updatePassword');
+    Route::get('/ubah_foto','ProfileController@editPicture')->name('profile.editPicture');
+    Route::put('/ubah_foto/simpan','ProfileController@updatePicture')->name('profile.updatePicture');
+  });
 });
+Route::group([
+  'middleware' => 'guest',
+], function(){
+  Route::group([
+    'prefix' => '/lupa_password'
+  ],function(){
+    Route::get('/','ForgotPasswordController@index')->name('forgot.index');
+    Route::post('/cek_email','ForgotPasswordController@cekEmail')->name('forgot.cekEmail');
+    Route::get('/verifikasi_kode/{email}/{code}','ForgotPasswordController@verifyCode')->name('forgot.verifyCode');
+    Route::post('/verifikasi_kode/cek/{email}','ForgotPasswordController@storeVerifyCode')->name('forgot.storeVerifyCode');
+    Route::get('/kirim_ulang_kode/{email}','ForgotPasswordController@resendCode')->name('forgot.resendCode');
+    Route::get('/ubah_password/{email}/{code}','ForgotPasswordController@editPassword')->name('forgot.editPassword');
+    Route::put('/ubah_password/simpan/{email}','ForgotPasswordController@updatePassword')->name('forgot.updatePassword');
+  });
+});
+
+Auth::routes();
