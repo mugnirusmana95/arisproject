@@ -11,7 +11,6 @@ Detail Barang Masuk Dari Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_masuk/supplier">Barang Masuk Dari Supplier</a></li>
     <li class="active">Detail Barang Masuk Dari Supplier</li>
   </ol>
@@ -21,9 +20,9 @@ Detail Barang Masuk Dari Supplier
 
   <div class="box box-default">
     <div class="box-header with-border">
-      <a href="/barang_masuk/supplier/detail/tambah/{{$gis->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
-      <a href="/barang_masuk/supplier/ubah/{{$gis->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-      <a href="/barang_masuk/supplier/hapus/{{$gis->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      <span data-toggle="tooltip" title="Tambah Barang"><a href="/barang_masuk/supplier/detail/tambah/{{$gis->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a></span>
+      <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/supplier/ubah/{{$gis->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a></span>
+      <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda Yakin ?')" href="/barang_masuk/supplier/hapus/{{$gis->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a></span>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -65,7 +64,7 @@ Detail Barang Masuk Dari Supplier
       </div>
     </div>
     <div class="box-body">
-      <table class="table table-hovered table-bordered">
+      <table id="table" class="table table-hovered table-bordered">
         <thead>
           <tr>
             <th width="1%"><center>No</center></th>
@@ -89,8 +88,8 @@ Detail Barang Masuk Dari Supplier
             <td>{{$item->description}}</td>
             <td>
               <center>
-                <a href="/barang_masuk/supplier/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-                <a href="/barang_masuk/supplier/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+                <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/supplier/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a></span>
+                <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda Yakin ?')" href="/barang_masuk/supplier/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a></span>
               </center>
             </td>
           </tr>
@@ -102,4 +101,17 @@ Detail Barang Masuk Dari Supplier
   @endif
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        {"orderable": false, "targets": 0},
+        {"orderable": false, "targets": 5}
+      ]
+    });
+  });
+</script>
 @endsection

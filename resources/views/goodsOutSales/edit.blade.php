@@ -11,7 +11,6 @@ Tambah Barang Keluar Oleh Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_keluar/sales">Barang Keluar Oleh Sales</a></li>
     <li class="active">Tambah Barang Keluar Oleh Sales</li>
   </ol>

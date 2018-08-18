@@ -42,7 +42,7 @@ Barang Masuk Dari Sales
     </div>
     <div class="box-body">
       <div class="table-responsive">
-        <table class="table table-hovered table-bordered">
+        <table id="table" class="table table-hovered table-bordered">
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
@@ -71,11 +71,11 @@ Barang Masuk Dari Sales
               <td><center>@if($item->status==1)<label class="label label-warning">Barang Belum Kembali</label>@else<label class="label label-info">Barang Sudah Kembali</label>@endif</center></td>
               <td>
                 @if ($item->status==2)
-                <a href="/barang_masuk/sales/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
-                <a href="/barang_masuk/sales/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
-                <a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-edit"></span></a>
+                <span data-toggle="tooltip" title="Lihat Data"><a href="/barang_masuk/sales/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a></span>
+                <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/sales/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a></span>
+                <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-edit"></span></a></span>
                 @else
-                <a onclick="return confirm('Konfirmasi barang kembali ?');" href="/barang_masuk/sales/kembali/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-check"></span></a>
+                <span data-toggle="tooltip" title="Kontifmasi Barang Kembali"><a onclick="return confirm('Konfirmasi barang kembali ?');" href="/barang_masuk/sales/kembali/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-check"></span></a></span>
                 @endif
               </td>
             </tr>
@@ -91,4 +91,15 @@ Barang Masuk Dari Sales
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $("#table").DataTable({
+    "columnDefs": [
+      {"orderable": false, "targets": 0},
+      {"orderable": false, "targets": 5},
+    ]
+  });
+</script>
 @endsection

@@ -11,7 +11,6 @@ Ubah Barang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/master/barang">Barang</a></li>
     <li class="active">Ubah Barang</li>
   </ol>

@@ -11,7 +11,6 @@ Barang Keluar Ke Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Barang Keluar Ke Gudang</li>
   </ol>
 </section>
@@ -36,7 +35,7 @@ Barang Keluar Ke Gudang
               <th width="1%"><center>No</center></th>
               <th><center>Nama Gudang</center></th>
               <th width="15%"><center>Tanggal</center></th>
-              <th width="18%"></th>
+              <th width="19%"></th>
             </tr>
           </thead>
           @php
@@ -79,7 +78,12 @@ Barang Keluar Ke Gudang
 @section('js')
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#table').DataTable();
+    $('#table').DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 0},
+        { "orderable": false, "targets": 3},
+      ]
+    });
   });
 </script>
 @endsection

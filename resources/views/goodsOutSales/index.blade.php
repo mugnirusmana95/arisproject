@@ -11,7 +11,6 @@ Barang Keluar Oleh Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Barang Keluar Oleh Sales</li>
   </ol>
 </section>
@@ -29,7 +28,7 @@ Barang Keluar Oleh Sales
     </div>
     <div class="box-body">
       <div class="table-responsive">
-        <table class="table table-hovered table-bordered">
+        <table id="table" class="table table-hovered table-bordered">
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
@@ -77,4 +76,17 @@ Barang Keluar Oleh Sales
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 0},
+        { "orderable": false, "targets": 5},
+      ]
+    });
+  });
+</script>
 @endsection

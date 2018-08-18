@@ -11,7 +11,6 @@ Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Gudang</li>
   </ol>
 </section>
@@ -29,10 +28,11 @@ Gudang
     </div>
     <div class="box-body">
       <div class="table-responsive">
-        <table class="table table-hovered table-bordered">
+        <table id="table" class="table table-hovered table-bordered">
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
+              <th width="1%"><center>ID</center></th>
               <th width="30%">Nama</th>
               <th>Alamat</th>
               <th width="10%"></th>
@@ -41,12 +41,13 @@ Gudang
           <tbody>
             @if (count($warehouse)<=0)
             <tr>
-              <td colspan="4">Tidak ada data. <a href="/master/gudang/tambah">Tambah Data</a>.</td>
+              <td colspan="5">Tidak ada data. <a href="/master/gudang/tambah">Tambah Data</a>.</td>
             </tr>
             @else
             @foreach ($warehouse as $item)
             <tr>
               <td><center>{{$no++}}</center></td>
+              <td><center>{{$item->id}}</center></td>
               <td>{{$item->name}}</td>
               <td>{{$item->address}}</td>
               <td>
@@ -67,4 +68,17 @@ Gudang
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 0},
+        { "orderable": false, "targets": 4},
+      ]
+    });
+  });
+</script>
 @endsection

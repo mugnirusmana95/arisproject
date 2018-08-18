@@ -46,22 +46,22 @@ Supplier
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
+              <th width="1%"><center>ID</center></th>
               <th>Nama</th>
-              <th width="25%">Telp</th>
               <th width="15%"></th>
             </tr>
           </thead>
           <tbody>
             @if (count($supplier)<=0)
             <tr>
-              <td colspan="6">Tidak ada data. <a href="/master/supplier/tambah">Tambah Data</a>.</td>
+              <td colspan="4">Tidak ada data. <a href="/master/supplier/tambah">Tambah Data</a>.</td>
             </tr>
             @else
             @foreach ($supplier as $item)
             <tr>
               <td><center>{{$no++}}</center></td>
+              <td><center>{{$item->id}}</center></td>
               <td>{{$item->name}}</td>
-              <td>{{$item->phone}} / {{$item->telp}}</td>
               <td>
                 <center>
                   <a href="/master/supplier/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
@@ -89,7 +89,6 @@ Supplier
     $("#supplier").DataTable({
       "columnDefs": [
         { "orderable": false, "targets": 0},
-        { "orderable": false, "targets": 2},
         { "orderable": false, "targets": 3},
       ]
     });

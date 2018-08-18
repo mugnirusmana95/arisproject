@@ -11,7 +11,6 @@ Barang Masuk Dari Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">Barang Masuk Dari Gudang</li>
   </ol>
 </section>
@@ -29,7 +28,7 @@ Barang Masuk Dari Gudang
     </div>
     <div class="box-body">
       <div class="table-responsive">
-        <table class="table table-hovered table-bordered">
+        <table id="table" class="table table-hovered table-bordered">
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
@@ -54,10 +53,10 @@ Barang Masuk Dari Gudang
               <td><center>{{$item->created_at}}</center></td>
               <td>
                 <center>
-                  <a href="/barang_masuk/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
-                  <a href="/barang_masuk/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
-                  <a href="/barang_masuk/gudang/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
-                  <a href="/barang_masuk/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                  <span data-toggle="tooltip" title="Lihat Data"><a href="/barang_masuk/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a></span>
+                  <span data-toggle="tooltip" title="Tambah Barang"><a href="/barang_masuk/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a></span>
+                  <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/gudang/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a></span>
+                  <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda Yakin ?')" href="/barang_masuk/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a></span>
                 </center>
               </td>
             </tr>
@@ -72,4 +71,17 @@ Barang Masuk Dari Gudang
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        {"orderable": false, "targets": 0},
+        {"orderable": false, "targets": 3},
+      ]
+    });
+  });
+</script>
 @endsection

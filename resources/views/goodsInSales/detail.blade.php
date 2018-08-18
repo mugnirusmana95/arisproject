@@ -38,8 +38,8 @@ Detail Barang Masuk Dari Sales
       &nbsp;
 
       @if ($gs->status==2)
-      <a href="/barang_masuk/sales/ubah/{{$gs->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-      <a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/hapus/{{$gs->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/sales/ubah/{{$gs->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a></span>
+      <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/hapus/{{$gs->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a></span>
       @endif
 
       <div class="box-tools pull-right">
@@ -92,7 +92,7 @@ Detail Barang Masuk Dari Sales
       </div>
     </div>
     <div class="box-body">
-      <table class="table table-hovered table-bordered">
+      <table id="table" class="table table-hovered table-bordered">
         <thead>
           <tr>
             <th rowspan="2" width="1%"><center>No</centero</th>
@@ -101,8 +101,8 @@ Detail Barang Masuk Dari Sales
             <th colspan="2"><center>Barang Kembali</center></th>
             <th colspan="2"><center>Bad Stok</center></th>
             <th colspan="3"><center>Terjual</center></th>
-            <th rowspan="2" width="18%"><center>Keterangan</center></th>
-            <th rowspan="2" width="10%"></th>
+            <th rowspan="2" width="15%"><center>Keterangan</center></th>
+            <th rowspan="2" width="12%"></th>
           </tr>
           <tr>
             <th width="1%"><center>Jml (BOX)</center></th>
@@ -136,8 +136,8 @@ Detail Barang Masuk Dari Sales
             <td>{{$item->description}}</td>
             <td>
               @if ($gs->status==2)
-              <a href="/barang_masuk/sales/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-              <a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+              <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/sales/detail/ubah/{{$item->id}}" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a></span>
+              <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda yakin ? \nMenghapus data tersebut, dapat menghapus barang keluar dari sales');" href="/barang_masuk/sales/detail/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a></span>
               @endif
             </td>
           </tr>
@@ -149,4 +149,16 @@ Detail Barang Masuk Dari Sales
   @endif
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $("#table").DataTable({
+    "columnDefs": [
+      {"orderable": false, "targets": 0},
+      {"orderable": false, "targets": 11},
+      {"orderable": false, "targets": 12},
+    ]
+  });
+</script>
 @endsection

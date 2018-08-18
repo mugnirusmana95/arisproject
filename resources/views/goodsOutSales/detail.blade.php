@@ -11,7 +11,6 @@ Detail Barang Keluar Oleh Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_keluar/sales">Barang Keluar Oleh Sales</a></li>
     <li class="active">Detail Barang Keluar Oleh Sales</li>
   </ol>
@@ -22,7 +21,7 @@ Detail Barang Keluar Oleh Sales
   <div class="box box-default">
     <div class="box-header with-border">
       &nbsp;
-      {{-- <a href="/barang_keluar/sales/cetak/{{$gs->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
+      <span data-toggle="tooltip" title="Print (A5 Landscape)"><a href="/barang_keluar/sales/cetak/{{$gs->id}}" class="btn btn-sm btn-success" target="_blank"><span class="fa fa-print"></span></a></span>
       @if ($gs->status==1)
       <a href="/barang_keluar/sales/detail/tambah/{{$gs->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
       <a href="/barang_keluar/sales/ubah/{{$gs->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
@@ -79,7 +78,7 @@ Detail Barang Keluar Oleh Sales
       </div>
     </div>
     <div class="box-body">
-      <table class="table table-hovered table-bordered">
+      <table id="table" class="table table-hovered table-bordered">
         <thead>
           <tr>
             <th width="1%"><center>No</center></th>
@@ -118,4 +117,17 @@ Detail Barang Keluar Oleh Sales
   @endif
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 0},
+        { "orderable": false, "targets": 5},
+      ]
+    });
+  });
+</script>
 @endsection

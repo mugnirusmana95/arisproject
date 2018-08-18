@@ -11,7 +11,6 @@ Detail Barang Keluar Ke Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
     <li class="active">Detail Barang Keluar Ke Gudang</li>
   </ol>
@@ -73,7 +72,7 @@ Detail Barang Keluar Ke Gudang
       </div>
     </div>
     <div class="box-body">
-      <table class="table table-hovered table-bordered">
+      <table id="table" class="table table-hovered table-bordered">
         <thead>
           <tr>
             <th width="1%"><center>No</center></th>
@@ -112,4 +111,17 @@ Detail Barang Keluar Ke Gudang
   @endif
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 0},
+        { "orderable": false, "targets": 5},
+      ]
+    });
+  });
+</script>
 @endsection

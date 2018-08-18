@@ -42,7 +42,7 @@ Return Barang Dari Gudang
     </div>
     <div class="box-body">
       <div class="table-responsive">
-        <table class="table table-hovered table-bordered">
+        <table id="table" class="table table-hovered table-bordered">
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
@@ -70,9 +70,9 @@ Return Barang Dari Gudang
                 <td><center>{{$item->goodsOutWarehouse->warehouse->name}}</center></td>
                 <td><center>{{$item->date}}</center></td>
                 <td>
-                  <a href="/barang_masuk/retur/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a>
-                  <a href="/barang_masuk/retur/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a>
-                  <a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                  <span data-toggle="tooltip" title="Lihat Data"><a href="/barang_masuk/retur/gudang/lihat/{{$item->id}}" class="btn btn-sm btn-default"><span class="fa fa-eye"></span></a></span>
+                  <span data-toggle="tooltip" title="Tambah Barang"><a href="/barang_masuk/retur/gudang/detail/tambah/{{$item->id}}" class="btn btn-sm btn-info"><span class="fa fa-plus"></span></a></span>
+                  <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/hapus/{{$item->id}}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a></span>
                 </td>
               </tr>
             @endforeach
@@ -86,4 +86,15 @@ Return Barang Dari Gudang
   </div>
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $("#table").DataTable({
+    "columnDefs": [
+      {'orderable': false, 'targets': 0},
+      {'orderable': false, 'targets': 5},
+    ]
+  });
+</script>
 @endsection

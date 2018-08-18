@@ -11,7 +11,6 @@ Tambah Barang Keluar Oleh Sales
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_keluar/sales">Barang Keluar Oleh Sales</a></li>
     <li><a href="/barang_keluar/sales/lihat/{{$gs->id}}">Detail Barang Keluar Oleh Sales</a></li>
     <li class="active">Tambah Detail  Barang Keluar Oleh Sales</li>
   </ol>

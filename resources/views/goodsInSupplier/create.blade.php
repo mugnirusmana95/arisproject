@@ -11,7 +11,6 @@ Tambah Barang Masuk Dari Supplier
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_masuk/supplier">Barang Masuk Dari Supplier</a></li>
     <li class="active">Tambah Barang Masuk Dari Supplier</li>
   </ol>

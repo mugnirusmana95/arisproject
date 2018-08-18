@@ -11,7 +11,6 @@ Tambah Detail Barang Keluar Ke Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
     <li><a href="/barang_keluar/gudang/{{$gow->id}}">Detail Barang Keluar Ke Gudang</a></li>
     <li class="active">Tambah Detail Barang Keluar Ke Gudang</li>

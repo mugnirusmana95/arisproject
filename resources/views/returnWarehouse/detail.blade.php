@@ -34,9 +34,9 @@ Detail Barang Keluar Ke Gudang
 
   <div class="box box-default">
     <div class="box-header with-border">
-      <a href="/barang_masuk/retur/gudang/detail/tambah/{{$rw->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a>
+      <span data-toggle="tooltip" title="Tambah Barang"><a href="/barang_masuk/retur/gudang/detail/tambah/{{$rw->id}}" class="btn btn-md btn-info"><span class="fa fa-plus"></span></a></span>
       {{-- <a href="/barang_keluar/gudang/cetak/{{$rw->id}}" class="btn btn-md btn-success" target="_blank"><span class="fa fa-print"></span></a> --}}
-      <a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/hapus/{{$rw->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+      <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/hapus/{{$rw->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a></span>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -126,7 +126,7 @@ Detail Barang Keluar Ke Gudang
       </div>
     </div>
     <div class="box-body">
-      <table class="table table-hovered table-bordered">
+      <table id="table" class="table table-hovered table-bordered">
         <thead>
           <tr>
             <th rowspan="2" width="1%"><center>No</centero</th>
@@ -158,8 +158,8 @@ Detail Barang Keluar Ke Gudang
             <td>{{$item->description}}</td>
             <td>
               <center>
-                <a href="/barang_masuk/retur/gudang/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a>
-                <a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a>
+                <span data-toggle="tooltip" title="Ubah Data"><a href="/barang_masuk/retur/gudang/detail/ubah/{{$item->id}}" class="btn btn-md btn-warning"><span class="fa fa-edit"></span></a></span>
+                <span data-toggle="tooltip" title="Hapus Data"><a onclick="return confirm('Anda yakin ?')" href="/barang_masuk/retur/gudang/detail/hapus/{{$item->id}}" class="btn btn-md btn-danger"><span class="fa fa-trash"></span></a></span>
               </center>
             </td>
           </tr>
@@ -171,4 +171,17 @@ Detail Barang Keluar Ke Gudang
   @endif
 
 </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#table").DataTable({
+      "columnDefs": [
+        {"orderable": false, "targets": 0},
+        {"orderable": false, "targets": 7},
+      ]
+    });
+  });
+</script>
 @endsection

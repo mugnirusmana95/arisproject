@@ -11,7 +11,6 @@ Tambah Detail Barang Masuk Dari Gudang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li><a href="/barang_masuk/gudang">Barang Masuk Dari Gudang</a></li>
     <li><a href="/barang_masuk/gudang/lihat/{{$giw->id}}">Detail Masuk Dari Gudang</a></li>
     <li class="active">Tambah Detail Barang Masuk Dari Gudang</li>
