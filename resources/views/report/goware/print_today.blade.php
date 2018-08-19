@@ -1,7 +1,7 @@
 @extends('layouts.print')
 
 @section('title')
-Laporan Barang Keluar Ke Gudang Tanggal {{$date}}
+Laporan Barang Keluar Ke Cabang Tanggal {{$date}}
 @endsection
 
 @section('main')
@@ -21,7 +21,7 @@ Laporan Barang Keluar Ke Gudang Tanggal {{$date}}
   <br>
   <br>
   <br>
-  <center><font size="4px"><b>Laporan Barang Keluar Ke Gudang ({{$date}})</b></font></center>
+  <center><font size="4px"><b>Laporan Barang Keluar Ke Cabang ({{$date}})</b></font></center>
   <br>
   <br>
 

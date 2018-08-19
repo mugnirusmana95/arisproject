@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Ubah Detail Barang Masuk Dari Gudang
+Ubah Detail Barang Masuk Dari Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Ubah Detail Barang Masuk Dari Gudang
+    Ubah Detail Barang Masuk Dari Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_masuk/retur/gudang">Barang Masuk Dari Gudang</a></li>
-    <li><a href="/barang_masuk/retur/gudang/lihat/{{$rw->id}}">Detail Masuk Dari Gudang</a></li>
-    <li class="active">Ubah Detail Barang Masuk Dari Gudang</li>
+    <li><a href="/barang_masuk/retur/gudang">Barang Masuk Dari Cabang</a></li>
+    <li><a href="/barang_masuk/retur/gudang/lihat/{{$rw->id}}">Detail Masuk Dari Cabang</a></li>
+    <li class="active">Ubah Detail Barang Masuk Dari Cabang</li>
   </ol>
 </section>
 
@@ -43,7 +43,7 @@ Ubah Detail Barang Masuk Dari Gudang
         </div>
 
         <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
-          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+          <label for="warehouse" class="control-label col-md-2">Cabang <span class="req">*</span></label>
           <div class="col-md-8">
             <input type="text" class="form-control" name="warehouse" value="{{$rw->goodsOutWarehouse->warehouse->name}}" readonly>
           </div>

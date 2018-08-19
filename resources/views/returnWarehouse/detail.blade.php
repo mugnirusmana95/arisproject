@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Detail Barang Keluar Ke Gudang
+Detail Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Detail Barang Keluar Ke Gudang
+    Detail Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_masuk/retur/gudang">Barang Keluar Ke Gudang</a></li>
-    <li class="active">Detail Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_masuk/retur/gudang">Barang Keluar Ke Cabang</a></li>
+    <li class="active">Detail Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 
@@ -56,7 +56,7 @@ Detail Barang Keluar Ke Gudang
           <th>{{$rw->id_goods_out_warehouse}}&nbsp;<a href="/barang_keluar/gudang/lihat/{{$rw->id_goods_out_warehouse}}" data-toggle="tooltip" title="Lihat data barang keluar" target="_blank"><span class="fa fa-info-circle"></span></a></th>
         </tr>
         <tr>
-          <th>Gudang</th>
+          <th>Cabang</th>
           <th>:</th>
           <th>{{$rw->goodsOutWarehouse->warehouse->name}}</th>
         </tr>

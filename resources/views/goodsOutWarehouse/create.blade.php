@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Keluar Ke Gudang
+Tambah Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Keluar Ke Gudang
+    Tambah Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
-    <li class="active">Tambah Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Cabang</a></li>
+    <li class="active">Tambah Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 
@@ -33,7 +33,7 @@ Tambah Barang Keluar Ke Gudang
       <div class="box-body">
 
         <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
-          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+          <label for="warehouse" class="control-label col-md-2">Cabang <span class="req">*</span></label>
           <div class="col-md-10">
             <select class="form-control" id="warehouse" name="warehouse">
               <option value=""></option>
@@ -91,7 +91,7 @@ Tambah Barang Keluar Ke Gudang
 <script>
 $(document).ready(function(){
   $("#warehouse").select2({
-    placeholder: "Pilih Gudang",
+    placeholder: "Pilih Cabang",
     width: "100%",
     ajax: {
       url: '{{route('warehouse.all')}}',

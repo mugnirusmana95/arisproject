@@ -1,17 +1,17 @@
 @extends('layouts.index')
 
 @section('title')
-Barang Keluar Ke Gudang
+Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Barang Keluar Ke Gudang
+    Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li class="active">Barang Keluar Ke Gudang</li>
+    <li class="active">Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 
@@ -33,7 +33,7 @@ Barang Keluar Ke Gudang
           <thead>
             <tr>
               <th width="1%"><center>No</center></th>
-              <th><center>Nama Gudang</center></th>
+              <th><center>Nama Cabang</center></th>
               <th width="15%"><center>Tanggal</center></th>
               <th width="19%"></th>
             </tr>

@@ -1,19 +1,19 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Detail Barang Keluar Ke Gudang
+Tambah Detail Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Detail Barang Keluar Ke Gudang
+    Tambah Detail Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
-    <li><a href="/barang_keluar/gudang/lihat/{{$gow->id}}">Detail Barang Keluar Ke Gudang</a></li>
-    <li class="active">Tambah Detail Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Cabang</a></li>
+    <li><a href="/barang_keluar/gudang/lihat/{{$gow->id}}">Detail Barang Keluar Ke Cabang</a></li>
+    <li class="active">Tambah Detail Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 

@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
+Laporan Barang Keluar Ke Cabang Dari {{$date_start}} s/d {{$date_end}}
 @endsection
 
 @section('main')
@@ -11,7 +11,7 @@ Laporan Barang Keluar Ke Gudang Dari {{$date_start}} s/d {{$date_end}}
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{route('report.goware.index')}}">Laporan Barang Keluar Ke Gudang</a></li>
+    <li><a href="{{route('report.goware.index')}}">Laporan Barang Keluar Ke Cabang</a></li>
     <li class="active">Dari {{$date_start}} s/d {{$date_end}}</li>
   </ol>
 </section>

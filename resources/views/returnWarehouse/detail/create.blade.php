@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Keluar Oleh Sales
+Tambah Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Keluar Oleh Sales
+    Tambah Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_masuk/retur/gudang">Barang Keluar Oleh Sales</a></li>
-    <li class="active">Tambah Barang Keluar Oleh Sales</li>
+    <li><a href="/barang_masuk/retur/gudang">Barang Keluar Ke Cabang</a></li>
+    <li class="active">Tambah Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 

@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Keluar Ke Gudang
+Tambah Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Keluar Ke Gudang
+    Tambah Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
-    <li class="active">Tambah Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Cabang</a></li>
+    <li class="active">Tambah Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 
@@ -34,7 +34,7 @@ Tambah Barang Keluar Ke Gudang
       <div class="box-body">
 
         <div class="form-group">
-          <label for="warehouse" class="control-label col-md-2">Gudang</label>
+          <label for="warehouse" class="control-label col-md-2">Cabang</label>
           <div class="col-md-10">
             <input type="text" class="form-control" name="warehouse" value="{{$gow->warehouse->name}}" readonly>
             <input type="hidden" class="form-control" name="id" value="{{$gow->id}}" readonly>

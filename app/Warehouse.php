@@ -37,23 +37,25 @@ class Warehouse extends Model
       return $warehouse;
     }
 
-    public static function insert($id, $name, $address)
+    public static function insert($id, $name, $address, $phone)
     {
       $warehouse          = new Warehouse;
       $warehouse->id      = $id;
       $warehouse->name    = $name;
       $warehouse->address = $address;
+      $warehouse->phone = $phone;
       $warehouse->save();
 
       return $warehouse;
     }
 
-    public static function edit($id, $name, $address)
+    public static function edit($id, $name, $address, $phone)
     {
       $warehouse          = Warehouse::find($id);
       $warehouse->id      = $id;
       $warehouse->name    = $name;
       $warehouse->address = $address;
+      $warehouse->phone = $phone;
       $warehouse->save();
 
       return $warehouse;

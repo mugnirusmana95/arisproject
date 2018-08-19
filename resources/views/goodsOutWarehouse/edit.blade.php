@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Ubah Barang Keluar Ke Gudang
+Ubah Barang Keluar Ke Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Ubah Barang Keluar Ke Gudang
+    Ubah Barang Keluar Ke Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Gudang</a></li>
-    <li class="active">Ubah Barang Keluar Ke Gudang</li>
+    <li><a href="/barang_keluar/gudang">Barang Keluar Ke Cabang</a></li>
+    <li class="active">Ubah Barang Keluar Ke Cabang</li>
   </ol>
 </section>
 
@@ -34,7 +34,7 @@ Ubah Barang Keluar Ke Gudang
       <div class="box-body">
 
         <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
-          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+          <label for="warehouse" class="control-label col-md-2">Cabang <span class="req">*</span></label>
           <div class="col-md-10">
             <select class="form-control" id="warehouse" name="warehouse">
               <option value="{{$gow->id_warehouse}}">{{$gow->warehouse->name}}</option>

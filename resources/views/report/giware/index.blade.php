@@ -1,17 +1,17 @@
 @extends('layouts.index')
 
 @section('title')
-Laporan Barang Masuk Dari Gudang
+Laporan Barang Masuk Dari Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Laporan Barang Masuk Dari Gudang
+    Laporan Barang Masuk Dari Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li class="active">Laporan Barang Masuk Dari Gudang</li>
+    <li class="active">Laporan Barang Masuk Dari Cabang</li>
   </ol>
 </section>
 

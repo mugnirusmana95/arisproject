@@ -26,16 +26,22 @@ class WarehouseController extends Controller
       $this->validate($req,[
         'name'            => 'required|max:100|regex:/^[a-zA-Z0-9. ]+$/',
         'address'         => 'nullable|max:255|regex:/^[a-zA-Z0-9. ]+$/',
+        'phone'           => 'nullable|min:9|max:15|regex:/^[0-9]+$/|unique:warehouses',
       ],[
         'name.required'   => 'Field wajib diisi',
         'name.max'        => 'Maksimal 100 karekter',
-        'name.regex'      => 'Karakter tidak dijinkah (hanya : a-z, A-Z, 0-9, spasi dan titik)',
+        'name.regex'      => 'Karakter tidak diijinkah (hanya : a-z, A-Z, 0-9, spasi dan titik)',
         'address.max'     => 'Maksimal 255 karekter',
-        'address.regex'   => 'Karakter tidak dijinkah (hanya : a-z, A-Z, 0-9, spasi dan titik)',
+        'address.regex'   => 'Karakter tidak diijinkah (hanya : a-z, A-Z, 0-9, spasi dan titik)',
+        'phone.min'       => 'Maksimal 9 karakter',
+        'phone.max'       => 'Maksimal 15 karakter',
+        'phone.regex'     => 'Karakter tidak diijinkan (hanya : 0-9)',
+        'phone.unique'    => 'Nomor telpon sudah digunakan',
       ]);
+
       $id = Warehouse::getNewId();
 
-      Warehouse::insert($id, $req->name, $req->address);
+      Warehouse::insert($id, $req->name, $req->address, $req->phone);
 
       Session::flash('success','Data berhasil disimpan');
 
@@ -54,15 +60,20 @@ class WarehouseController extends Controller
       $this->validate($req,[
         'name'            => 'required|max:100|regex:/^[a-zA-Z0-9. ]+$/',
         'address'         => 'nullable|max:255|regex:/^[a-zA-Z0-9. ]+$/',
+        'phone'           => 'nullable|min:9|max:15|regex:/^[0-9]+$/|unique:warehouses,phone,'.$id,
       ],[
         'name.required'   => 'Field wajib diisi',
         'name.max'        => 'Maksimal 100 karekter',
         'name.regex'      => 'Karakter tidak dijinkah (hanya : a-z, A-Z, 0-9, spasi dan titik)',
         'address.max'     => 'Maksimal 255 karekter',
         'address.regex'   => 'Karakter tidak dijinkah (hanya : a-z, A-Z, 0-9, spasi dan titik)',
+        'phone.min'       => 'Maksimal 9 karakter',
+        'phone.max'       => 'Maksimal 15 karakter',
+        'phone.regex'     => 'Karakter tidak diijinkan (hanya : 0-9)',
+        'phone.unique'    => 'Nomor telpon sudah digunakan',
       ]);
 
-      Warehouse::edit($id, $req->name, $req->address);
+      Warehouse::edit($id, $req->name, $req->address, $req->phone);
 
       Session::flash('success','Data berhasil disimpan');
 

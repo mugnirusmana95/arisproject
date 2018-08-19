@@ -1,17 +1,17 @@
 @extends('layouts.index')
 
 @section('title')
-Return Barang Dari Gudang
+Return Barang Dari Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Return Barang Dari Gudang
+    Return Barang Dari Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li class="active">Return Barang Dari Gudang</li>
+    <li class="active">Return Barang Dari Cabang</li>
   </ol>
 </section>
 
@@ -48,7 +48,7 @@ Return Barang Dari Gudang
               <th width="1%"><center>No</center></th>
               <th><center>ID</center></th>
               <th><center>ID Barang Keluar</center></th>
-              <th><center>Nama Gudang</center></th>
+              <th><center>Nama Cabang</center></th>
               <th width="15%"><center>Tanggal</center></th>
               <th width="12%"></th>
             </tr>

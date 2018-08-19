@@ -1,18 +1,18 @@
 @extends('layouts.index')
 
 @section('title')
-Tambah Barang Masuk Dari Gudang
+Tambah Barang Masuk Dari Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Tambah Barang Masuk Dari Gudang
+    Tambah Barang Masuk Dari Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/barang_masuk/gudang">Barang Masuk Dari Gudang</a></li>
-    <li class="active">Tambah Barang Masuk Dari Gudang</li>
+    <li><a href="/barang_masuk/gudang">Barang Masuk Dari Cabang</a></li>
+    <li class="active">Tambah Barang Masuk Dari Cabang</li>
   </ol>
 </section>
 
@@ -33,10 +33,10 @@ Tambah Barang Masuk Dari Gudang
       <div class="box-body">
 
         <div class="form-group {{$errors->has('warehouse') ? 'has-error' : ''}}">
-          <label for="warehouse" class="control-label col-md-2">Gudang <span class="req">*</span></label>
+          <label for="warehouse" class="control-label col-md-2">Cabang <span class="req">*</span></label>
           <div class="col-md-10">
             <select class="form-control" name="warehouse" required>
-              <option value="">--Pilih Gudang--</option>
+              <option value="">--Pilih Cabang--</option>
               @foreach ($warehouse as $item)
               <option value="{{$item->id}}">{{$item->name}}</option>
               @endforeach

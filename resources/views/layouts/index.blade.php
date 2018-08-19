@@ -163,7 +163,7 @@
             <li class="{{ Request::is('master/user','master/user/*') ? 'active' : ''}}"><a href="/master/user"><i class="fa fa-circle-o"></i> Management User</a></li>
             <li class="{{ Request::is('master/barang','master/barang/*') ? 'active' : ''}}"><a href="/master/barang"><i class="fa fa-circle-o"></i> Barang</a></li>
             <li class="{{ Request::is('master/supplier','master/supplier/*') ? 'active' : ''}}"><a href="/master/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
-            <li class="{{ Request::is('master/gudang','master/gudang/*') ? 'active' : ''}}"><a href="/master/gudang"><i class="fa fa-circle-o"></i> Gudang</a></li>
+            <li class="{{ Request::is('master/gudang','master/gudang/*') ? 'active' : ''}}"><a href="/master/gudang"><i class="fa fa-circle-o"></i> Cabang</a></li>
             <li class="{{ Request::is('master/sales','master/sales/*') ? 'active' : ''}}"><a href="/master/sales"><i class="fa fa-circle-o"></i> Sales</a></li>
           </ul>
         </li>
@@ -178,7 +178,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="{{ Request::is('barang_masuk/supplier','barang_masuk/supplier/*') ? 'active' : ''}}"><a href="/barang_masuk/supplier"><i class="fa fa-circle-o"></i> Dari Supplier</a></li>
-            <li class="{{ Request::is('barang_masuk/gudang','barang_masuk/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/gudang"><i class="fa fa-circle-o"></i> Dari Gudang (Cabang)</a></li>
+            <li class="{{ Request::is('barang_masuk/gudang','barang_masuk/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/gudang"><i class="fa fa-circle-o"></i> Dari Cabang</a></li>
             <li class="{{ Request::is('barang_masuk/sales','barang_masuk/sales/*') ? 'active' : ''}}"><a href="/barang_masuk/sales"><i class="fa fa-circle-o"></i> Dari Sales</a></li>
             <li class="treeview {{ Request::is('barang_masuk/retur','barang_masuk/retur/*') ? 'active' : ''}}">
               <a href="#">
@@ -188,7 +188,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="{{ Request::is('barang_masuk/retur/gudang','barang_masuk/retur/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/retur/gudang"><i class="fa fa-square-o"></i> Dari Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('barang_masuk/retur/gudang','barang_masuk/retur/gudang/*') ? 'active' : ''}}"><a href="/barang_masuk/retur/gudang"><i class="fa fa-square-o"></i> Dari Cabang</a></li>
               </ul>
             </li>
 
@@ -203,7 +203,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ Request::is('barang_keluar/gudang','barang_keluar/gudang/*') ? 'active' : ''}}"><a href="/barang_keluar/gudang"><i class="fa fa-circle-o"></i> Ke Gudang (Cabang)</a></li>
+            <li class="{{ Request::is('barang_keluar/gudang','barang_keluar/gudang/*') ? 'active' : ''}}"><a href="/barang_keluar/gudang"><i class="fa fa-circle-o"></i> Ke Cabang</a></li>
             <li class="{{ Request::is('barang_keluar/sales','barang_keluar/sales/*') ? 'active' : ''}}"><a href="/barang_keluar/sales"><i class="fa fa-circle-o"></i> Oleh Sales (Toko)</a></li>
           </ul>
         </li>
@@ -225,7 +225,7 @@
               </a>
               <ul class="treeview-menu">
                 <li class="{{ Request::is('laporan/barang_masuk/dari_supplier','laporan/barang_masuk/dari_supplier/*') ? 'active' : ''}}"><a href="{{route('report.gisup.index')}}"><i class="fa fa-square-o"></i> Dari Supplier</a></li>
-                <li class="{{ Request::is('laporan/barang_masuk/dari_gudang','laporan/barang_masuk/dari_gudang/*') ? 'active' : ''}}"><a href="{{route('report.giware.index')}}"><i class="fa fa-square-o"></i> Dari Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('laporan/barang_masuk/dari_gudang','laporan/barang_masuk/dari_gudang/*') ? 'active' : ''}}"><a href="{{route('report.giware.index')}}"><i class="fa fa-square-o"></i> Dari Cabang</a></li>
                 <li class="{{ Request::is('laporan/barang_masuk/dari_sales','laporan/barang_masuk/dari_sales/*') ? 'active' : ''}}"><a href="{{route('report.gisales.index')}}"><i class="fa fa-square-o"></i> Dari Sales</a></li>
               </ul>
             </li>
@@ -237,7 +237,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="{{ Request::is('laporan/barang_keluar/ke_gudang','laporan/barang_keluar/ke_gudang/*') ? 'active' : ''}}"><a href="{{route('report.goware.index')}}"><i class="fa fa-square-o"></i> Ke Gudang (Cabang)</a></li>
+                <li class="{{ Request::is('laporan/barang_keluar/ke_gudang','laporan/barang_keluar/ke_gudang/*') ? 'active' : ''}}"><a href="{{route('report.goware.index')}}"><i class="fa fa-square-o"></i> Ke Cabang</a></li>
                 <li class="{{ Request::is('laporan/barang_keluar/ke_sales','laporan/barang_keluar/ke_sales/*') ? 'active' : ''}}"><a href="{{route('report.gosales.index')}}"><i class="fa fa-square-o"></i> Oleh Sales</a></li>
               </ul>
             </li>

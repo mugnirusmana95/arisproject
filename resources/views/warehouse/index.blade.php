@@ -1,17 +1,17 @@
 @extends('layouts.index')
 
 @section('title')
-Gudang
+Cabang
 @endsection
 
 @section('main')
 <section class="content-header">
   <h1>
-    Gudang
+    Cabang
     <small>Preview</small>
   </h1>
   <ol class="breadcrumb">
-    <li class="active">Gudang</li>
+    <li class="active">Cabang</li>
   </ol>
 </section>
 
@@ -35,6 +35,7 @@ Gudang
               <th width="1%"><center>ID</center></th>
               <th width="30%">Nama</th>
               <th>Alamat</th>
+              <th width="20%"><center>Telepon</center></th>
               <th width="10%"></th>
             </tr>
           </thead>
@@ -50,6 +51,7 @@ Gudang
               <td><center>{{$item->id}}</center></td>
               <td>{{$item->name}}</td>
               <td>{{$item->address}}</td>
+              <td><center>{{$item->phone}}</center></td>
               <td>
                 <center>
                   <a href="/master/gudang/ubah/{{$item->id}}" class="btn btn-md btn-primary"><span class="fa fa-edit"></span></a>
@@ -76,7 +78,7 @@ Gudang
     $("#table").DataTable({
       "columnDefs": [
         { "orderable": false, "targets": 0},
-        { "orderable": false, "targets": 4},
+        { "orderable": false, "targets": 5},
       ]
     });
   });
